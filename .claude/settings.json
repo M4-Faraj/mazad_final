@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cmd /c \"type C:\\\\xampp\\\\mysql\\\\data\\\\mysql.pid\")",
+      "PowerShell(Get-Process -Id 11464 -ErrorAction SilentlyContinue)",
+      "PowerShell(cmd /c \"type C:\\\\xampp\\\\mysql\\\\bin\\\\my.ini\" 2>$null)",
+      "PowerShell(cmd /c \"type C:\\\\xampp\\\\mysql\\\\bin\\\\my.cnf\" 2>$null)",
+      "PowerShell(cmd /c \"type C:\\\\xampp\\\\my.ini\" 2>$null)",
+      "PowerShell(cmd /c \"dir C:\\\\xampp\\\\mysql\\\\backup 2>nul || echo NOT_FOUND\")",
+      "PowerShell(cmd /c \"dir C:\\\\xampp\\\\mysql\\\\data\\\\mysql\" 2>$null)",
+      "PowerShell(Rename-Item \"C:\\\\xampp\\\\mysql\\\\data\\\\mysql\" \"C:\\\\xampp\\\\mysql\\\\data\\\\mysql_corrupted_backup\" -ErrorAction Stop)",
+      "PowerShell(cmd /c \"dir C:\\\\xampp\\\\mysql\\\\data\\\\mysql | head -5\" 2>$null)",
+      "PowerShell(& \"C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"SHOW DATABASES;\" 2>&1)",
+      "Bash(Get-ChildItem \"c:\\\\xampp\\\\htdocs\\\\mazad\\\\config\\\\\")"
+    ],
+    "additionalDirectories": [
+      "C:\\xampp\\mysql\\data",
+      "C:\\xampp\\mysql\\backup\\mysql"
+    ]
+  }
+}

@@ -1,0 +1,2996 @@
+/* ===== Admin-only helpers ===== */
+
+.admin-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  width:fit-content;
+  padding:.45rem .9rem;
+  border-radius:999px;
+  background:rgba(212,175,55,.08);
+  border:1px solid rgba(212,175,55,.18);
+  color:#ffefb1;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  flex-wrap:wrap;
+}
+
+
+.admin-user{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(212,175,55,.18);
+  border-radius:16px;
+  padding:.55rem .9rem;
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  box-shadow:0 10px 24px rgba(0,0,0,.12);
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg, rgba(212,175,55,.22), rgba(212,175,55,.08));
+  color:#ffefb1;
+  font-weight:800;
+  border:1px solid rgba(212,175,55,.28);
+}
+
+.btn-danger{
+  background:rgba(255,107,129,.12);
+  color:#ffc2cb;
+  border:1px solid rgba(255,107,129,.24);
+}
+
+.btn-danger:hover{
+  background:rgba(255,107,129,.2);
+}
+
+.btn-warning{
+  background:rgba(247,198,92,.12);
+  color:#ffe3a0;
+  border:1px solid rgba(247,198,92,.24);
+}
+main{
+  width:min(1650px, 96%);
+  margin:2rem auto 4rem;
+}
+
+/* ===== Hero / top dashboard ===== */
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.35fr .85fr;
+  gap:1.5rem;
+  margin-bottom:1.5rem;
+}
+
+.hero-card{
+  padding:2rem;
+}
+
+.live-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  background:rgba(49,208,170,.12);
+  color:#d9fff5;
+  border:1px solid rgba(49,208,170,.22);
+  border-radius:999px;
+  padding:.45rem .8rem;
+  font-size:.8rem;
+  font-weight:700;
+  margin-bottom:1rem;
+  box-shadow:0 10px 24px rgba(49,208,170,.08);
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#fff;
+  animation:adminBlink 1s infinite;
+}
+
+@keyframes adminBlink{
+  50%{opacity:.35}
+}
+
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem, 7vw, 5.5rem);
+  line-height:.95;
+  letter-spacing:2px;
+  margin-bottom:1rem;
+  color:#fff6de;
+}
+
+.hero-title span,
+.featured-title,
+.modal-title{
+  background:linear-gradient(135deg, #fff3c6, var(--primary), #f3d46b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-text{
+  color:var(--text-muted);
+  line-height:1.9;
+  max-width:760px;
+  margin-bottom:1.5rem;
+}
+
+.toolbar{
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  margin-bottom:1.5rem;
+}
+
+.input-wrap,
+.toolbar select{
+  background:#0f1533;
+  border:1px solid rgba(212,175,55,.16);
+  color:var(--text);
+  border-radius:14px;
+  min-height:50px;
+  padding:0 1rem;
+  font-family:inherit;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+.input-wrap{
+  display:flex;
+  align-items:center;
+  flex:1;
+  min-width:250px;
+  background:rgba(255,255,255,.025);
+}
+
+.input-wrap input{
+  width:100%;
+  background:transparent;
+  border:none;
+  color:var(--text);
+  font-size:1rem;
+  outline:none;
+  padding-inline-start:.6rem;
+  font-family:inherit;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:1rem;
+}
+
+.stat-card{
+  padding:1.25rem;
+  border-radius:22px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(212,175,55,.10);
+}
+
+.stat-label{
+  color:var(--text-muted);
+  font-size:.9rem;
+}
+
+.stat-value{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  letter-spacing:1px;
+  margin-top:.3rem;
+  color:#f3d46b;
+}
+
+.stat-note{
+  color:#7f86a9;
+  font-size:.78rem;
+}
+
+/* ===== Shared admin cards ===== */
+
+.hero-card,
+.featured-card,
+.section-card,
+.side-card,
+.live-card,
+.moderation-item{
+  background:linear-gradient(180deg, rgba(14,23,42,.96), rgba(10,17,30,.98));
+  border:1px solid rgba(212,175,55,.10);
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.28);
+}
+
+.featured-card{
+  overflow:hidden;
+  position:relative;
+}
+
+.featured-card::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.04) 48%, transparent 56%);
+  transform:translateX(-120%);
+  animation:adminSheen 8s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes adminSheen{
+  100%{transform:translateX(120%)}
+}
+
+.featured-image{
+  height:240px;
+  background:linear-gradient(135deg, #142448 0%, #0b1630 60%, #31264f 100%);
+  position:relative;
+}
+
+.featured-badge{
+  position:absolute;
+  top:18px;
+  left:18px;
+  padding:.5rem .9rem;
+  border-radius:999px;
+  background:rgba(49,208,170,.12);
+  border:1px solid rgba(49,208,170,.34);
+  color:#d9fff5;
+  font-size:.8rem;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  box-shadow:0 10px 24px rgba(49,208,170,.08);
+}
+
+.featured-content{
+  padding:1.5rem;
+}
+
+.section-mini{
+  color:#8f98b8;
+  font-size:.78rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.featured-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.2rem;
+  margin:.5rem 0;
+}
+
+.featured-desc{
+  color:var(--text-muted);
+  line-height:1.8;
+}
+
+.featured-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  margin:1.3rem 0;
+}
+
+.meta-title{
+  color:#7f86a9;
+  font-size:.85rem;
+}
+
+.meta-value{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  letter-spacing:1px;
+}
+
+.accent{
+  color:#f3d46b;
+}
+
+.danger-text{
+  color:#ffd9a0;
+}
+
+.featured-footer{
+  display:flex;
+  justify-content:space-between;
+  color:var(--text-muted);
+  margin-bottom:1rem;
+  font-size:.92rem;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.featured-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.8rem;
+}
+
+/* ===== Content grid ===== */
+
+.content-grid{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 280px;
+  gap:1rem;
+  margin-bottom:1.5rem;
+  align-items:start;
+}
+
+.section-card{
+  padding:1.5rem;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  margin-bottom:1.2rem;
+  flex-wrap:wrap;
+}
+
+.section-card .section-title,
+.side-card .section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  letter-spacing:1px;
+  background:linear-gradient(135deg, #fff3c6, var(--primary), #f3d46b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.section-subtitle{
+  color:var(--text-muted);
+  margin-top:.25rem;
+}
+
+/* ===== Table ===== */
+
+.table-wrap{
+  overflow:auto;
+  border:1px solid rgba(212,175,55,.15);
+  border-radius:18px;
+  background:rgba(255,255,255,.015);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1000px;
+}
+
+thead{
+  background:rgba(255,255,255,.04);
+}
+
+th,
+td{
+  padding:1rem;
+  text-align:right;
+}
+
+th{
+  color:var(--text-muted);
+  font-size:.9rem;
+}
+
+tbody tr{
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+tbody tr:hover{
+  background:rgba(212,175,55,.04);
+}
+
+.auction-info{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+}
+
+.thumb{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:linear-gradient(135deg, #17284d 0%, #0c1630 55%, #2e2347 100%);
+  flex-shrink:0;
+  border:1px solid rgba(212,175,55,.14);
+}
+
+.auction-name{
+  font-weight:700;
+  color:#fff;
+}
+
+.auction-id{
+  font-size:.75rem;
+  color:#7f86a9;
+  margin-top:.15rem;
+}
+
+/* ===== Status pills ===== */
+
+.status{
+  display:inline-block;
+  padding:.4rem .8rem;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:800;
+  border:1px solid transparent;
+}
+
+.status-live{
+  color:#d9fff5;
+  background:rgba(49,208,170,.12);
+  border-color:rgba(49,208,170,.22);
+}
+
+.status-active{
+  color:#fff1bc;
+  background:rgba(212,175,55,.10);
+  border-color:rgba(212,175,55,.18);
+}
+
+.status-pending{
+  color:#ffe7a8;
+  background:rgba(247,198,92,.10);
+  border-color:rgba(247,198,92,.22);
+}
+
+.status-suspended{
+  color:#ffc2cb;
+  background:rgba(255,107,129,.10);
+  border-color:rgba(255,107,129,.22);
+}
+
+.status-ended{
+  color:#c3c8e3;
+  background:rgba(159,165,192,.10);
+  border-color:rgba(159,165,192,.18);
+}
+
+/* ===== Small action buttons ===== */
+
+.action-group{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+
+.mini-btn{
+  border:1px solid rgba(212,175,55,.16);
+  background:rgba(255,255,255,.03);
+  color:#fff;
+  padding:.55rem .75rem;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:.82rem;
+  font-weight:700;
+  transition:all .28s ease;
+}
+
+.mini-btn:hover{
+  background:rgba(212,175,55,.08);
+}
+
+.mini-btn.edit{
+  background:linear-gradient(135deg, #f6df8d 0%, var(--primary) 55%, #bc8d12 100%);
+  border:none;
+  color:#160f04;
+}
+
+.mini-btn.delete{
+  background:rgba(255,107,129,.12);
+  color:#ffc2cb;
+  border-color:rgba(255,107,129,.24);
+}
+
+.mini-btn.stop{
+  background:rgba(247,198,92,.12);
+  color:#ffe3a0;
+  border-color:rgba(247,198,92,.24);
+}
+
+/* ===== Side cards ===== */
+
+.side-stack{
+  display:grid;
+  gap:1rem;
+}
+
+.side-card{
+  padding:1.3rem;
+}
+
+.quick-links,
+.list-stack{
+  display:grid;
+  gap:.8rem;
+}
+
+.quick-link{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(212,175,55,.12);
+  border-radius:16px;
+  padding:1rem;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .28s ease;
+}
+
+.quick-link:hover{
+  background:rgba(212,175,55,.08);
+  border-color:rgba(212,175,55,.24);
+}
+
+.list-item{
+  display:flex;
+  gap:.8rem;
+  align-items:flex-start;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(212,175,55,.08);
+  border-radius:16px;
+  padding:.9rem;
+  color:#d9dcf0;
+  line-height:1.7;
+}
+
+/* ===== Tabs ===== */
+
+.tabs{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-bottom:1rem;
+}
+
+.tab-btn{
+  flex:1;
+  min-width:140px;
+  background:rgba(20,27,61,.9);
+  border:1px solid rgba(212,175,55,.14);
+  color:#fff;
+  border-radius:14px;
+  padding:.85rem 1rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .28s ease;
+}
+
+.tab-btn.active{
+  background:linear-gradient(135deg, rgba(212,175,55,.22), rgba(212,175,55,.08));
+  border-color:rgba(212,175,55,.34);
+  color:#fff7dc;
+  box-shadow:0 10px 22px rgba(212,175,55,.12);
+}
+
+.tab-panel{
+  display:none;
+}
+
+.tab-panel.active{
+  display:block;
+}
+
+/* ===== Live / moderation ===== */
+
+.live-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:1rem;
+}
+
+.live-card{
+  padding:1rem;
+}
+
+.live-cover{
+  height:180px;
+  border-radius:18px;
+  background:linear-gradient(135deg, #142448 0%, #0b1630 60%, #31264f 100%);
+  margin-bottom:1rem;
+  border:1px solid rgba(212,175,55,.12);
+}
+
+.live-top{
+  display:flex;
+  justify-content:space-between;
+  gap:.8rem;
+  margin-bottom:.8rem;
+}
+
+.live-actions{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:.5rem;
+  margin-top:1rem;
+}
+
+.moderation-item{
+  padding:1.2rem;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  align-items:center;
+  margin-bottom:1rem;
+}
+
+/* ===== Modal ===== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(5,8,20,.75);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+  z-index:2000;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  width:min(900px, 100%);
+  background:#0E172A;
+  border:1px solid rgba(212,175,55,.20);
+  border-radius:24px;
+  padding:1.5rem;
+  max-height:92vh;
+  overflow:auto;
+  box-shadow:0 25px 60px rgba(0,0,0,.4);
+}
+
+.modal-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.6rem;
+  margin-bottom:1rem;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:.45rem;
+  font-weight:700;
+  color:#cfd4ee;
+  font-size:.92rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  background:#0f1533;
+  border:1px solid rgba(212,175,55,.16);
+  color:#fff;
+  padding:.9rem 1rem;
+  border-radius:14px;
+  outline:none;
+  font-family:inherit;
+}
+
+.form-group textarea{
+  min-height:140px;
+  resize:vertical;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:.8rem;
+  margin-top:1.2rem;
+}
+
+.muted{
+  color:var(--text-muted);
+}
+
+.hide{
+  display:none !important;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width:1200px){
+  .hero-grid,
+  .content-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats-grid,
+  .live-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  .header-left,
+  .header-center,
+  .header-right{
+    width:100%;
+    justify-content:center;
+  }
+
+  .header-right{
+    flex-wrap:wrap;
+  }
+}
+
+@media (max-width:900px){
+  .stats-grid,
+  .live-grid,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .featured-actions,
+  .live-actions{
+    grid-template-columns:1fr;
+  }
+
+  .moderation-item,
+  .section-header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .admin-user{
+    justify-content:center;
+  }
+}
+
+@media (max-width:768px){
+  .header-left{
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .brand-block{
+    align-items:center;
+    text-align:center;
+  }
+
+  .header-right{
+    gap:.8rem;
+  }
+
+  .header-actions{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+@media (max-width:640px){
+  .header-actions{
+    flex-direction:column;
+  }
+
+  .toolbar{
+    flex-direction:column;
+  }
+
+  .input-wrap,
+  .toolbar select,
+  .toolbar .btn{
+    width:100%;
+  }
+}
+/* 🔥 hide google translate bar */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+.skiptranslate {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+
+.goog-te-gadget span {
+  display: none !important;
+}
+
+.goog-te-combo {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+/* ===== Better compact admin table ===== */
+
+.table-wrap {
+  overflow-x: hidden;
+  border: 1px solid rgba(212,175,55,.15);
+  border-radius: 18px;
+  background: rgba(255,255,255,.015);
+}
+
+.table-wrap table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table-wrap th,
+.table-wrap td {
+  padding: .72rem .55rem;
+  font-size: .82rem;
+  vertical-align: middle;
+}
+
+/* المزاد */
+.table-wrap th:nth-child(1),
+.table-wrap td:nth-child(1) {
+  width: 28%;
+}
+
+/* البائع */
+.table-wrap th:nth-child(2),
+.table-wrap td:nth-child(2) {
+  width: 12%;
+}
+
+/* الفئة */
+.table-wrap th:nth-child(3),
+.table-wrap td:nth-child(3) {
+  width: 9%;
+}
+
+/* السعر */
+.table-wrap th:nth-child(4),
+.table-wrap td:nth-child(4) {
+  width: 12%;
+}
+
+/* الحالة */
+.table-wrap th:nth-child(5),
+.table-wrap td:nth-child(5) {
+  width: 10%;
+}
+
+/* الوقت */
+.table-wrap th:nth-child(6),
+.table-wrap td:nth-child(6) {
+  width: 13%;
+  line-height: 1.35;
+}
+
+/* الإجراءات */
+.table-wrap th:nth-child(7),
+.table-wrap td:nth-child(7) {
+  width: 16%;
+}
+
+.auction-name {
+  max-width: 210px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auction-id {
+  font-size: .72rem;
+  color: #7f86a9;
+}
+
+.auction-info {
+  gap: .5rem;
+}
+
+.auction-info .thumb,
+.thumb {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+}
+
+.action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  max-width: 150px;
+}
+
+.action-group .mini-btn,
+.action-group .btn {
+  padding: .35rem .5rem;
+  font-size: .7rem;
+  min-height: 28px;
+  border-radius: 8px;
+}
+
+.auction-details-row td {
+  padding: 0 .75rem .85rem;
+  background: rgba(212,175,55,.025);
+}
+
+.auction-inline-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: .75rem;
+  padding: .85rem;
+  border-radius: 16px;
+  border: 1px solid rgba(212,175,55,.12);
+  background: rgba(255,255,255,.025);
+}
+
+.detail-pill {
+  padding: .75rem;
+  border-radius: 14px;
+  background: rgba(15,21,51,.75);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+.detail-pill span {
+  display: block;
+  color: var(--text-muted);
+  font-size: .72rem;
+  margin-bottom: .25rem;
+}
+
+.detail-pill strong {
+  display: block;
+  color: #fff1bc;
+  font-size: .88rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.detail-pill.wide {
+  grid-column: 1 / -1;
+}
+/* ===== Final admin layout tuning ===== */
+
+/* خلي عمود الاختصارات أضيق، وكل الباقي للجدول */
+.content-grid{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 260px;
+  gap:1rem;
+  margin-bottom:1.5rem;
+  align-items:start;
+}
+
+/* مهم عشان الجدول يقدر ياخذ المساحة بدون ما يكسر */
+.content-grid > .section-card{
+  min-width:0;
+}
+
+/* خلي بوكس الاختصارات أضيق، لكن النص طبيعي */
+.side-card{
+  padding:1rem;
+}
+
+.side-card .section-title{
+  font-size:2rem !important;
+}
+
+.side-card .section-subtitle{
+  font-size:.9rem;
+  line-height:1.5;
+}
+
+.quick-links,
+.list-stack{
+  gap:.65rem;
+}
+
+.quick-link{
+  padding:.85rem .9rem;
+  border-radius:13px;
+  font-size:1rem;
+}
+
+/* وسّع إحساس الجدول بدون تصغير النص كثير */
+.table-wrap th,
+.table-wrap td{
+  padding:.85rem .7rem;
+  font-size:.86rem;
+}
+
+/* أعمدة الجدول بعد توسيع المساحة */
+.table-wrap th:nth-child(1),
+.table-wrap td:nth-child(1){
+  width:32%;
+}
+
+.table-wrap th:nth-child(2),
+.table-wrap td:nth-child(2){
+  width:13%;
+}
+
+.table-wrap th:nth-child(3),
+.table-wrap td:nth-child(3){
+  width:9%;
+}
+
+.table-wrap th:nth-child(4),
+.table-wrap td:nth-child(4){
+  width:12%;
+}
+
+.table-wrap th:nth-child(5),
+.table-wrap td:nth-child(5){
+  width:10%;
+}
+
+.table-wrap th:nth-child(6),
+.table-wrap td:nth-child(6){
+  width:12%;
+}
+
+.table-wrap th:nth-child(7),
+.table-wrap td:nth-child(7){
+  width:12%;
+}
+
+/* خلي اسم المزاد يبين أكثر */
+.auction-name{
+  max-width:260px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* الأزرار تبقى مرتبة بس مش صغيرة كثير */
+.action-group{
+  max-width:170px;
+  gap:.32rem;
+}
+
+.action-group .mini-btn,
+.action-group .btn{
+  padding:.38rem .55rem;
+  font-size:.74rem;
+  min-height:29px;
+  border-radius:8px;
+}
+
+/* =========================
+   Notifications dropdown
+========================= */
+.notif-wrap{
+  position:relative;
+}
+
+.notif-badge{
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  min-width:18px;
+  height:18px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff4d6d,#ff8a8a);
+  color:#fff;
+  font-size:.65rem;
+  font-weight:900;
+  padding:0 5px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 2px rgba(5,10,23,.95);
+}
+
+.notif-badge[hidden]{
+  display:none;
+}
+
+.notif-dropdown{
+  display:none;
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  left:auto;
+  width:340px;
+  max-width:90vw;
+  background:rgba(12,18,32,.98);
+  border:1px solid rgba(212,175,55,.22);
+  border-radius:16px;
+  padding:.6rem;
+  box-shadow:0 22px 50px rgba(0,0,0,.55);
+  z-index:3000;
+  backdrop-filter:blur(14px);
+  text-align:right;
+}
+
+.notif-dropdown.open{
+  display:block;
+}
+
+.notif-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:.45rem .6rem .55rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:.4rem;
+}
+
+.notif-title{
+  font-weight:900;
+  color:#ffefb1;
+  font-size:.95rem;
+}
+
+.notif-head .auth-link{
+  background:none;
+  border:none;
+  color:#f1da8a;
+  font-weight:700;
+  font-size:.78rem;
+  cursor:pointer;
+  padding:0;
+}
+
+.notif-body{
+  max-height:340px;
+  overflow:auto;
+}
+
+.notif-item{
+  display:flex;
+  gap:.6rem;
+  padding:.7rem .55rem;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .18s ease;
+  align-items:flex-start;
+  text-align:right;
+}
+
+.notif-item:hover{
+  background:rgba(212,175,55,.08);
+}
+
+.notif-item .icon{
+  font-size:1.15rem;
+  flex-shrink:0;
+  margin-top:.05rem;
+}
+
+.notif-item .body{
+  flex:1;
+  min-width:0;
+  text-align:right;
+}
+
+.notif-item .body strong{
+  display:block;
+  font-size:.88rem;
+  color:#fff;
+  margin-bottom:2px;
+}
+
+.notif-item .body span{
+  font-size:.78rem;
+  color:var(--text-muted);
+}
+
+.notif-empty{
+  padding:1.2rem;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:.88rem;
+}
+/* ===== Admin profile dropdown in header ===== */
+
+.admin-profile-wrap {
+  position: relative;
+}
+
+.admin-profile-btn {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  border: 1px solid rgba(212,175,55,.18);
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  border-radius: 16px;
+  padding: .45rem .75rem;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  transition: .2s ease;
+}
+
+.admin-profile-btn:hover {
+  background: rgba(212,175,55,.08);
+  border-color: rgba(212,175,55,.28);
+}
+
+.admin-profile-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(212,175,55,.32);
+  background: linear-gradient(135deg, rgba(212,175,55,.22), rgba(212,175,55,.08));
+}
+
+.admin-profile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.admin-profile-name {
+  font-size: .9rem;
+  font-weight: 900;
+  color: #fff;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-profile-role {
+  margin-top: .18rem;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.admin-profile-arrow {
+  color: #ffefb1;
+  font-size: .85rem;
+}
+
+.admin-profile-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 210px;
+  padding: .55rem;
+  background: rgba(12,18,32,.98);
+  border: 1px solid rgba(212,175,55,.22);
+  border-radius: 16px;
+  box-shadow: 0 22px 50px rgba(0,0,0,.55);
+  z-index: 3100;
+  backdrop-filter: blur(14px);
+}
+
+.admin-profile-dropdown.open {
+  display: grid;
+  gap: .25rem;
+}
+
+.admin-profile-dropdown a,
+.admin-profile-dropdown button {
+  width: 100%;
+  text-align: start;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  text-decoration: none;
+  padding: .7rem .75rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-profile-dropdown a:hover,
+.admin-profile-dropdown button:hover {
+  background: rgba(212,175,55,.08);
+  color: #ffefb1;
+}
+
+@media (max-width: 640px) {
+  .admin-profile-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-profile-dropdown {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+/* ===== Admin dropdown match index style ===== */
+
+.admin-profile-dropdown {
+  width: 240px;
+  padding: 12px;
+  background: rgba(5, 7, 10, .96);
+  border: 1px solid rgba(212,175,55,.16);
+  border-radius: 14px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.55);
+}
+
+.admin-profile-dropdown.open {
+  display: block;
+}
+
+.admin-dropdown-head {
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  margin-bottom: 8px;
+  text-align: left;
+  direction: ltr;
+}
+
+.admin-dropdown-head strong {
+  display: block;
+  color: #f6f3ea;
+  font-size: .95rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.admin-dropdown-head span {
+  display: block;
+  color: rgba(246,243,234,.68);
+  font-size: .82rem;
+  margin-top: 3px;
+  word-break: break-word;
+}
+
+.admin-profile-dropdown a,
+.admin-profile-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 10px;
+  text-align: left;
+  direction: ltr;
+  color: rgba(246,243,234,.88);
+  font-weight: 800;
+}
+
+.admin-profile-dropdown a span,
+.admin-profile-dropdown button span {
+  flex: 1;
+}
+
+.admin-profile-dropdown button {
+  color: #ff9b8f;
+}
+
+.admin-profile-dropdown a:hover,
+.admin-profile-dropdown button:hover {
+  background: rgba(212,175,55,.08);
+  color: #fff;
+}
+/* ===== Category Showcase Management ===== */
+
+.showcase-admin-section {
+  margin-bottom: 1.5rem;
+}
+
+.showcase-admin-controls {
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.showcase-admin-controls select {
+  min-height: 44px;
+  min-width: 190px;
+  background: #0f1533;
+  border: 1px solid rgba(212,175,55,.16);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 0 .9rem;
+  font-family: inherit;
+  outline: none;
+}
+
+#showcaseAdminList {
+  display: grid;
+  gap: .8rem;
+}
+
+.showcase-admin-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: .9rem;
+  border-radius: 18px;
+  border: 1px solid rgba(212,175,55,.10);
+  background: rgba(255,255,255,.025);
+}
+
+.showcase-admin-main {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-width: 0;
+}
+
+.showcase-admin-thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(212,175,55,.16);
+  background: linear-gradient(135deg, #17284d 0%, #0c1630 55%, #2e2347 100%);
+  display: grid;
+  place-items: center;
+  color: #ffefb1;
+  font-weight: 900;
+}
+
+.showcase-admin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.showcase-admin-info {
+  min-width: 0;
+}
+
+.showcase-admin-title {
+  color: #fff;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.showcase-admin-meta {
+  color: var(--text-muted);
+  font-size: .85rem;
+  margin-top: .25rem;
+}
+
+.showcase-admin-actions {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 760px) {
+  .showcase-admin-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .showcase-admin-actions {
+    justify-content: stretch;
+  }
+
+  .showcase-admin-actions .btn {
+    width: 100%;
+  }
+}
+/* =====================================================
+   ADMIN RESPONSIVE FINAL
+===================================================== */
+
+/* Laptop resize */
+@media (max-width: 1200px) {
+  header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .header-left,
+  .header-center,
+  .header-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-stack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* iPad / tablet */
+@media (max-width: 900px) {
+  nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    padding-bottom: .25rem;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .toolbar .input-wrap {
+    grid-column: 1 / -1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .showcase-admin-item {
+    align-items: flex-start;
+  }
+
+  .modal-box[style] {
+    max-width: 94vw !important;
+  }
+
+  #reportsModal .modal-box > div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Phone */
+@media (max-width: 640px) {
+  body {
+    direction: ltr;
+  }
+
+  header {
+    padding: .9rem 4%;
+  }
+
+  .header-left,
+  .header-center,
+  .header-right {
+    justify-content: center;
+  }
+
+  .logo-slot {
+    width: 54px;
+    height: 54px;
+  }
+
+  .admin-profile-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-profile-dropdown,
+  .notif-dropdown {
+    position: fixed !important;
+    top: 80px !important;
+    left: 4% !important;
+    right: 4% !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  nav {
+    gap: .5rem;
+  }
+
+  nav a {
+    padding: .65rem .85rem;
+    font-size: .85rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 14vw, 4rem);
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar .btn,
+  .toolbar select,
+  .toolbar .input-wrap {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-links {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: .4rem;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+  }
+
+  .showcase-admin-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .showcase-admin-main {
+    width: 100%;
+  }
+
+  .showcase-admin-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .showcase-admin-actions .btn {
+    width: 100%;
+  }
+
+  .action-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .45rem;
+  }
+
+  .modal-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Hide admin user arrow */
+.admin-profile-arrow {
+  display: none !important;
+}
+/* Move admin user card to the right like the other pages */
+header {
+  direction: ltr;
+}
+
+.header-right {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-actions {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+/* keep the user card text beside image correctly */
+.admin-profile-btn {
+  direction: ltr;
+  flex-direction: row-reverse;
+}
+
+.admin-profile-text {
+  align-items: flex-end;
+  text-align: right;
+}
+/* ===== Fix Recent Activity / Alerts text wrapping ===== */
+
+.side-stack,
+.side-card,
+#recentActivity,
+#adminAlerts {
+  direction: ltr;
+}
+
+#recentActivity .list-item,
+#adminAlerts .list-item {
+  direction: ltr;
+  text-align: right;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#recentActivity .list-item,
+#recentActivity .list-item *,
+#adminAlerts .list-item,
+#adminAlerts .list-item * {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+#recentActivity .list-item {
+  display: flex;
+  gap: .6rem;
+}
+
+#adminAlerts .list-item {
+  display: flex;
+  gap: .6rem;
+}
+/* =====================================================
+   ADMIN TABLE - DESKTOP NORMAL / SMALL SCREEN SCROLL
+===================================================== */
+
+/* الوضع الطبيعي على اللابتوب والشاشات الكبيرة */
+.table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+.table-wrap table {
+  width: 100%;
+  min-width: 0 !important;
+  table-layout: fixed !important;
+}
+
+/* رجّع الأعمدة مرتبة مثل قبل */
+.table-wrap th,
+.table-wrap td {
+  white-space: normal;
+}
+
+/* خلي محتوى الجدول من اليسار لليمين حتى لو الصفحة RTL */
+.table-wrap table,
+.table-wrap thead,
+.table-wrap tbody,
+.table-wrap tr {
+  direction: ltr;
+}
+
+/* النص داخل الخلايا يبقى مرتب */
+.table-wrap th,
+.table-wrap td {
+  text-align: left;
+}
+
+/* أول عمود Auction */
+.table-wrap th:nth-child(1),
+.table-wrap td:nth-child(1) {
+  width: 30%;
+}
+
+/* Seller */
+.table-wrap th:nth-child(2),
+.table-wrap td:nth-child(2) {
+  width: 12%;
+}
+
+/* Category */
+.table-wrap th:nth-child(3),
+.table-wrap td:nth-child(3) {
+  width: 9%;
+}
+
+/* Current Price */
+.table-wrap th:nth-child(4),
+.table-wrap td:nth-child(4) {
+  width: 12%;
+}
+
+/* Status */
+.table-wrap th:nth-child(5),
+.table-wrap td:nth-child(5) {
+  width: 10%;
+}
+
+/* Time */
+.table-wrap th:nth-child(6),
+.table-wrap td:nth-child(6) {
+  width: 13%;
+}
+
+/* Actions */
+.table-wrap th:nth-child(7),
+.table-wrap td:nth-child(7) {
+  width: 14%;
+}
+
+/* الأزرار تضل مرتبة بدون ما تكبر الجدول */
+.table-wrap .action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  max-width: 170px !important;
+}
+
+/* اسم المزاد ما يخرب التصميم */
+.table-wrap .auction-name {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* عند التصغير فقط: فعّل السحب يمين/يسار */
+@media (max-width: 1100px) {
+  .table-wrap {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrap table {
+    min-width: 980px !important;
+    table-layout: fixed !important;
+  }
+
+  .table-wrap th,
+  .table-wrap td {
+    white-space: nowrap;
+  }
+
+  .table-wrap .action-group {
+    flex-wrap: nowrap;
+    max-width: none !important;
+  }
+}
+/* ===== Golden horizontal scrollbar for admin table ===== */
+
+.table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+.table-wrap::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #8f6b10, #d4af37, #ffe08a);
+  border-radius: 999px;
+  border: 2px solid rgba(10, 17, 30, 0.95);
+}
+
+.table-wrap::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #b8860b, #f3d46b, #fff1b8);
+}
+
+/* Firefox */
+.table-wrap {
+  scrollbar-color: #d4af37 rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
+}
+
+/* ===== Admin role-change dropdown ===== */
+.admin-role-select {
+  background: rgba(20, 18, 12, 0.92);
+  color: #fff7dc;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 110px;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+
+.admin-role-select:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  background: rgba(30, 25, 14, 0.96);
+}
+
+.admin-role-select:focus {
+  outline: none;
+  border-color: #f5d76e;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+.admin-role-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-role-select option {
+  background: #14120c;
+  color: #fff7dc;
+}
+
+/* ===== Gold-themed admin/employee profile dropdown ===== */
+.admin-profile-dropdown {
+  background: linear-gradient(180deg, rgba(36, 26, 8, .97), rgba(20, 14, 4, .98)) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(212, 175, 55, 0.16) !important;
+}
+
+.admin-profile-dropdown a,
+.admin-profile-dropdown button {
+  color: #fff3c4 !important;
+}
+
+.admin-profile-dropdown a:hover,
+.admin-profile-dropdown button:hover {
+  background: linear-gradient(135deg, rgba(246, 223, 141, .25), rgba(212, 175, 55, .15)) !important;
+  color: #1a1407 !important;
+}
+
+.admin-profile-dropdown button {
+  color: #ff9b8f !important;
+}
+
+.admin-profile-dropdown button:hover {
+  background: rgba(255, 80, 80, 0.18) !important;
+  color: #fff !important;
+}
+
+.admin-dropdown-head {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+}
+
+.admin-dropdown-head strong {
+  color: #fff7dc !important;
+}
+
+/* =====================================================
+   PHASE 1 SAFE FIXES - ADMIN ONLY
+   Add this at the very end of css/admin.css
+===================================================== */
+
+/* 1) Keep admin header visible while scrolling */
+header,
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+/* Give sticky header a solid background so content doesn't show behind it */
+header {
+  background: rgba(5, 10, 23, 0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+/* 2) Gold scrollbar for full admin page + dropdowns + modals */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.modal-box::-webkit-scrollbar,
+.notif-body::-webkit-scrollbar,
+.notif-dropdown::-webkit-scrollbar,
+.admin-profile-dropdown::-webkit-scrollbar,
+.table-wrap::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.modal-box::-webkit-scrollbar-track,
+.notif-body::-webkit-scrollbar-track,
+.notif-dropdown::-webkit-scrollbar-track,
+.admin-profile-dropdown::-webkit-scrollbar-track,
+.table-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.modal-box::-webkit-scrollbar-thumb,
+.notif-body::-webkit-scrollbar-thumb,
+.notif-dropdown::-webkit-scrollbar-thumb,
+.admin-profile-dropdown::-webkit-scrollbar-thumb,
+.table-wrap::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #8f6b10, #d4af37, #ffe08a);
+  border-radius: 999px;
+  border: 2px solid rgba(10, 17, 30, 0.95);
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+.modal-box::-webkit-scrollbar-thumb:hover,
+.notif-body::-webkit-scrollbar-thumb:hover,
+.notif-dropdown::-webkit-scrollbar-thumb:hover,
+.admin-profile-dropdown::-webkit-scrollbar-thumb:hover,
+.table-wrap::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #b8860b, #f3d46b, #fff1b8);
+}
+
+/* Firefox scrollbar support */
+html,
+body,
+.modal-box,
+.notif-body,
+.notif-dropdown,
+.admin-profile-dropdown,
+.table-wrap {
+  scrollbar-color: #d4af37 rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
+}
+
+/* 3) Role + select inside same table cell */
+.admin-role-cell {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  align-items: flex-start;
+}
+
+.admin-role-current {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: .28rem .65rem;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.10);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  color: #fff3c4;
+  font-size: .74rem;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+/* Your file already has .admin-role-select, this only makes it fit better inside the table */
+.admin-role-cell .admin-role-select {
+  width: 100%;
+  max-width: 135px;
+  min-width: 110px;
+}
+
+/* 4) Better user table behavior if users table uses same .table-wrap */
+.users-table .admin-role-cell,
+#usersTable .admin-role-cell {
+  min-width: 120px;
+}
+
+/* 5) Make notification dropdown scroll nicely */
+.notif-body {
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+/* 6) Prevent sticky header from covering anchor/section jumps */
+html {
+  scroll-padding-top: 95px;
+}
+
+/* 7) Mobile safety for sticky header */
+@media (max-width: 640px) {
+  header,
+  .admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .admin-role-cell {
+    gap: .35rem;
+  }
+
+  .admin-role-cell .admin-role-select {
+    max-width: 100%;
+  }
+}
+/* =====================================================
+   USERS TABLE FINAL FIX
+   Put this at the VERY END of admin.css
+===================================================== */
+
+.users-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.users-table-wrap .users-table {
+  width: 100%;
+  min-width: 1050px !important;
+  table-layout: fixed !important;
+  border-collapse: collapse;
+}
+
+/* Override auction table column widths for users table */
+.users-table-wrap .users-table th,
+.users-table-wrap .users-table td {
+  white-space: normal !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+  padding: .9rem .75rem !important;
+  font-size: .86rem !important;
+}
+
+/* User */
+.users-table-wrap .users-table th:nth-child(1),
+.users-table-wrap .users-table td:nth-child(1) {
+  width: 28% !important;
+}
+
+/* Role */
+.users-table-wrap .users-table th:nth-child(2),
+.users-table-wrap .users-table td:nth-child(2) {
+  width: 15% !important;
+}
+
+/* Status */
+.users-table-wrap .users-table th:nth-child(3),
+.users-table-wrap .users-table td:nth-child(3) {
+  width: 10% !important;
+}
+
+/* Last Seen */
+.users-table-wrap .users-table th:nth-child(4),
+.users-table-wrap .users-table td:nth-child(4) {
+  width: 15% !important;
+}
+
+/* Auctions */
+.users-table-wrap .users-table th:nth-child(5),
+.users-table-wrap .users-table td:nth-child(5) {
+  width: 8% !important;
+}
+
+/* Bids */
+.users-table-wrap .users-table th:nth-child(6),
+.users-table-wrap .users-table td:nth-child(6) {
+  width: 7% !important;
+}
+
+/* Tokens */
+.users-table-wrap .users-table th:nth-child(7),
+.users-table-wrap .users-table td:nth-child(7) {
+  width: 10% !important;
+}
+
+/* Joined */
+.users-table-wrap .users-table th:nth-child(8),
+.users-table-wrap .users-table td:nth-child(8) {
+  width: 12% !important;
+}
+
+.users-table-wrap .auction-info {
+  min-width: 0 !important;
+  max-width: 100%;
+}
+
+.users-table-wrap .auction-info .thumb {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+}
+
+.users-table-wrap .auction-name {
+  max-width: 180px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.users-table-wrap .auction-id {
+  max-width: 190px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.users-table-wrap .admin-role-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: .45rem !important;
+  min-width: 125px !important;
+}
+
+.users-table-wrap .admin-role-current {
+  display: inline-flex !important;
+  width: fit-content !important;
+  padding: .32rem .7rem !important;
+  border-radius: 999px !important;
+  font-size: .74rem !important;
+  font-weight: 900 !important;
+  text-transform: capitalize !important;
+}
+
+.users-table-wrap .admin-role-select {
+  width: 125px !important;
+  min-width: 125px !important;
+  max-width: 125px !important;
+}
+
+/* Keep users modal wide enough */
+#usersModal .modal-box {
+  width: min(1180px, 96vw) !important;
+}
+
+/* On smaller screens, scroll horizontally instead of squeezing */
+@media (max-width: 1100px) {
+  .users-table-wrap .users-table {
+    min-width: 1050px !important;
+  }
+
+  .users-table-wrap .users-table th,
+  .users-table-wrap .users-table td {
+    white-space: nowrap !important;
+  }
+}
+/* =====================================================
+   ADMIN HEADER REAL FIXED MODE
+   Put this at the VERY END of admin.css
+===================================================== */
+
+body {
+  padding-top: 105px !important;
+}
+
+/* Make admin header fixed for real */
+body > header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1800 !important;
+
+  background: rgba(5, 10, 23, 0.97) !important;
+  backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.16) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Keep dropdowns above the fixed header */
+.notif-dropdown,
+.admin-profile-dropdown {
+  z-index: 1900 !important;
+}
+
+/* When screen gets smaller, header becomes taller */
+@media (max-width: 1200px) {
+  body {
+    padding-top: 190px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 235px !important;
+  }
+
+  body > header {
+    max-height: 230px;
+    overflow-y: auto;
+  }
+}
+.notif-actions {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.notif-item {
+  position: relative;
+  padding-right: 2rem;
+}
+
+.notif-delete {
+  position: absolute;
+  top: .45rem;
+  right: .45rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 100, 100, .35);
+  background: rgba(255, 80, 80, .12);
+  color: #ffb3b3;
+  cursor: pointer;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.notif-delete:hover {
+  background: rgba(255, 80, 80, .22);
+  color: #fff;
+}
+/* =====================================================
+   MAKE ADMIN NOTIFICATION BELL MATCH OTHER PAGES
+   Put this at the VERY END of css/admin.css
+===================================================== */
+
+/* Keep admin header actions in the same visual order as normal pages */
+.header-actions {
+  direction: ltr !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  gap: .8rem !important;
+}
+
+/* Bell first, user card second */
+.notif-wrap {
+  order: 1 !important;
+}
+
+.admin-profile-wrap {
+  order: 2 !important;
+}
+
+/* Keep user card content clean */
+.admin-profile-btn {
+  direction: ltr !important;
+}
+
+/* Dropdowns still open from the correct side */
+.notif-dropdown,
+.admin-profile-dropdown {
+  right: 0 !important;
+  left: auto !important;
+}
+
+/* Mobile: keep same order and make dropdown full width */
+@media (max-width: 640px) {
+  .header-actions {
+    flex-direction: row !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .notif-wrap {
+    order: 1 !important;
+  }
+
+  .admin-profile-wrap {
+    order: 2 !important;
+  }
+
+  .notif-dropdown,
+  .admin-profile-dropdown {
+    position: fixed !important;
+    top: 80px !important;
+    left: 4% !important;
+    right: 4% !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+/* =====================================================
+   FINAL HEADER / NOTIFICATION ALIGNMENT
+===================================================== */
+body {
+  padding-top: 0 !important;
+}
+
+body > header,
+.admin-header,
+.employee-header,
+.dashboard-header,
+.topbar {
+  position: sticky !important;
+  top: 0 !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  z-index: 1800 !important;
+  overflow: visible !important;
+}
+
+.employee-header {
+  background: rgba(5, 10, 23, .97) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, .16) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .35) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+.employee-header .header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: .8rem !important;
+}
+
+.employee-header .header-right {
+  gap: 1rem !important;
+}
+
+.notif-wrap {
+  position: relative !important;
+}
+
+.notif-wrap > .btn,
+#notifBell,
+#employeeNotifBell {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(212, 175, 55, .35) !important;
+  background: rgba(255, 255, 255, .08) !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  font-size: 1.05rem !important;
+}
+
+.notif-wrap > .btn:hover,
+#notifBell:hover,
+#employeeNotifBell:hover {
+  border-color: rgba(212, 175, 55, .7) !important;
+  background: rgba(212, 175, 55, .12) !important;
+  box-shadow: 0 0 18px rgba(212, 175, 55, .18) !important;
+}
+
+.notif-badge {
+  background: #d4af37 !important;
+  color: #111 !important;
+  font-weight: 900 !important;
+}
+
+.notif-dropdown {
+  border-color: rgba(212, 175, 55, .22) !important;
+}
+
+.notif-body,
+.header-notif-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, .85) rgba(255, 255, 255, .08);
+}
+
+.notif-body::-webkit-scrollbar,
+.header-notif-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notif-body::-webkit-scrollbar-track,
+.header-notif-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, .08);
+  border-radius: 999px;
+}
+
+.notif-body::-webkit-scrollbar-thumb,
+.header-notif-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f5d76e, #d4af37, #b8860b);
+  border-radius: 999px;
+}
+
+.notif-body::-webkit-scrollbar-thumb:hover,
+.header-notif-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fff3c4, #d4af37, #b8860b);
+}
+
+@media (max-width: 900px) {
+  .employee-header {
+    grid-template-columns: 1fr !important;
+  }
+
+  .employee-header .header-left,
+  .employee-header .header-center,
+  .employee-header .header-right {
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 0 !important;
+  }
+
+  body > header,
+  .employee-header {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+body.has-smart-header {
+  padding-top: var(--smart-header-height, 78px) !important;
+}
+
+body.has-smart-header > header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 3000 !important;
+  transition: transform .25s ease !important;
+}
+
+body.has-smart-header.header-hidden > header {
+  transform: translateY(-115%) !important;
+}
+
+body.has-smart-header.header-visible > header {
+  transform: translateY(0) !important;
+}
+
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,175,55,.9) #07101F;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #07101F;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f5d76e, #d4af37, #b8860b);
+  border-radius: 999px;
+  border: 2px solid #07101F;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fff3c4, #d4af37, #b8860b);
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background: #07101F;
+}
+
+/* =====================================================
+   ADMIN / EMPLOYEE HEADER VISUAL FIX
+===================================================== */
+body > header,
+.admin-header,
+.employee-header {
+  height: 78px !important;
+  min-height: 78px !important;
+  max-height: 78px !important;
+  padding: 0 34px !important;
+  display: grid !important;
+  grid-template-columns: minmax(210px, 300px) minmax(0, 1fr) minmax(350px, auto) !important;
+  align-items: center !important;
+  gap: 16px !important;
+  background: rgba(5,10,23,.90) !important;
+  border-bottom: 1px solid rgba(212,175,55,.28) !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.28) !important;
+  backdrop-filter: blur(16px) !important;
+  overflow: visible !important;
+}
+
+body > header .header-left,
+.admin-header .header-left,
+.employee-header .header-left,
+body > header .header-center,
+.admin-header .header-center,
+.employee-header .header-center,
+body > header .header-right,
+.admin-header .header-right,
+.employee-header .header-right {
+  min-width: 0 !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+body > header .header-left,
+.admin-header .header-left,
+.employee-header .header-left {
+  justify-content: flex-start !important;
+  gap: 12px !important;
+}
+
+body > header .header-center,
+.admin-header .header-center,
+.employee-header .header-center {
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+body > header .header-right,
+.admin-header .header-right,
+.employee-header .header-right {
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  flex-wrap: nowrap !important;
+}
+
+body > header .logo-slot,
+.admin-header .logo-slot,
+.employee-header .logo-slot {
+  width: 82px !important;
+  height: 58px !important;
+  flex: 0 0 auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body > header .logo-slot img,
+.admin-header .logo-slot img,
+.employee-header .logo-slot img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  transform: scale(1.16) !important;
+}
+
+body > header .admin-badge,
+.admin-header .admin-badge,
+.employee-header .admin-badge {
+  padding: .42rem .78rem !important;
+  border-radius: 999px !important;
+  background: rgba(212,175,55,.08) !important;
+  border: 1px solid rgba(212,175,55,.22) !important;
+  color: #ffefb1 !important;
+  font-size: .76rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .2px !important;
+  white-space: nowrap !important;
+}
+
+body > header nav,
+.admin-header nav,
+.employee-header nav {
+  width: 100% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  padding-bottom: 2px !important;
+  scrollbar-width: thin !important;
+}
+
+body > header nav a,
+.admin-header nav a,
+.employee-header nav a,
+body > header .lang-switch #gtToggle,
+.admin-header .lang-switch #gtToggle,
+.employee-header .lang-switch #gtToggle {
+  min-height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 14px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.035) !important;
+  border: 1px solid rgba(212,175,55,.18) !important;
+  color: #f8fafc !important;
+  box-shadow: none !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+}
+
+body > header nav a:hover,
+.admin-header nav a:hover,
+.employee-header nav a:hover,
+body > header .lang-switch #gtToggle:hover,
+.admin-header .lang-switch #gtToggle:hover,
+.employee-header .lang-switch #gtToggle:hover {
+  background: rgba(212,175,55,.08) !important;
+  border-color: rgba(212,175,55,.38) !important;
+  color: #fff3c4 !important;
+}
+
+body > header nav a.active,
+.admin-header nav a.active,
+.employee-header nav a.active {
+  background: linear-gradient(135deg, rgba(212,175,55,.22), rgba(212,175,55,.08)) !important;
+  border-color: rgba(212,175,55,.55) !important;
+  color: #fff7dc !important;
+  box-shadow: 0 8px 22px rgba(212,175,55,.12) !important;
+}
+
+body > header .header-actions,
+.admin-header .header-actions,
+.employee-header .header-actions {
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 10px !important;
+}
+
+body > header .header-notif-btn,
+.admin-header .header-notif-btn,
+.employee-header .header-notif-btn,
+body > header .notif-wrap > .btn,
+.admin-header .notif-wrap > .btn,
+.employee-header .notif-wrap > .btn {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(212,175,55,.28) !important;
+  background: rgba(255,255,255,.055) !important;
+  color: #fff !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+body > header .admin-profile-btn,
+.admin-header .admin-profile-btn,
+.employee-header .admin-profile-btn {
+  min-height: 46px !important;
+  max-width: 190px !important;
+  padding: 5px 9px 5px 12px !important;
+  border-radius: 16px !important;
+  background: rgba(11,18,32,.88) !important;
+  border: 1px solid rgba(212,175,55,.32) !important;
+  box-shadow: none !important;
+  gap: 9px !important;
+  flex-shrink: 0 !important;
+}
+
+body > header .admin-profile-img,
+.admin-header .admin-profile-img,
+.employee-header .admin-profile-img {
+  width: 36px !important;
+  height: 36px !important;
+  flex: 0 0 auto !important;
+}
+
+body > header .admin-profile-name,
+.admin-header .admin-profile-name,
+.employee-header .admin-profile-name {
+  max-width: 92px !important;
+}
+
+@media (max-width: 1200px) {
+  body > header,
+  .admin-header,
+  .employee-header {
+    grid-template-columns: minmax(170px, 230px) minmax(0, 1fr) minmax(300px, auto) !important;
+    padding: 0 22px !important;
+    gap: 10px !important;
+  }
+
+  body > header .logo-slot,
+  .admin-header .logo-slot,
+  .employee-header .logo-slot {
+    width: 68px !important;
+  }
+
+  body > header nav a,
+  .admin-header nav a,
+  .employee-header nav a {
+    padding: 9px 11px !important;
+    font-size: .86rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body > header,
+  .admin-header,
+  .employee-header {
+    height: auto !important;
+    min-height: 78px !important;
+    max-height: none !important;
+    grid-template-columns: 1fr !important;
+    padding: 10px 4% !important;
+  }
+
+  body > header .header-left,
+  .admin-header .header-left,
+  .employee-header .header-left,
+  body > header .header-center,
+  .admin-header .header-center,
+  .employee-header .header-center,
+  body > header .header-right,
+  .admin-header .header-right,
+  .employee-header .header-right {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body > header .header-right > .logo-slot,
+  .admin-header .header-right > .logo-slot,
+  .employee-header .header-right > .logo-slot {
+    display: none !important;
+  }
+
+  body > header .header-actions,
+  .admin-header .header-actions,
+  .employee-header .header-actions {
+    justify-content: center !important;
+  }
+
+  body > header .admin-profile-btn,
+  .admin-header .admin-profile-btn,
+  .employee-header .admin-profile-btn {
+    width: auto !important;
+    max-width: 172px !important;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE QA PATCH
+   Admin/Employee layout-only guards
+===================================================== */
+@media (max-width: 1200px) {
+  .table-wrap,
+  .users-table-wrap,
+  .reports-table-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrap table,
+  .users-table-wrap table,
+  .reports-table-wrap table {
+    min-width: 780px !important;
+  }
+
+  body > header,
+  .admin-header,
+  .employee-header {
+    grid-template-columns: minmax(150px, 210px) minmax(0, 1fr) minmax(260px, auto) !important;
+  }
+
+  body > header .header-actions,
+  .admin-header .header-actions,
+  .employee-header .header-actions {
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  body > header,
+  .admin-header,
+  .employee-header {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  body > header nav,
+  .admin-header nav,
+  .employee-header nav {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body > header nav a,
+  .admin-header nav a,
+  .employee-header nav a {
+    flex: 0 0 auto !important;
+  }
+
+  .cards,
+  .stats-grid,
+  .moderation-grid,
+  .live-grid,
+  .hero-grid {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  body > header,
+  .admin-header,
+  .employee-header {
+    grid-template-columns: 1fr !important;
+  }
+
+  body > header .header-left,
+  .admin-header .header-left,
+  .employee-header .header-left,
+  body > header .header-center,
+  .admin-header .header-center,
+  .employee-header .header-center,
+  body > header .header-right,
+  .admin-header .header-right,
+  .employee-header .header-right {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .modal-box {
+    width: min(94vw, 900px) !important;
+    max-height: 88vh !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body > header .header-actions,
+  .admin-header .header-actions,
+  .employee-header .header-actions {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+  }
+
+  body > header .admin-profile-btn,
+  .admin-header .admin-profile-btn,
+  .employee-header .admin-profile-btn {
+    max-width: 160px !important;
+    min-width: 0 !important;
+  }
+
+  body > header .admin-profile-text,
+  .admin-header .admin-profile-text,
+  .employee-header .admin-profile-text {
+    min-width: 0 !important;
+  }
+
+  .admin-profile-dropdown,
+  .notif-dropdown {
+    position: fixed !important;
+    top: 84px !important;
+    right: 8px !important;
+    left: 8px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .modal-actions,
+  .action-group,
+  .live-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal-actions .btn,
+  .action-group .btn,
+  .live-actions .btn {
+    width: 100% !important;
+  }
+}

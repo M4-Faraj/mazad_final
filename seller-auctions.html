@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Auction - Mazad</title>
+  <meta
+    name="description"
+    content="Create a premium auction listing for Mazad with live preview, gallery, tags, and advanced controls."
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+ <link rel="stylesheet" href="css/style.css" />
+ <link rel="stylesheet" href="css/seller.css" />
+</head>
+<body>
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+
+  <main class="page-wrap">
+    <div class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <a href="#">Seller Dashboard</a>
+      <span>›</span>
+      <span>Create Auction</span>
+    </div>
+
+    <section class="page-hero">
+      <div class="page-hero-left">
+        <span class="page-kicker">⚡ Premium Seller Studio</span>
+        <h1 class="page-title">CREATE NEW AUCTION</h1>
+        <p class="page-subtitle">
+          Build a luxury listing with rich visuals, premium metadata, smart bidding rules, and a live preview that matches the Mazad experience.
+        </p>
+      </div>
+
+      
+    </section>
+
+    <div class="details-layout">
+      <!-- LEFT -->
+      <section class="left-col">
+        <div class="panel create-shell">
+          <div class="create-hero-visual" id="heroVisual">
+            <img id="heroVisualImg" alt="Auction visual" style="display:none" />
+            <div class="create-hero-overlay"></div>
+
+            <div class="visual-badges">
+              <div class="badge-stack">
+                <span class="panel-badge category" id="heroCategoryBadge">Category</span>
+                <span class="panel-badge live" id="heroModeBadge">NORMAL</span>
+                <span class="panel-badge featured" id="heroFeatureBadge">STANDARD</span>
+              </div>
+            </div>
+
+            <div class="visual-bottom">
+              <div class="visual-title-block">
+                <h2 id="heroPreviewTitle">Your Auction Title</h2>
+                <p id="heroPreviewMeta">by Mazad Seller • Premium draft experience</p>
+              </div>
+
+              <div class="visual-price">
+                <small>Starting Price</small>
+                <strong id="heroPreviewPrice">$0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-body">
+            <form id="auctionForm">
+              <div class="section-card">
+                <div class="section-head">
+                  <div>
+                    <h3>Listing Core</h3>
+                    <span>Main information buyers see first</span>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="field full">
+                    <label for="title">Auction Title</label>
+                    <input class="input" id="title" type="text" maxlength="90" placeholder="Example: Rolex Datejust 41 Diamond Dial" />
+                    <div class="char-count"><span id="titleCount">0</span>/90</div>
+                  </div>
+
+                  <div class="field">
+                    <label for="seller">Seller Name</label>
+                  <input class="input" id="seller" type="text" placeholder="Enter seller name" />
+                  </div>
+
+                  <div class="field">
+                    <label for="category">Category</label>
+                    <select class="select" id="category">
+                        <option value="fashion">Fashion</option>
+                             <option value="electronics">Electronics</option>
+                                   <option value="art">Art</option>
+                                      <option value="watch">Watches</option>
+                       <option value="cars">Cars</option>
+                    <option value="home">Home</option>
+                      </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="price">Starting Price</label>
+                    <input class="input" id="price" type="number" min="1" placeholder="500" />
+                    <small>Minimum valid value is greater than zero</small>
+                  </div>
+                  <div class="field">
+  <label for="expectedFinalPrice">Expected Final Price</label>
+  <input class="input" id="expectedFinalPrice" type="number" min="1" placeholder="5000" />
+  <small>The natural expected ceiling for this auction's final price.</small>
+</div>
+
+<div class="field">
+  <label for="maxAcceptablePrice">Max Bid Before Review</label>
+  <input class="input" id="maxAcceptablePrice" type="number" min="1" placeholder="7500" />
+  <small>Any bid above this value will require admin approval.</small>
+</div>
+
+                  <div class="field">
+                    <label for="increment">Minimum Increment</label>
+                    <input class="input" id="increment" type="number" min="1" placeholder="25" />
+                    <small>How much each next bid should increase</small>
+                  </div>
+
+                  <div class="field">
+                    <label for="startTime">Start Time</label>
+                    <input class="input" id="startTime" type="datetime-local" />
+                  </div>
+
+                  <div class="field">
+                    <label for="endTime">End Time</label>
+                    <input class="input" id="endTime" type="datetime-local" />
+                  </div>
+
+                  <div class="field full">
+                    <label for="desc">Description</label>
+                    <textarea class="textarea" id="desc" maxlength="900" placeholder="Describe the condition, brand, authenticity, age, included accessories, and why this lot is special."></textarea>
+                    <div class="char-count"><span id="descCount">0</span>/900</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-card">
+                <div class="section-head">
+                  <div>
+                    <h3>Listing Mode</h3>
+                    <span>Choose how this auction should feel</span>
+                  </div>
+                </div>
+
+                <div class="toggle-grid" id="modeGrid">
+                  <div class="toggle-card active" data-mode="normal">
+                    <div class="emoji">🏛</div>
+                    <strong>Normal Auction</strong>
+                    <span>Classic premium listing with normal bidding flow.</span>
+                  </div>
+
+                  <div class="toggle-card" data-mode="live">
+                    <div class="emoji">🔴</div>
+                    <strong>Live Auction</strong>
+                    <span>Marked as live with stronger urgency and energy.</span>
+                  </div>   
+
+
+
+
+
+
+
+
+
+
+                  
+
+                 
+<div class="section-card" id="liveConfigCard" style="display:none;">
+  <div class="section-head">
+    <div>
+      <h3>Live Auction Settings</h3>
+      <span>Extra controls for live auction rooms</span>
+    </div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label for="liveDuration">Live Duration (Minutes)</label>
+      <input class="input" id="liveDuration" type="number" min="5" placeholder="60" />
+      <small>Example: 30, 45, 60</small>
+    </div>
+
+    <div class="field">
+      <label for="facebookLiveUrl">Facebook Live Link</label>
+      <input class="input" id="facebookLiveUrl" type="text" placeholder="https://facebook.com/live/..." />
+      <small>Optional now, useful later.</small>
+    </div>
+
+    <div class="field full">
+      <label for="liveHostName">Live Host Name</label>
+      <input class="input" id="liveHostName" type="text" maxlength="50" placeholder="Mazad Official Host" />
+    </div>
+  </div>
+</div>
+                <div class="publish-note" id="modeNote">
+                  Standard auction selected. This listing will appear as a premium regular auction.
+                </div>
+              </div>
+
+              <div class="section-card">
+                <div class="section-head">
+                  <div>
+                    <h3>Gallery Upload</h3>
+                    <span>Drag, drop, and manage up to 6 images</span>
+                  </div>
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                  <h4>Drop images here or click to upload</h4>
+                  <p>Use high-quality product photos. The first image becomes the main hero preview.</p>
+
+                  <div class="upload-actions">
+                    <button class="btn btn-secondary" type="button" id="browseBtn">Browse Images</button>
+                    <button class="btn btn-secondary" type="button" id="clearImagesBtn">Clear Gallery</button>
+                  </div>
+                </div>
+
+                <input id="imageInput" type="file" accept="image/*" multiple hidden />
+                <div class="thumb-grid" id="thumbGrid"></div>
+              </div>
+
+              <div class="section-card">
+                <div class="section-head">
+                  <div>
+                    <h3>Tags & Positioning</h3>
+                    <span>Make the listing easier to discover</span>
+                  </div>
+                </div>
+
+                <div class="tag-entry">
+                  <input class="input" id="tagInput" type="text" placeholder="Type tag and press Add or Enter" />
+                  <button class="btn btn-secondary" type="button" id="addTagBtn">Add Tag</button>
+                </div>
+
+                <div class="tags-wrap" id="tagsWrap"></div>
+              </div>
+
+              <div class="section-card">
+                <div class="section-head">
+                  <div>
+                    <h3>Publish Controls</h3>
+                    <span>Finalize and create the auction</span>
+                  </div>
+                </div>
+
+                <div class="actions-row">
+                  <button class="btn btn-secondary" type="button" id="resetBtn">Reset Form</button>
+                  <button class="btn btn-secondary" type="button" id="previewBtn">Refresh Preview</button>
+                  <button class="btn btn-primary" type="submit" id="submitBtn">Publish Auction</button>
+                </div>
+
+                <div class="publish-note">
+                 When published, the auction will be sent to the backend and stored in the database for review.
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="sidebar">
+        <div class="panel preview-panel">
+          <div class="section-head">
+            <div>
+              <h3>Live Preview</h3>
+              <span>This is how buyers will see the lot</span>
+            </div>
+          </div>
+
+          <div class="preview-media" id="previewMedia">
+            <img id="previewImg" alt="Preview image" style="display:none" />
+            <div class="preview-media-fallback" id="previewFallback">⌚</div>
+
+            <div class="preview-badge-row">
+              <div class="badge-stack">
+                <span class="panel-badge category" id="previewCategoryBadge">Watch</span>
+                <span class="panel-badge live" id="previewModeBadge">NORMAL</span>
+                <span class="panel-badge featured" id="previewFeaturedBadge">STANDARD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-content">
+            <div>
+              <div class="preview-title" id="previewTitle">Your Auction Title</div>
+              <div class="preview-sub" id="previewDesc">
+                Write a premium description for your item. Buyers should immediately understand the value and condition of the lot.
+              </div>
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-card">
+                <div class="meta-label">Seller</div>
+                <div class="meta-value" id="previewSeller">Mazad Seller</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Category</div>
+                <div class="meta-value" id="previewCategory">Watch</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Start Price</div>
+                <div class="meta-value" id="previewStartPrice">$0</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Min Increment</div>
+                <div class="meta-value" id="previewIncrement">$0</div>
+              </div>
+            </div>
+
+            <div class="tags-wrap" id="previewTags"></div>
+          </div>
+        </div>
+
+        <div class="panel price-panel">
+          <div class="section-head">
+            <div>
+              <h3>Listing Stats</h3>
+              <span>Instant auction readiness overview</span>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-card">
+              <div class="stat-label">Starting Price</div>
+              <div class="stat-value" id="statStartingPrice">$0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Minimum Next Bid</div>
+              <div class="stat-value big" id="statMinimumBid">$0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Gallery Images</div>
+              <div class="stat-value success" id="statImages">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Tags Added</div>
+              <div class="stat-value" id="statTags">0</div>
+            </div>
+
+            <div class="stat-card full">
+              <div class="stat-label">Auction Window</div>
+              <div class="stat-value" id="statDuration">Not set</div>
+            </div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="num" id="miniMode">NORMAL</div>
+              <div class="txt">Mode</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="num" id="miniFeature">STD</div>
+              <div class="txt">Feature</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="num" id="miniCompleteness">0%</div>
+              <div class="txt">Completeness</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel quality-panel">
+          <div class="section-head">
+            <div>
+              <h3>Quality Check</h3>
+              <span>Smart checks before publishing</span>
+            </div>
+          </div>
+
+          <div class="quality-list">
+            <div class="quality-item">
+              <div>
+                <strong>Title Quality</strong>
+                <span id="qualityTitleText">Add a descriptive title for the lot.</span>
+              </div>
+              <div class="quality-score score-bad" id="qualityTitleScore">Weak</div>
+            </div>
+
+            <div class="quality-item">
+              <div>
+                <strong>Description Depth</strong>
+                <span id="qualityDescText">Include condition, authenticity, and product details.</span>
+              </div>
+              <div class="quality-score score-bad" id="qualityDescScore">Weak</div>
+            </div>
+
+            <div class="quality-item">
+              <div>
+                <strong>Media Presence</strong>
+                <span id="qualityMediaText">Upload at least one high-quality image.</span>
+              </div>
+              <div class="quality-score score-bad" id="qualityMediaScore">Weak</div>
+            </div>
+
+            <div class="quality-item">
+              <div>
+                <strong>Publish Readiness</strong>
+                <span id="qualityReadyText">Listing needs more details before publish.</span>
+              </div>
+              <div class="quality-score score-warn" id="qualityReadyScore">Draft</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+  <footer>
+    <p>&copy; 2026 Mazad. Create auction experience.</p>
+  </footer>
+
+<script src="js/google-translate.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/seller.js"></script>
+    <script>
+  initGoogleTranslate();
+</script>
+
+</body>
+</html>

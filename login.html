@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZAD | Sign In</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="hammer-intro" id="hammerIntro">
+  <video class="hammer-video" autoplay muted playsinline>
+    <source src="videos/auction-intro.mp4" type="video/mp4">
+  </video>
+
+  <div class="hammer-intro-overlay"></div>
+
+  <button type="button" class="hammer-skip-btn" id="hammerSkipBtn" aria-label="Skip intro">
+    Skip <span aria-hidden="true">›</span>
+  </button>
+
+ <div class="hammer-brand">
+  <img src="logo (2).png" alt="Mazad Logo" class="hammer-logo-img">
+  <p>Where every bid begins with a strike</p>
+</div>
+</div>
+  <header>
+    <div class="header-left">
+      <div class="logo-slot" title="Mazad">
+        <img src="logo (1).png" alt="Mazad Left Logo">
+      </div>
+      <div class="brand-block">
+        <span class="brand-kicker">Online Auction Platform</span>
+        <div class="logo">MAZAD</div>
+      </div>
+    </div>
+
+    <div id="google_translate_element" style="display:none;"></div>
+
+    <div class="header-center">
+      <nav>
+        <a href="index.html">Home</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="lang-switch">
+        <button id="gtToggle" class="btn btn-secondary" type="button">AR</button>
+      </div>
+      <div class="logo-slot" title="Mazad">
+        <img src="logo (2).png" alt="Mazad Right Logo">
+      </div>
+    </div>
+  </header>
+
+  <section class="auth-shell">
+    <div class="auth-stage is-login" id="authStage">
+      <div class="diagonal-light"></div>
+
+      <section class="auth-panel">
+        <div class="auth-card">
+
+          <div class="auth-card-top">
+            <div class="auth-mode-tabs">
+              <button class="auth-tab is-active" id="tabLogin" type="button">Sign In</button>
+              <button class="auth-tab" id="tabRegister" type="button">Create Account</button>
+            </div>
+            <div class="auth-mini-note" id="miniNote">Welcome back to Mazad</div>
+          </div>
+
+          <div class="auth-card-inner">
+
+            <!-- LOGIN SCREEN -->
+            <div class="form-screen is-active" id="loginScreen">
+              <div class="form-head">
+                <h2 class="form-title">Sign in</h2>
+                <p class="form-subtitle">
+                  Use your email and password, or continue with one of the providers below.
+                </p>
+              </div>
+
+              <div class="social-grid social-grid-2">
+              <button class="social-btn google" id="googleLoginBtn" type="button" data-provider="Google">
+  <span class="social-icon">G</span>
+  <span>Continue with Google</span>
+</button>
+
+<button class="social-btn facebook" id="facebookLoginBtn" type="button" data-provider="Facebook">
+  <span class="social-icon">f</span>
+  <span>Continue with Facebook</span>
+</button>
+              </div>
+
+              <div class="separator">or sign in with email</div>
+
+              <div class="field" data-field="loginEmail">
+                <label class="field-label" for="loginEmail">Email address</label>
+                <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email">
+                <div class="field-error"></div>
+              </div>
+
+              <div class="field" data-field="loginPassword">
+                <label class="field-label" for="loginPassword">Password</label>
+                <div class="input-with-eye">
+                  <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password">
+                  <button type="button" class="eye-btn" data-target="loginPassword" aria-label="Show password">👁</button>
+                </div>
+                <div class="field-error"></div>
+              </div>
+
+              <div class="login-options-row">
+                <label class="remember-me">
+                  <input type="checkbox" id="rememberMe">
+                  <span>Remember me</span>
+                </label>
+                <button class="auth-link" type="button" id="forgotBtn">Forgot password?</button>
+              </div>
+
+              <div class="actions">
+                <button class="auth-primary-btn" id="loginBtn" type="button">Sign in</button>
+
+                <div class="auth-switch-inline">
+                  Don't have an account?
+                  <button type="button" id="inlineGoRegister">Create one</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- REGISTER SCREEN -->
+            <div class="form-screen" id="registerScreen">
+              <div class="form-head">
+                <h2 class="form-title">Create account</h2>
+                <p class="form-subtitle">
+                  Just a few quick details and you're in. You can complete the rest of your profile later.
+                </p>
+              </div>
+
+              <div class="social-grid social-grid-2">
+               <button class="social-btn google" id="googleRegisterBtn" type="button" data-provider="Google">
+  <span class="social-icon">G</span>
+  <span>Sign up with Google</span>
+</button>
+
+<button class="social-btn facebook" id="facebookRegisterBtn" type="button" data-provider="Facebook">
+  <span class="social-icon">f</span>
+  <span>Sign up with Facebook</span>
+</button>
+              </div>
+
+              <div class="separator">or fill in the form</div>
+
+              <div class="form-grid">
+                <div class="field" data-field="firstName">
+                  <label class="field-label" for="firstName">First name</label>
+                  <input id="firstName" type="text" placeholder="First name" autocomplete="given-name">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field" data-field="middleName">
+                  <label class="field-label" for="middleName">Middle name</label>
+                  <input id="middleName" type="text" placeholder="Middle name" autocomplete="additional-name">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field" data-field="lastName">
+                  <label class="field-label" for="lastName">Last name</label>
+                  <input id="lastName" type="text" placeholder="Last name" autocomplete="family-name">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field" data-field="phone">
+                  <label class="field-label" for="phone">Phone</label>
+                  <input id="phone" type="tel" placeholder="+970 59X XXX XXX" autocomplete="tel">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field" data-field="birthdate">
+                  <label class="field-label" for="birthdate">Date of birth</label>
+                  <input id="birthdate" type="date">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field full" data-field="registerEmail">
+                  <label class="field-label" for="registerEmail">Email address</label>
+                  <input id="registerEmail" type="email" placeholder="you@example.com" autocomplete="email">
+                  <div class="field-error"></div>
+                </div>
+
+                <div class="field full" data-field="registerPassword">
+                  <label class="field-label" for="registerPassword">Password</label>
+                  <div class="input-with-eye">
+                    <input id="registerPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password">
+                    <button type="button" class="eye-btn" data-target="registerPassword" aria-label="Show password">👁</button>
+                  </div>
+                  <div class="pw-strength" id="pwStrength"><span></span></div>
+                  <div class="field-error"></div>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="auth-primary-btn" id="registerBtn" type="button">Create your account</button>
+
+                <div class="auth-switch-inline">
+                  Already have an account?
+                  <button type="button" id="inlineGoLogin">Sign in</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="auth-toast" id="authToast"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+<script src="js/google-translate.js"></script>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<script src="js/login.js"></script>
+  <script>
+    initGoogleTranslate();
+
+    // Password show/hide
+    document.querySelectorAll('.eye-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.target);
+        if (!input) return;
+        const showing = input.type === 'text';
+        input.type = showing ? 'password' : 'text';
+        btn.textContent = showing ? '👁' : '🙈';
+      });
+    });
+
+    // Live password strength
+    const pwInput = document.getElementById('registerPassword');
+    const pwBar = document.querySelector('#pwStrength span');
+    if (pwInput && pwBar) {
+      pwInput.addEventListener('input', () => {
+        const v = pwInput.value;
+        let score = 0;
+        if (v.length >= 8) score++;
+        if (/[A-Z]/.test(v)) score++;
+        if (/[0-9]/.test(v)) score++;
+        if (/[^A-Za-z0-9]/.test(v)) score++;
+        pwBar.dataset.score = score;
+        pwBar.style.width = (score * 25) + '%';
+      });
+    }
+
+    // Submit on Enter inside each form
+    document.querySelectorAll('#loginScreen input').forEach(el =>
+      el.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('loginBtn').click(); })
+    );
+    document.querySelectorAll('#registerScreen input').forEach(el =>
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id !== 'birthdate') document.getElementById('registerBtn').click(); })
+    );
+
+    // Remember email
+    const rememberKey = 'mazadRememberEmail';
+    const emailField = document.getElementById('loginEmail');
+    const rememberBox = document.getElementById('rememberMe');
+    const saved = localStorage.getItem(rememberKey);
+    if (saved && emailField) { emailField.value = saved; if (rememberBox) rememberBox.checked = true; }
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      if (rememberBox && rememberBox.checked && emailField.value.trim()) {
+        localStorage.setItem(rememberKey, emailField.value.trim());
+      } else {
+        localStorage.removeItem(rememberKey);
+      }
+    });
+  </script>
+</body>
+</html>

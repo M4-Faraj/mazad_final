@@ -1,0 +1,31 @@
+# Git ignore for XAMPP/PHP projects
+
+# Local secrets (SMTP credentials etc.) — NEVER commit
+config/mail.local.php
+config/*.local.php
+
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+*.lock
+.vscode/
+.idea/
+node_modules/
+vendor/
+*.swp
+*.swo
+*~
+.phpunit.result.cache
+
+# Database backups
+*.sql.bak
+*.sql.backup
+
+# Temporary files
+tmp/
+temp/
+
+# MySQL backup files
+mysql_corruption_backup/

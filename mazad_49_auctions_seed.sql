@@ -1,0 +1,161 @@
+USE mazad_db;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DELETE FROM comment_deletion_log WHERE auction_id IS NOT NULL;
+DELETE FROM live_viewers WHERE auction_id IS NOT NULL;
+DELETE FROM live_messages WHERE auction_id IS NOT NULL;
+DELETE FROM auction_views WHERE auction_id IS NOT NULL;
+DELETE FROM auction_comments WHERE auction_id IS NOT NULL;
+DELETE FROM auction_images WHERE auction_id IS NOT NULL;
+DELETE FROM favorites WHERE auction_id IS NOT NULL;
+DELETE FROM bids WHERE auction_id IS NOT NULL;
+DELETE FROM notifications WHERE auction_id IS NOT NULL;
+DELETE FROM token_ledger WHERE auction_id IS NOT NULL;
+DELETE FROM auctions;
+
+INSERT INTO auctions
+(id, user_id, title, description, category, image, start_price, current_price, auction_type, status, end_time, winner_user_id, winner_bid_amount, settled_at, expected_final_price, max_acceptable_price, featured, category_showcase, showcase_order)
+VALUES
+(1001, 3, 'Executive Black Luxury Sedan', 'Flagship black sedan with executive rear seating, refined cabin materials, and a complete luxury ownership history.', 'cars', 'images/auctions/car_01.png', 52000.00, 61500.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 12 DAY), NULL, NULL, NULL, 78000.00, 92000.00, 1, 1, 1),
+(1002, 4, 'White Presidential Luxury SUV', 'Commanding white luxury SUV with premium leather, panoramic comfort features, and high-end road presence.', 'cars', 'images/auctions/car_02.png', 68000.00, 74500.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, NULL, NULL, 91000.00, 110000.00, 1, 1, 2),
+(1003, 5, 'Crimson GT Sport Coupe', 'Crimson grand touring coupe tuned for spirited driving with a luxurious cockpit and collector appeal.', 'cars', 'images/auctions/car_03.png', 84000.00, 96500.00, 'live', 'approved', DATE_ADD(NOW(), INTERVAL 2 HOUR), NULL, NULL, NULL, 128000.00, 150000.00, 1, 1, 3),
+(1004, 6, 'Silver Grand Touring Coupe', 'Elegant silver touring coupe with performance styling, low mileage, and polished grand tourer character.', 'cars', 'images/auctions/car_04.png', 76000.00, 89500.00, 'normal', 'Ended', DATE_SUB(NOW(), INTERVAL 2 DAY), 9, 89500.00, NOW(), 105000.00, 125000.00, 0, 0, 0),
+(1005, 7, 'Royal Blue Performance Sedan', 'Royal blue performance sedan combining executive comfort, dynamic power delivery, and upscale detail.', 'cars', 'images/auctions/car_05.png', 59000.00, 67250.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 86000.00, 99000.00, 0, 0, 0),
+(1006, 8, 'White Luxury Convertible', 'Open-top white convertible with supple interior finishes, premium sound, and elegant weekend presence.', 'cars', 'images/auctions/car_06.png', 71000.00, 80500.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 11 DAY), NULL, NULL, NULL, 101000.00, 118000.00, 0, 0, 0),
+(1007, 9, 'Matte Gray Supercar', 'Matte gray supercar with dramatic styling, track-inspired engineering, and a rare specification.', 'cars', 'images/auctions/car_07.png', 185000.00, 221000.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 14 DAY), NULL, NULL, NULL, 285000.00, 330000.00, 1, 0, 0),
+(1008, 10, 'Emerald Vintage Roadster', 'Emerald vintage roadster restored with period-correct details, bright trim, and timeless collector charm.', 'cars', 'images/auctions/car_08.png', 64000.00, 64000.00, 'normal', 'pending', DATE_ADD(NOW(), INTERVAL 15 DAY), NULL, NULL, NULL, 94000.00, 112000.00, 0, 0, 0),
+(1009, 11, 'Bronze Luxury SUV', 'Bronze luxury SUV offering a quiet ride, generous cabin space, and polished premium equipment.', 'cars', 'images/auctions/car_09.png', 62000.00, 70100.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 9 DAY), NULL, NULL, NULL, 90000.00, 106000.00, 0, 0, 0),
+(1010, 12, 'Black Executive Limousine', 'Black executive limousine with privacy-focused rear cabin, smooth ride quality, and formal presentation.', 'cars', 'images/auctions/car_10.png', 92000.00, 108500.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 13 DAY), NULL, NULL, NULL, 138000.00, 165000.00, 1, 0, 0),
+(1011, 3, 'Grand Luxury Sectional Sofa', 'Large designer sectional sofa upholstered in premium fabric with deep seating and refined modern proportions.', 'home', 'images/auctions/home_01.png', 6800.00, 7900.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, NULL, NULL, 11200.00, 14000.00, 1, 1, 1),
+(1012, 4, 'Royal Dining Room Set', 'Formal dining set with statement table, matching chairs, and a richly finished luxury dining presence.', 'home', 'images/auctions/home_02.png', 9800.00, 11800.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 15500.00, 19000.00, 0, 1, 2),
+(1013, 5, 'Crystal Palace Chandelier', 'Dramatic crystal chandelier with palace-inspired sparkle and a grand central room silhouette.', 'home', 'images/auctions/home_03.png', 5200.00, 6900.00, 'live', 'approved', DATE_ADD(NOW(), INTERVAL 4 HOUR), NULL, NULL, NULL, 9800.00, 12500.00, 1, 1, 3),
+(1014, 6, 'Modern Gold Bedroom Set', 'Luxury bedroom ensemble with gold-accented design, coordinated pieces, and polished contemporary detail.', 'home', 'images/auctions/home_04.png', 12400.00, 14100.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, NULL, NULL, 20500.00, 24500.00, 0, 0, 0),
+(1015, 7, 'Designer Lounge Chair & Ottoman', 'Designer lounge chair paired with ottoman, shaped for relaxed comfort and gallery-worthy interiors.', 'home', 'images/auctions/home_05.png', 3600.00, 4550.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 6 DAY), NULL, NULL, NULL, 7200.00, 8900.00, 0, 0, 0),
+(1016, 8, 'Luxury Marble Coffee Table', 'Substantial marble coffee table with elegant veining, sculptural base, and luxury living room character.', 'home', 'images/auctions/home_06.png', 4200.00, 5100.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 9 DAY), NULL, NULL, NULL, 7800.00, 9300.00, 0, 0, 0),
+(1017, 9, 'Golden Display Library Cabinet', 'Golden display cabinet for curated books and objects, with warm finish and refined architectural presence.', 'home', 'images/auctions/home_07.png', 7600.00, 8450.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 12 DAY), NULL, NULL, NULL, 12400.00, 15000.00, 0, 0, 0),
+(1018, 10, 'Persian Royal Carpet', 'Royal Persian-style carpet with intricate patterning, rich color, and an impressive room-defining scale.', 'home', 'images/auctions/home_08.png', 8700.00, 8700.00, 'normal', 'pending', DATE_ADD(NOW(), INTERVAL 15 DAY), NULL, NULL, NULL, 14200.00, 17000.00, 0, 0, 0),
+(1019, 11, 'Sculptural Designer Floor Lamps', 'Pair of sculptural designer floor lamps with warm ambient glow and striking modern silhouettes.', 'home', 'images/auctions/home_09.png', 2900.00, 3650.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 5 DAY), NULL, NULL, NULL, 5700.00, 6900.00, 0, 0, 0),
+(1020, 12, 'Luxury Outdoor Terrace Set', 'Complete luxury terrace seating set built for elegant outdoor hosting and resort-style comfort.', 'home', 'images/auctions/home_10.png', 11800.00, 13600.00, 'normal', 'Ended', DATE_SUB(NOW(), INTERVAL 3 DAY), 6, 13600.00, NOW(), 18800.00, 22500.00, 0, 0, 0),
+(1021, 3, 'Premium Wireless Headphones', 'Premium wireless headphones with refined materials, immersive audio, and travel-ready luxury design.', 'electronics', 'images/auctions/electronics_01.png', 420.00, 560.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 4 DAY), NULL, NULL, NULL, 850.00, 1100.00, 1, 1, 1),
+(1022, 4, 'Ultra Gaming Workstation Setup', 'Complete ultra gaming workstation with high-performance desktop, monitor setup, and premium peripherals.', 'electronics', 'images/auctions/electronics_02.png', 5200.00, 6650.00, 'live', 'approved', DATE_ADD(NOW(), INTERVAL 3 HOUR), NULL, NULL, NULL, 9400.00, 11600.00, 1, 1, 2),
+(1023, 5, 'Luxury Ultra HD Smart TV', 'Large-format ultra HD smart television with premium picture performance and luxury home cinema appeal.', 'electronics', 'images/auctions/electronics_03.png', 3100.00, 3950.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 6 DAY), NULL, NULL, NULL, 6100.00, 7600.00, 0, 1, 3),
+(1024, 6, 'Executive Slim Laptop', 'Executive slim laptop with premium chassis, fast performance, and a refined professional profile.', 'electronics', 'images/auctions/electronics_04.png', 1800.00, 2350.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, NULL, NULL, 3600.00, 4500.00, 0, 0, 0),
+(1025, 7, 'Gold Edge Smartphone', 'Gold edge smartphone with flagship features, premium finish, and pristine presentation.', 'electronics', 'images/auctions/electronics_05.png', 950.00, 1280.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 1750.00, 2200.00, 0, 0, 0),
+(1026, 8, 'High-End Stereo Audio System', 'High-end stereo audio system with refined speakers, clean amplification, and room-filling sound.', 'electronics', 'images/auctions/electronics_06.png', 4600.00, 5700.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, NULL, NULL, 8200.00, 9800.00, 0, 0, 0),
+(1027, 9, 'Luxury Tablet Keyboard Set', 'Luxury tablet and keyboard set built for portable productivity with polished premium accessories.', 'electronics', 'images/auctions/electronics_07.png', 1200.00, 1580.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 5 DAY), NULL, NULL, NULL, 2400.00, 2950.00, 0, 0, 0),
+(1028, 10, 'Professional Mirrorless Camera Kit', 'Professional mirrorless camera kit with premium lens package and creator-ready accessories.', 'electronics', 'images/auctions/electronics_08.png', 3900.00, 4825.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 11 DAY), NULL, NULL, NULL, 6900.00, 8400.00, 0, 0, 0),
+(1029, 11, 'Luxury Smartwatch Leather Edition', 'Luxury smartwatch leather edition combining connected features with dress-watch inspired styling.', 'electronics', 'images/auctions/electronics_09.png', 780.00, 780.00, 'normal', 'pending', DATE_ADD(NOW(), INTERVAL 13 DAY), NULL, NULL, NULL, 1350.00, 1700.00, 0, 0, 0),
+(1030, 12, 'Diamond Drop Necklace', 'Diamond drop necklace with elegant brilliance, formal presence, and luxury jewelry-box appeal.', 'fashion', 'images/auctions/fashion_01.png', 15500.00, 18400.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 9 DAY), NULL, NULL, NULL, 26000.00, 32000.00, 1, 1, 1),
+(1031, 3, 'Navy Three-Piece Suit', 'Tailored navy three-piece suit with refined fabric, sharp structure, and formal luxury finish.', 'fashion', 'images/auctions/fashion_02.png', 1400.00, 1825.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 6 DAY), NULL, NULL, NULL, 2800.00, 3500.00, 0, 1, 2),
+(1032, 4, 'Emerald Satin Evening Gown', 'Emerald satin evening gown with fluid silhouette, occasion-ready elegance, and couture-inspired detail.', 'fashion', 'images/auctions/fashion_03.png', 2400.00, 3150.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 4800.00, 5900.00, 1, 1, 3),
+(1033, 5, 'Black Luxury Handbag', 'Black luxury handbag with structured design, polished hardware, and timeless wardrobe versatility.', 'fashion', 'images/auctions/fashion_04.png', 3200.00, 4100.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, NULL, NULL, 6200.00, 7800.00, 0, 0, 0),
+(1034, 6, 'Brown Leather Oxford Shoes', 'Brown leather Oxford shoes with hand-finished character, formal polish, and premium construction.', 'fashion', 'images/auctions/fashion_05.png', 680.00, 920.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 5 DAY), NULL, NULL, NULL, 1500.00, 1900.00, 0, 0, 0),
+(1035, 7, 'Black Gold Stiletto Heels', 'Black and gold stiletto heels with dramatic evening styling and luxury statement appeal.', 'fashion', 'images/auctions/fashion_06.png', 850.00, 1125.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, NULL, NULL, 1800.00, 2300.00, 0, 0, 0),
+(1036, 8, 'Silk Chain Pattern Scarf', 'Silk scarf with chain pattern, refined color balance, and elegant accessory styling.', 'fashion', 'images/auctions/fashion_07.png', 380.00, 515.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 4 DAY), NULL, NULL, NULL, 850.00, 1100.00, 0, 0, 0),
+(1037, 9, 'Gold Frame Luxury Sunglasses', 'Gold frame luxury sunglasses with polished lenses, refined proportions, and vacation-ready glamour.', 'fashion', 'images/auctions/fashion_08.png', 620.00, 820.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 6 DAY), NULL, NULL, NULL, 1350.00, 1700.00, 0, 0, 0),
+(1038, 10, 'Stacked Gemstone Gold Bracelets', 'Stacked gemstone gold bracelets with layered sparkle, rich color, and luxury gift appeal.', 'fashion', 'images/auctions/fashion_09.png', 5200.00, 5200.00, 'normal', 'pending', DATE_ADD(NOW(), INTERVAL 12 DAY), NULL, NULL, NULL, 9100.00, 11200.00, 0, 0, 0),
+(1039, 11, 'Men''s Belt & Cufflinks Set', 'Coordinated men''s belt and cufflinks set with premium materials and formal accessory polish.', 'fashion', 'images/auctions/fashion_10.png', 720.00, 950.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 1600.00, 2100.00, 0, 0, 0),
+(1040, 12, 'Classic Steel Diver Watch', 'Classic steel diver watch with strong lume, robust bracelet, and enduring luxury sport-watch appeal.', 'watches', 'images/auctions/watch_01.png', 7200.00, 9100.00, 'live', 'approved', DATE_ADD(NOW(), INTERVAL 90 MINUTE), NULL, NULL, NULL, 14000.00, 17000.00, 1, 1, 1),
+(1041, 3, 'Rose Gold Dress Watch', 'Rose gold dress watch with refined dial, formal case profile, and elegant leather pairing.', 'watches', 'images/auctions/watch_02.png', 9800.00, 12100.00, 'normal', 'Ended', DATE_SUB(NOW(), INTERVAL 1 DAY), 7, 12100.00, NOW(), 17500.00, 21500.00, 0, 1, 2),
+(1042, 4, 'Blue Chronograph Steel Watch', 'Blue chronograph steel watch with sporty complications, premium bracelet, and bold wrist presence.', 'watches', 'images/auctions/watch_03.png', 6400.00, 7850.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 9 DAY), NULL, NULL, NULL, 11800.00, 14500.00, 0, 1, 3),
+(1043, 5, 'Skeleton Gold Mechanical Watch', 'Skeleton gold mechanical watch showcasing open-worked movement details and ornate luxury styling.', 'watches', 'images/auctions/watch_04.png', 11200.00, 13800.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 11 DAY), NULL, NULL, NULL, 20500.00, 25000.00, 1, 0, 0),
+(1044, 6, 'Diamond Ladies Watch', 'Diamond ladies watch with jewelry-inspired sparkle, refined proportions, and evening elegance.', 'watches', 'images/auctions/watch_05.png', 13500.00, 16200.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 12 DAY), NULL, NULL, NULL, 24000.00, 29500.00, 0, 0, 0),
+(1045, 7, 'Moonphase Leather Watch', 'Moonphase leather watch with poetic complication, dressy proportions, and polished collector charm.', 'watches', 'images/auctions/watch_06.png', 8700.00, 10650.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, NULL, NULL, 15800.00, 19500.00, 0, 0, 0),
+(1046, 8, 'Black Integrated Bracelet Watch', 'Black integrated bracelet watch with architectural case lines and sleek contemporary luxury appeal.', 'watches', 'images/auctions/watch_07.png', 10500.00, 12750.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 8 DAY), NULL, NULL, NULL, 19000.00, 23000.00, 0, 0, 0),
+(1047, 9, 'Green GMT Luxury Watch', 'Green GMT luxury watch with travel-time functionality, vivid dial tone, and premium sport presence.', 'watches', 'images/auctions/watch_08.png', 11800.00, 14600.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 13 DAY), NULL, NULL, NULL, 22000.00, 26500.00, 1, 0, 0),
+(1048, 10, 'Gold Rectangular Heritage Watch', 'Gold rectangular heritage watch with vintage-inspired elegance and refined dress-watch proportions.', 'watches', 'images/auctions/watch_09.png', 9300.00, 11200.00, 'live', 'approved', DATE_ADD(NOW(), INTERVAL 5 HOUR), NULL, NULL, NULL, 16800.00, 20500.00, 0, 0, 0),
+(1049, 11, 'Open-Heart Tourbillon Style Watch', 'Open-heart tourbillon style watch with mechanical theatre, luxury finishing, and collector-focused drama.', 'watches', 'images/auctions/watch_10.png', 15200.00, 18900.00, 'normal', 'approved', DATE_ADD(NOW(), INTERVAL 14 DAY), NULL, NULL, NULL, 28500.00, 34000.00, 1, 0, 0);
+
+INSERT INTO auction_images (auction_id, file_path) VALUES
+(1001, 'images/auctions/car_01.png'),
+(1002, 'images/auctions/car_02.png'),
+(1003, 'images/auctions/car_03.png'),
+(1004, 'images/auctions/car_04.png'),
+(1005, 'images/auctions/car_05.png'),
+(1006, 'images/auctions/car_06.png'),
+(1007, 'images/auctions/car_07.png'),
+(1008, 'images/auctions/car_08.png'),
+(1009, 'images/auctions/car_09.png'),
+(1010, 'images/auctions/car_10.png'),
+(1011, 'images/auctions/home_01.png'),
+(1012, 'images/auctions/home_02.png'),
+(1013, 'images/auctions/home_03.png'),
+(1014, 'images/auctions/home_04.png'),
+(1015, 'images/auctions/home_05.png'),
+(1016, 'images/auctions/home_06.png'),
+(1017, 'images/auctions/home_07.png'),
+(1018, 'images/auctions/home_08.png'),
+(1019, 'images/auctions/home_09.png'),
+(1020, 'images/auctions/home_10.png'),
+(1021, 'images/auctions/electronics_01.png'),
+(1022, 'images/auctions/electronics_02.png'),
+(1023, 'images/auctions/electronics_03.png'),
+(1024, 'images/auctions/electronics_04.png'),
+(1025, 'images/auctions/electronics_05.png'),
+(1026, 'images/auctions/electronics_06.png'),
+(1027, 'images/auctions/electronics_07.png'),
+(1028, 'images/auctions/electronics_08.png'),
+(1029, 'images/auctions/electronics_09.png'),
+(1030, 'images/auctions/fashion_01.png'),
+(1031, 'images/auctions/fashion_02.png'),
+(1032, 'images/auctions/fashion_03.png'),
+(1033, 'images/auctions/fashion_04.png'),
+(1034, 'images/auctions/fashion_05.png'),
+(1035, 'images/auctions/fashion_06.png'),
+(1036, 'images/auctions/fashion_07.png'),
+(1037, 'images/auctions/fashion_08.png'),
+(1038, 'images/auctions/fashion_09.png'),
+(1039, 'images/auctions/fashion_10.png'),
+(1040, 'images/auctions/watch_01.png'),
+(1041, 'images/auctions/watch_02.png'),
+(1042, 'images/auctions/watch_03.png'),
+(1043, 'images/auctions/watch_04.png'),
+(1044, 'images/auctions/watch_05.png'),
+(1045, 'images/auctions/watch_06.png'),
+(1046, 'images/auctions/watch_07.png'),
+(1047, 'images/auctions/watch_08.png'),
+(1048, 'images/auctions/watch_09.png'),
+(1049, 'images/auctions/watch_10.png');
+
+INSERT INTO bids (auction_id, user_id, bid_amount, created_at, status, review_reason) VALUES
+(1001, 8, 55500.00, DATE_SUB(NOW(), INTERVAL 5 DAY), 'approved', NULL),
+(1001, 9, 61500.00, DATE_SUB(NOW(), INTERVAL 3 DAY), 'approved', NULL),
+(1002, 5, 71500.00, DATE_SUB(NOW(), INTERVAL 4 DAY), 'approved', NULL),
+(1002, 6, 74500.00, DATE_SUB(NOW(), INTERVAL 2 DAY), 'approved', NULL),
+(1003, 7, 90500.00, DATE_SUB(NOW(), INTERVAL 1 DAY), 'approved', NULL),
+(1003, 11, 96500.00, DATE_SUB(NOW(), INTERVAL 6 HOUR), 'approved', NULL),
+(1004, 9, 89500.00, DATE_SUB(NOW(), INTERVAL 3 DAY), 'approved', NULL),
+(1007, 4, 205000.00, DATE_SUB(NOW(), INTERVAL 5 DAY), 'approved', NULL),
+(1007, 12, 221000.00, DATE_SUB(NOW(), INTERVAL 2 DAY), 'approved', NULL),
+(1011, 6, 7350.00, DATE_SUB(NOW(), INTERVAL 2 DAY), 'approved', NULL),
+(1011, 7, 7900.00, DATE_SUB(NOW(), INTERVAL 1 DAY), 'approved', NULL),
+(1013, 8, 6200.00, DATE_SUB(NOW(), INTERVAL 8 HOUR), 'approved', NULL),
+(1013, 9, 6900.00, DATE_SUB(NOW(), INTERVAL 3 HOUR), 'approved', NULL),
+(1022, 5, 6100.00, DATE_SUB(NOW(), INTERVAL 1 DAY), 'approved', NULL),
+(1022, 6, 6650.00, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'approved', NULL),
+(1030, 4, 17100.00, DATE_SUB(NOW(), INTERVAL 4 DAY), 'approved', NULL),
+(1030, 8, 18400.00, DATE_SUB(NOW(), INTERVAL 2 DAY), 'approved', NULL),
+(1040, 5, 8500.00, DATE_SUB(NOW(), INTERVAL 12 HOUR), 'approved', NULL),
+(1040, 6, 9100.00, DATE_SUB(NOW(), INTERVAL 2 HOUR), 'approved', NULL),
+(1049, 3, 17400.00, DATE_SUB(NOW(), INTERVAL 3 DAY), 'approved', NULL),
+(1049, 12, 18900.00, DATE_SUB(NOW(), INTERVAL 1 DAY), 'approved', NULL);
+
+INSERT INTO favorites (user_id, auction_id, created_at) VALUES
+(4, 1001, DATE_SUB(NOW(), INTERVAL 4 DAY)),
+(5, 1002, DATE_SUB(NOW(), INTERVAL 4 DAY)),
+(6, 1003, DATE_SUB(NOW(), INTERVAL 3 DAY)),
+(7, 1007, DATE_SUB(NOW(), INTERVAL 3 DAY)),
+(8, 1011, DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(9, 1013, DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(10, 1021, DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(11, 1022, DATE_SUB(NOW(), INTERVAL 1 DAY)),
+(12, 1028, DATE_SUB(NOW(), INTERVAL 1 DAY)),
+(3, 1030, DATE_SUB(NOW(), INTERVAL 1 DAY)),
+(4, 1032, DATE_SUB(NOW(), INTERVAL 18 HOUR)),
+(5, 1033, DATE_SUB(NOW(), INTERVAL 15 HOUR)),
+(6, 1040, DATE_SUB(NOW(), INTERVAL 12 HOUR)),
+(7, 1043, DATE_SUB(NOW(), INTERVAL 9 HOUR)),
+(8, 1049, DATE_SUB(NOW(), INTERVAL 6 HOUR));
+
+SET FOREIGN_KEY_CHECKS=1;

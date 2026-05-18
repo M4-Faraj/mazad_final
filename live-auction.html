@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZAD | Live Auction</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/live-auction.css">
+</head>
+<body>
+
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+
+  <section class="live-shell">
+    <div class="live-stage">
+      <div class="live-stage-light"></div>
+
+      <div class="live-grid">
+        <!-- LEFT SIDE -->
+        <section class="live-main-column">
+
+          <!-- hero / stream -->
+          <div class="stream-card">
+            <div class="stream-topbar">
+              <div class="stream-badges">
+                <span class="live-badge pulse-live">LIVE NOW</span>
+                <span class="status-badge" id="auctionModeBadge">Premium Room</span>
+                <span class="status-badge danger" id="timeLeftBadge">00:00</span>
+              </div>
+
+              <div class="stream-stats">
+                <div class="mini-stat">
+                  <span>Watchers</span>
+                  <strong id="watchersCount">2,412</strong>
+                </div>
+                <div class="mini-stat">
+                  <span>Total Bids</span>
+                  <strong id="totalBids">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="main-stream-frame" id="mainStreamFrame">
+              <div class="stream-overlay">
+                <div class="stream-title-wrap">
+                  <h1 id="liveItemTitle">Live Auction Title</h1>
+                  <p id="liveItemSubtitle">Exclusive live bidding room</p>
+                </div>
+
+                <div class="stream-pill-row">
+                  <span class="glass-pill" id="hostDisplayName">Host: MAZAD</span>
+                  <span class="glass-pill" id="categoryDisplay">Category</span>
+                </div>
+              </div>
+
+              <video id="hostVideo" autoplay playsinline muted></video>
+
+              <div class="stream-placeholder" id="streamPlaceholder">
+                <div class="placeholder-icon" id="itemEmoji">🔥</div>
+                <div class="placeholder-glow"></div>
+              </div>
+            </div>
+
+            <div class="stream-actions">
+            <button class="stream-action-btn active" id="joinCameraBtn" type="button">Join Room</button>
+<button class="stream-action-btn" id="muteBtn" type="button">Audio Soon</button>
+<button class="stream-action-btn" id="videoBtn" type="button">Video Soon</button>
+<button class="stream-action-btn warn" id="raiseHandBtn" type="button">Raise Hand</button>
+            </div>
+          </div>
+
+          <!-- participants -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <h2>Participants Room</h2>
+                <p>Demo interface ready to evolve into WebRTC / backend sync</p>
+              </div>
+              <span class="panel-chip" id="participantsCountChip">4 participants</span>
+            </div>
+
+            <div class="participants-grid" id="participantsGrid">
+              <!-- JS -->
+            </div>
+          </div>
+
+          <!-- item details -->
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <h2>Live Item Details</h2>
+                <p>Details of the item currently featured in the live auction room</p>
+              </div>
+              <span class="panel-chip accent" id="liveStatusChip">Bidding Open</span>
+            </div>
+
+            <div class="item-showcase">
+              <div class="item-preview" id="itemPreview">
+                <img id="itemImage" alt="Live Auction Item">
+                <div class="item-preview-fallback" id="itemPreviewFallback">🔥</div>
+              </div>
+
+              <div class="item-copy">
+                <div class="item-meta-row">
+                  <span class="meta-badge" id="itemTypeBadge">Live Auction</span>
+                  <span class="meta-badge soft" id="itemSellerBadge">Seller</span>
+                </div>
+
+                <h3 id="detailTitle">Item title</h3>
+                <p id="detailDescription">
+                  Description will appear here.
+                </p>
+
+                <div class="item-kpis">
+                  <div class="kpi-box">
+                    <span>Opening Price</span>
+                    <strong id="openingPrice">$0</strong>
+                  </div>
+                  <div class="kpi-box">
+                    <span>Current Bid</span>
+                    <strong id="currentBid">$0</strong>
+                  </div>
+                  <div class="kpi-box">
+                    <span>Minimum Raise</span>
+                    <strong id="minRaise">$500</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <aside class="live-sidebar">
+
+          <!-- bid panel -->
+          <div class="sidebar-card bid-card">
+            <div class="sidebar-head">
+              <h2>Place Bid</h2>
+              <span class="panel-chip">Real-time UI</span>
+            </div>
+
+            <div class="highest-bid-box" id="highestBidBox">
+              <span>Highest Bid</span>
+              <strong id="highestBidValue">$0</strong>
+              <small id="highestBidderText">No bids yet</small>
+            </div>
+
+            <div class="field-group">
+              <label for="bidInput">Your Bid Amount</label>
+              <input type="number" id="bidInput" class="live-input" placeholder="Enter your bid">
+            </div>
+
+            <div class="quick-bid-grid" id="quickBidGrid">
+              <button type="button" class="quick-bid-btn" data-raise="500">+500</button>
+              <button type="button" class="quick-bid-btn" data-raise="1000">+1000</button>
+              <button type="button" class="quick-bid-btn" data-raise="2500">+2500</button>
+              <button type="button" class="quick-bid-btn" data-raise="5000">+5000</button>
+            </div>
+
+            <button class="place-bid-btn" id="placeBidBtn" type="button">Place Bid</button>
+
+            <div class="live-feed-note">
+  Accepted bids appear instantly; high bids wait for admin approval.
+</div>
+          </div>
+
+          <!-- bid history -->
+          <div class="sidebar-card">
+            <div class="sidebar-head">
+              <h2>Bid History</h2>
+              <span class="panel-chip soft">Live Feed</span>
+            </div>
+
+            <div class="bid-history" id="bidHistory">
+              <!-- JS -->
+            </div>
+          </div>
+
+          <!-- chat -->
+          <div class="sidebar-card chat-card">
+            <div class="sidebar-head">
+              <h2>Room Chat</h2>
+              <span class="panel-chip accent">Interactive</span>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+              <!-- JS -->
+            </div>
+
+            <div class="chat-compose">
+              <input type="text" id="chatInput" class="live-input" placeholder="Type a message...">
+              <button class="chat-send-btn" id="chatSendBtn" type="button">Send</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="live-toast" id="liveToast"></div>
+<script src="js/google-translate.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/live-auction.js"></script>
+    <script>
+  initGoogleTranslate();
+</script>
+
+</body>
+</html>

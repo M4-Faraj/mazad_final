@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mazad Chat Bot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+  <div id="site-navbar"></div>
+  <script src="js/navbar.js"></script>
+
+  <main class="chatbot-main">
+    <div class="chatbot-container">
+      <div class="chatbot-header">
+        <h2>🤖 Mazad Assistant</h2>
+        <p>Gift suggestions & product search</p>
+      </div>
+
+      <div class="chatbot-messages" id="chatMessages">
+        <div class="message bot-message">
+          <div class="message-content">
+            👋 Hello! I'm your Mazad Assistant. I can help you:
+            <br><br>
+            <strong>1. Gift Suggestion:</strong> Answer a few questions and I'll recommend the perfect gift.
+            <br>
+            <strong>2. Product Search:</strong> Tell me what you're looking for, and I'll find it for you.
+            <br><br>
+            What would you like to do?
+          </div>
+        </div>
+      </div>
+
+      <div class="chatbot-actions" id="chatActions">
+        <button class="action-btn" data-action="gift">🎁 Suggest a Gift</button>
+        <button class="action-btn" data-action="search">🔍 Search Product</button>
+      </div>
+
+      <div class="chatbot-input-wrap" id="chatInputWrap" style="display:none;">
+        <input
+          type="text"
+          id="chatInput"
+          class="chatbot-input"
+          placeholder="Type your answer..."
+          autocomplete="off"
+        >
+        <button class="chatbot-send-btn" id="chatSendBtn">Send</button>
+      </div>
+
+      <div class="chatbot-footer">
+        <button class="btn btn-secondary" id="resetChatBtn">Reset Chat</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/header.js"></script>
+  <script>
+    if (typeof initUserBox === 'function') initUserBox();
+  </script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/google-translate.js"></script>
+  <script>
+    if (typeof initGoogleTranslate === 'function') initGoogleTranslate();
+  </script>
+</body>
+</html>

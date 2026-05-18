@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mazad - Vehicles Auctions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/category-pages.css">
+</head>
+<body>
+
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+
+<main class="container">
+  <section class="category-hero">
+    <div class="hero-board">
+  <div class="hero-topbar">
+    <div class="hero-heading">
+      <span class="hero-mini-label">🚗 Cars Showcase</span>
+    </div>
+
+    <div class="hero-live-pill">TRENDING NOW</div>
+  </div>
+
+  <div class="category-showcase" id="categoryShowcaseSection">
+    <div class="category-showcase-grid" id="categoryShowcaseGrid">
+      <div class="empty">Loading showcase auctions...</div>
+    </div>
+  </div>
+</div>
+    <div class="category-search-wrap">
+      <div class="category-top-search">
+        <input id="pageSearchTop" type="text" placeholder="Search vehicles, brands, models...">
+        <button class="btn btn-primary" id="pageSearchBtn">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <section class="content-side">
+      <div class="filters">
+        <input id="q" class="search" type="text" placeholder="Search vehicles...">
+        <select id="type" class="select">
+          <option value="all">All Cars</option>
+        </select>
+        <select id="sort" class="select">
+          <option value="new">Newest</option>
+          <option value="low">Price: Low → High</option>
+          <option value="high">Price: High → Low</option>
+          <option value="yearNew">Year: New → Old</option>
+          <option value="yearOld">Year: Old → New</option>
+        </select>
+      </div>
+      <div class="auction-tabs">
+        <button class="auction-tab active" data-mode="all">All</button>
+        <button class="auction-tab" data-mode="normal">Normal</button>
+        <button class="auction-tab" data-mode="live">Live</button>
+      </div>
+      <section id="grid" class="grid"></section>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 Mazad Auction House. All rights reserved. Built for secure, premium online bidding.</p>
+</footer>
+<script src="js/google-translate.js"></script>
+<script src="js/header.js"></script>
+<script src="js/favorites.js"></script>
+<script src="js/car.js"></script>
+<script>initGoogleTranslate();</script>
+
+</body>
+</html>

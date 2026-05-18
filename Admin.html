@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZAD Admin - Auction Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+<style>
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <div class="logo-slot" title="Left logo slot">
+        <img src="logo (2).png" alt="Mazad Left Logo">
+      </div>
+
+      <div class="brand-block">
+        
+        <div class="admin-badge">Admin Control Center</div>
+        
+      </div>
+    </div>
+ <div id="google_translate_element" style="display:none;"></div>
+    <div class="header-center">
+      <nav>
+ <a href="index.html" id="navHome">Home</a>
+<a href="#" id="navDashboard">Dashboard</a>
+<a href="#" id="navAuctions" class="active">Auctions</a>
+<a href="#" id="navUsers">Users</a>
+<a href="#" id="navMonitoring">Monitoring</a>
+<a href="#" id="navReports">Reports</a>
+<a href="#" id="navSettings">Database</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="header-actions">
+  <div class="lang-switch">
+    <button id="gtToggle" class="btn btn-secondary" type="button">AR</button>
+  </div>
+
+  <div class="notif-wrap">
+    <button class="btn btn-secondary header-notif-btn" id="notifBell" type="button" aria-label="Notifications">
+      🔔<span class="notif-badge header-notif-badge" id="notifBadge" hidden>0</span>
+    </button>
+
+    <div class="notif-dropdown header-notif-dropdown" id="notifDropdown">
+      <div class="notif-head header-notif-head">
+        <div class="notif-title">Notifications</div>
+        <div class="notif-actions">
+  <button class="auth-link" id="notifMarkAll" type="button">Mark all read</button>
+  <button class="auth-link" id="notifClearAll" type="button">Clear all</button>
+</div>
+      </div>
+      <div class="notif-body header-notif-list" id="notifBody">
+        <div class="muted" style="padding:.7rem;">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-profile-wrap">
+    <button class="admin-profile-btn" id="adminProfileBtn" type="button" aria-label="Admin profile menu">
+      <img
+        class="admin-profile-img"
+        id="adminProfileImg"
+        src="assets/images/default-avatar.png"
+        alt="Admin profile"
+      >
+
+      <span class="admin-profile-text">
+        <span class="admin-profile-name" id="adminProfileName">Admin</span>
+        <span class="admin-profile-role" id="adminProfileRole">Admin</span>
+      </span>
+
+      <span class="admin-profile-arrow">▾</span>
+    </button>
+
+    <div class="admin-profile-dropdown" id="adminProfileDropdown">
+  <div class="admin-dropdown-head">
+    <strong id="adminDropdownName">Admin</strong>
+    <span id="adminDropdownEmail">admin@mazad.com</span>
+  </div>
+
+  <a href="profile.html">👤 <span>Profile</span></a>
+  <a href="profile.html#myAuctionsPanel">🧾 <span>My Auctions</span></a>
+ <a href="profile.html#friendsPanel">👥 <span>Partners</span></a>
+  <a href="Admin.html">🛠️ <span>Admin Dashboard</span></a>
+ 
+  <button type="button" id="adminDropdownLogout">🚪 <span>Logout</span></button>
+</div>
+  </div>
+</div>
+
+      <div class="logo-slot" title="Right logo slot">
+        <img src="logo (1).png" alt="Mazad Right Logo">
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Admin Dashboard</span>
+    </div>
+    <section class="hero-grid">
+      <div class="card hero-card">
+        <div class="live-chip"><span class="dot"></span> Live monitoring enabled</div>
+        <h1 class="hero-title">AUCTION <span>CONTROL</span></h1>
+<p class="hero-text">
+  Manage auctions, approvals, live monitoring, showcase selections, reports, and platform activity from one professional admin dashboard.
+</p>
+        <div class="toolbar">
+         <select id="categoryFilter">
+<option value="all">All Categories</option>
+  <option value="fashion">Fashion</option>
+  <option value="electronics">Electronics</option>
+  <option value="art">Art</option>
+  <option value="home">Home</option>
+  <option value="cars">Cars</option>
+  <option value="watches">Watches</option>
+</select>
+          <div class="input-wrap">
+            <span>🔎</span>
+            <input id="searchInput" type="text" placeholder="Search by auction title, seller, category, or ID..."/>
+          </div>
+
+        <select id="statusFilter">
+<option value="all">All Statuses</option>
+  <option value="pending">Pending</option>
+  <option value="approved">Approved</option>
+  <option value="suspended">Suspended</option>
+  <option value="ended">Ended</option>
+  <option value="rejected">Rejected</option>
+</select>
+
+          <select id="sortFilter">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="price">Highest Price</option>
+            <option value="bids">Most Bids</option>
+          </select>
+
+          <a class="btn btn-primary" href="seller-auctions.html">+ Add Auction</a>
+          <button class="btn btn-secondary" id="seedAuctionsBtn">Seed Demo Auctions</button>
+          <button class="btn btn-secondary" id="runSettlementBtn">Run Settlement</button>
+          <button class="btn btn-secondary" id="openLedgerBtn">Token Ledger</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Auctions</div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-note">All auctions in the system</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Live Now</div>
+            <div class="stat-value" id="statLive">0</div>
+            <div class="stat-note">Auctions currently live</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Pending Review</div>
+            <div class="stat-value" id="statPending">0</div>
+            <div class="stat-note">Auctions awaiting admin approval</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Suspended</div>
+            <div class="stat-value" id="statSuspended">0</div>
+            <div class="stat-note">Auctions temporarily suspended</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card featured-card">
+        <div class="featured-image">
+          <div class="featured-badge"><span class="dot"></span> LIVE NOW</div>
+        </div>
+
+        <div class="featured-content">
+          <div class="section-mini">Featured Monitoring</div>
+          <div class="featured-title" id="featuredTitle">--</div>
+          <p class="featured-desc" id="featuredDescription">--</p>
+
+          <div class="featured-meta">
+            <div>
+              <div class="meta-title">Current Bid</div>
+              <div class="meta-value accent" id="featuredBid">$0</div>
+            </div>
+
+            <div>
+              <div class="meta-title">Time Left</div>
+              <div class="meta-value danger-text" id="featuredTime">--</div>
+            </div>
+          </div>
+
+          <div class="featured-footer">
+            <span id="featuredSeller">--</span>
+            <span id="featuredBids"></span>
+          </div>
+
+          <div class="featured-actions">
+            <button class="btn btn-primary" id="featuredEditBtn">Edit</button>
+            <button class="btn btn-secondary" id="featuredDeleteBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="card section-card showcase-admin-section">
+  <div class="section-header">
+    <div>
+      <div class="section-title">Category Showcase Management</div>
+      <div class="section-subtitle">
+        Choose which approved auctions appear at the top of each category page.
+      </div>
+    </div>
+
+    <div class="showcase-admin-controls">
+      <select id="showcaseCategoryFilter">
+        <option value="fashion">Fashion</option>
+        <option value="electronics">Electronics</option>
+        <option value="cars">Cars</option>
+        <option value="art">Art</option>
+        <option value="watches">Watches</option>
+        <option value="home">Home</option>
+      </select>
+
+      <button class="btn btn-secondary" id="refreshShowcaseBtn" type="button">
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div id="showcaseAdminList">
+    <div class="card section-card muted">Loading showcase auctions...</div>
+  </div>
+</section>
+
+    <section class="content-grid">
+      <div class="card section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Auction Management</div>
+           <div class="section-subtitle">Review, approve, edit, suspend, feature, or remove auctions from one place.</div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Auction</th>
+                <th>Seller</th>
+                <th>Category</th>
+                <th>Current Price</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="auctionTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="side-stack">
+        <div class="card side-card">
+          <div class="section-title" style="font-size:2rem;">Quick Controls</div>
+          <div class="section-subtitle" style="margin-bottom:1rem;">Quick shortcuts for access and control</div>
+
+          <div class="quick-links">
+              <div class="quick-link" id="quickGoHome">🏠 Go Home</div>
+            <div class="quick-link" id="quickAddAuction">+ Add New Auction</div>
+<div class="quick-link" id="quickManageUsers">👤 Manage Users</div>
+<div class="quick-link" id="quickViewReports">📊 View Reports</div>
+<div class="quick-link" id="quickSystemSettings">⚙️ System Settings</div>
+          </div>
+        </div>
+
+        <div class="card side-card">
+          <div class="section-title" style="font-size:2rem;">Recent Activity</div>
+          <div class="list-stack" id="recentActivity" style="margin-top:1rem;"></div>
+        </div>
+
+        <div class="card side-card">
+          <div class="section-title" style="font-size:2rem;">Alerts</div>
+          <div class="list-stack" id="adminAlerts" style="margin-top:1rem;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="livePanel">Live Auctions</button>
+        <button class="tab-btn" data-tab="pendingPanel">Pending Review</button>
+        <button class="tab-btn" data-tab="suspendedPanel">Suspended</button>
+        <button class="tab-btn" data-tab="allPanel">All Access</button>
+      </div>
+
+      <div id="livePanel" class="tab-panel active">
+        <div class="live-grid" id="liveGrid"></div>
+      </div>
+
+      <div id="pendingPanel" class="tab-panel">
+
+  <div id="pendingList"></div>
+
+  <div class="card section-card" id="pendingBidsSection" style="margin-top:1.5rem;">
+    <div class="section-header">
+      <div>
+        <div class="section-title">High Bid Requests</div>
+        <div class="section-subtitle">High bids that require admin approval</div>
+      </div>
+
+      <button class="btn btn-secondary" id="refreshPendingBidsBtn" type="button">
+        Refresh
+      </button>
+    </div>
+
+    <div id="pendingBidsList">
+      <div class="card section-card muted">Loading high bid requests...</div>
+    </div>
+  </div>
+
+</div>
+      <div id="suspendedPanel" class="tab-panel">
+        <div id="suspendedList"></div>
+      </div>
+
+      <div id="allPanel" class="tab-panel">
+        <div class="card section-card muted">
+          This page is a comprehensive control portal for quick access to auctions, monitoring, reports, and system management, with the ability to edit or delete any auction directly.This panel provides quick access to auction management, monitoring, reports, showcase control, and system administration.        </div>
+      </div>
+    </section>
+  </main>
+<div class="modal" id="reportsModal">
+  <div class="modal-box" style="max-width:1100px;">
+    <div class="modal-title">Daily Reports</div>
+
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:1rem;margin-top:1rem;">
+      
+      <aside class="card section-card">
+        <div class="section-title" style="font-size:1.4rem;">Report Days</div>
+        <div class="section-subtitle">Choose a day to view the report</div>
+        <div id="reportDaysList" style="margin-top:1rem;"></div>
+      </aside>
+
+      <section class="card section-card">
+        <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap;">
+          <div>
+            <div class="section-title" style="font-size:1.6rem;" id="reportTitle">Today Report</div>
+            <div class="section-subtitle" id="reportSubtitle">Daily platform summary</div>
+          </div>
+
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <input type="date" id="reportDateInput">
+            <button class="btn btn-secondary" id="loadReportBtn">Load</button>
+            <button class="btn btn-primary" id="printReportBtn">Print</button>
+          </div>
+        </div>
+
+        <div id="reportContent" style="margin-top:1rem;"></div>
+      </section>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="closeReportsBtn">Close</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="usersModal">
+  <div class="modal-box" style="max-width:1100px;">
+    <div class="modal-title">Users Management</div>
+
+    <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:1rem;">
+      <div>
+        <div class="section-title" style="font-size:1.5rem;">Platform Users</div>
+        <div class="section-subtitle">View users, activity status, auctions, bids, and platform engagement.</div>
+      </div>
+
+      <button class="btn btn-secondary" id="refreshUsersBtn" type="button">
+        Refresh
+      </button>
+    </div>
+
+    <div id="usersList" style="margin-top:1rem;">
+      <div class="card section-card muted">Loading users...</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="closeUsersBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+  <div class="modal" id="ledgerModal">
+    <div class="modal-box" style="max-width:900px;">
+      <div class="modal-title">Token Ledger</div>
+      <div id="ledgerContent" style="max-height:480px;overflow:auto;padding:8px 0"></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="closeLedger">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="editModal">
+    <div class="modal-box">
+      <div class="modal-title">Edit Auction</div>
+
+      <div class="form-grid">
+        <div>
+          <div class="form-group">
+            <label for="editTitle">Title</label>
+            <input id="editTitle" type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="editSeller">Seller</label>
+            <input id="editSeller" type="text" readonly title="Seller cannot be changed from the admin panel">
+          </div>
+
+         <div class="form-group">
+  <label for="editCategory">Category</label>
+  <select id="editCategory">
+    <option value="fashion">Fashion</option>
+    <option value="electronics">Electronics</option>
+    <option value="art">Art</option>
+    <option value="watches">Watches</option>
+    <option value="cars">Cars</option>
+    <option value="home">Home</option>
+  </select>
+</div>
+          <div class="form-group">
+            <label for="editBid">Current Bid</label>
+            <input id="editBid" type="text">
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label for="editStatus">Status</label>
+           <select id="editStatus">
+  <option value="pending">Pending</option>
+  <option value="approved">Approved</option>
+  <option value="suspended">Suspended</option>
+  <option value="ended">Ended</option>
+  <option value="rejected">Rejected</option>
+</select>
+          </div>
+
+        <div class="form-group">
+  <label for="editEndsIn">End Date & Time</label>
+  <input id="editEndsIn" type="datetime-local">
+  <small class="muted" style="display:block;margin-top:.35rem;">
+    If you set a future date for an ended auction, it can become active again after saving.
+  </small>
+</div>
+
+          <div class="form-group">
+            <label for="editDescription">Description</label>
+            <textarea id="editDescription"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelEdit">Cancel</button>
+        <button class="btn btn-primary" id="saveEdit">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="deleteModal">
+    <div class="modal-box" style="max-width:520px;">
+      <div class="modal-title">Delete Auction</div>
+      <p class="muted" id="deleteText">Are you sure you want to delete this auction?</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelDelete">Cancel</button>
+        <button class="btn btn-danger" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+<script>
+const user = JSON.parse(localStorage.getItem("mazadUser") || "null");
+
+if (!user) {
+  window.location.href = "login.html";
+} else if (user.role !== "admin") {
+  window.location.href = "index.html";
+}
+</script>
+    <script src="js/admin.js"></script>
+    <script src="js/google-translate.js"></script>
+<script>
+  initGoogleTranslate();
+</script>
+<script src="js/smart-header.js"></script>
+</body>
+</html>

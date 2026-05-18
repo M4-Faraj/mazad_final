@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mazad - Auction Details</title>
+  <meta
+    name="description"
+    content="Mazad auction details page for premium listings, live bidding, watchlist, and bid history."
+  />
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Shared + page CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auction.css" />
+</head>
+<body>
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+
+  <!-- ================= MAIN ================= -->
+  <main class="page-wrap">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <a href="#" id="sourcePageLink">Category</a>
+      <span>›</span>
+      <span id="crumbTitle">Auction Details</span>
+    </div>
+
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="page-hero-left">
+        <span class="page-kicker">💎 Premium Listing</span>
+        <h1 class="page-title" id="heroTitle">AUCTION DETAILS</h1>
+        <p class="page-subtitle" id="heroSubtitle">
+          Bid securely on premium lots, track the latest price movement, and place your next offer instantly.
+        </p>
+      </div>
+
+      <div class="page-hero-right">
+        <div class="status-pill" id="statusPill">AUCTION LIVE</div>
+        <div class="countdown-pill" id="countdownPill">⏳ Ends in: --:--:--</div>
+      </div>
+    </section>
+
+    <!-- Content Layout -->
+    <div class="details-layout">
+      <!-- ========== LEFT COLUMN ========== -->
+      <section class="left-col">
+        <div class="panel gallery-shell">
+          <div class="gallery-main" id="galleryMain">
+            <div class="gallery-badge-row">
+              <div class="badge-stack">
+                <span class="panel-badge category" id="categoryBadge">Category</span>
+                <span class="panel-badge live" id="modeBadge">NORMAL</span>
+              </div>
+
+              <button
+                class="icon-btn"
+                id="watchlistBtn"
+                type="button"
+                title="Add to watchlist"
+                aria-label="Add to watchlist"
+              >
+                ♡
+              </button>
+            </div>
+          </div>
+
+          <div class="gallery-thumbs" id="galleryThumbs" aria-label="Auction gallery thumbnails"></div>
+
+          <div class="info-shell">
+            <div class="title-row">
+              <div>
+                <h2 class="auction-title" id="auctionTitle">Auction Item</h2>
+                <div class="page-subtitle" id="metaLine">by Seller</div>
+              </div>
+
+              <div class="share-row">
+                <button class="btn btn-secondary" id="copyLinkBtn" type="button">Copy Link</button>
+                <button class="btn btn-secondary" id="shareBidBtn" type="button">Share</button>
+              </div>
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-card">
+                <div class="meta-label">Seller</div>
+                <div class="meta-value" id="sellerValue">Seller Name</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Category</div>
+                <div class="meta-value" id="categoryValue">Category</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Listing Status</div>
+                <div class="meta-value" id="statusValue">Active</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="meta-label">Auction ID</div>
+                <div class="meta-value" id="auctionIdValue">#0000</div>
+              </div>
+            </div>
+
+            <div class="desc-box">
+              <div class="section-title">
+                <h3>Description</h3>
+                <span>Premium item details</span>
+              </div>
+
+              <p class="desc-text" id="descText">Item description goes here.</p>
+              <div class="tags" id="tagsWrap"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== RIGHT COLUMN ========== -->
+      <aside class="sidebar">
+        <div class="panel price-panel">
+          <div class="section-title">
+            <h3>Place a Bid</h3>
+            <span id="bidStatusText">Real-time auction panel</span>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-card">
+              <div class="stat-label">Starting Price</div>
+              <div class="stat-value" id="startingPriceValue">$0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Current Highest Bid</div>
+              <div class="stat-value big" id="currentBidValue">$0</div>
+            </div>
+
+            <div class="stat-card full">
+              <div class="stat-label">Minimum Next Bid</div>
+              <div class="stat-value success" id="minimumBidValue">$0</div>
+              <div class="bid-helper" id="minimumBidHelper">
+                Your next bid must be higher than the current highest bid.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrap">
+            <label class="input-label" for="bidAmount">Your Bid Amount</label>
+            <input
+              id="bidAmount"
+              class="input"
+              type="number"
+              min="1"
+              inputmode="numeric"
+              placeholder="Enter your bid amount (e.g. 500)"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="quick-bids" id="quickBidsWrap"></div>
+
+          <div class="bid-actions">
+            <button id="placeBidBtn" class="btn btn-primary" type="button">Place Bid</button>
+            <button id="autoFillMinBtn" class="btn btn-secondary" type="button">Use Minimum</button>
+          </div>
+
+          <div class="info-note" id="infoNote">
+            Place your bid confidently. Each new bid must beat the current highest offer by the required minimum increment.
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="num" id="bidCountValue">0</div>
+              <div class="txt">Total bids</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="num" id="watchCountValue">0</div>
+          <div class="txt">Auction views</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="num" id="timeLeftMini">--:--:--</div>
+              <div class="txt">Time left</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel history-panel">
+          <div class="history-head">
+            <h3>Bid History</h3>
+            <div class="history-meta" id="historyMeta">Latest auction activity</div>
+          </div>
+
+          <div class="history-list" id="historyList"></div>
+        </div>
+
+        <div class="panel comments-panel" id="commentsPanel">
+          <div class="history-head">
+            <h3>Comments</h3>
+            <div class="history-meta" id="commentsMeta">Loading comments...</div>
+          </div>
+
+          <div id="commentComposer" style="display:none;margin:.8rem 0;">
+            <textarea id="commentInput" class="input" rows="3"
+              placeholder="Write a comment about this auction..."
+              style="width:100%;resize:vertical;min-height:70px;"></textarea>
+            <div style="display:flex;justify-content:flex-end;margin-top:.4rem;">
+              <button id="postCommentBtn" class="btn btn-primary" type="button">Post Comment</button>
+            </div>
+          </div>
+
+          <div id="commentLoginNote" class="info-note" style="display:none;">
+            Please <a href="login.html" style="color:inherit;text-decoration:underline;">sign in</a> to post a comment.
+          </div>
+
+          <div id="commentsList" class="history-list"></div>
+        </div>
+
+        <div class="panel tips-panel">
+          <h3>Bidding Tips</h3>
+          <div class="tips-list">
+            <div class="tip">
+              <strong>Bid strategically:</strong>
+              Start with the minimum required amount to stay competitive without overspending early.
+            </div>
+            <div class="tip">
+              <strong>Watch the timer:</strong>
+              Prices usually rise faster near the end of the auction, especially in the final minutes.
+            </div>
+            <div class="tip">
+              <strong>Stay ready:</strong>
+              Keep your next bid planned so you can react instantly when someone outbids you.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Mobile Sticky Bar -->
+  <div class="sticky-mobile-bar" id="stickyMobileBar">
+    <div class="sticky-mobile-inner">
+      <div class="sticky-mobile-price">
+        <div class="sticky-mobile-label">Current Highest Bid</div>
+        <div class="sticky-mobile-value" id="stickyBidValue">$0</div>
+      </div>
+      <button class="btn btn-primary" id="stickyBidBtn" type="button">Bid Now</button>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Mazad. Auction details experience.</p>
+  </footer>
+
+  <!-- ================= PAGE JS ================= -->
+   <script src="js/google-translate.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/details.js"></script>
+  <script>
+  initGoogleTranslate();
+</script>
+
+</body>
+</html>

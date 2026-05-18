@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZAD Employee Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="employee-header">
+  <div class="header-left">
+    <div class="logo-slot">
+      <img src="logo (2).png" alt="Mazad Logo">
+    </div>
+
+    <div class="brand-block">
+      <div class="admin-badge">Employee Panel</div>
+    </div>
+  </div>
+
+  <div class="header-center">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#" class="active">Auctions Review</a>
+    </nav>
+  </div>
+
+  <div class="header-right">
+    <div class="header-actions">
+
+      <div class="lang-switch">
+        <button id="gtToggle" class="btn btn-secondary" type="button">AR</button>
+      </div>
+      <div id="google_translate_element" style="display:none;"></div>
+
+      <div class="notif-wrap header-notif-wrap">
+        <button class="btn btn-secondary header-notif-btn" id="employeeNotifBell" type="button" aria-label="Notifications">
+          🔔<span class="notif-badge header-notif-badge" id="employeeNotifBadge" hidden>0</span>
+        </button>
+
+        <div class="notif-dropdown header-notif-dropdown" id="employeeNotifDropdown">
+          <div class="notif-head header-notif-head">
+            <div class="notif-title">Notifications</div>
+            <div class="header-notif-actions notif-actions">
+              <button class="auth-link" id="employeeNotifMarkAll" type="button">Mark all read</button>
+              <button class="auth-link" id="employeeNotifClearAll" type="button">Clear all</button>
+            </div>
+          </div>
+
+          <div class="notif-body header-notif-list" id="employeeNotifBody">
+            <div class="muted" style="padding:.7rem;">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-profile-wrap">
+        <button class="admin-profile-btn" id="employeeProfileBtn" type="button" aria-label="Employee profile menu">
+          <span class="admin-profile-text">
+            <span class="admin-profile-name" id="employeeProfileName">Employee</span>
+            <span class="admin-profile-role" id="employeeProfileRole">Employee</span>
+          </span>
+
+          <img
+            class="admin-profile-img"
+            id="employeeProfileImg"
+            src="logo (1).png"
+            alt="Employee profile"
+          >
+        </button>
+
+        <div class="admin-profile-dropdown" id="employeeProfileDropdown">
+          <div class="admin-dropdown-head">
+            <strong id="employeeDropdownName">Employee</strong>
+            <span id="employeeDropdownEmail">employee@mazad.com</span>
+          </div>
+
+          <a href="profile.html">👤 <span>Profile</span></a>
+          <a href="profile.html#myAuctionsPanel">🧾 <span>My Auctions</span></a>
+          <a href="profile.html#friendsPanel">👥 <span>Partners</span></a>
+          <button type="button" id="employeeDropdownLogout">🚪 <span>Logout</span></button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="logo-slot">
+      <img src="logo (1).png" alt="Mazad Logo">
+    </div>
+  </div>
+</header>
+  <main>
+    <div class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Employee Dashboard</span>
+    </div>
+    <section class="hero-grid" style="grid-template-columns:1fr;">
+      <div class="card hero-card">
+        <h1 class="hero-title">PENDING <span>REVIEW</span></h1>
+        <p class="hero-text">Review pending auctions and approve or reject them.</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Pending Auctions</div>
+            <div class="stat-value" id="statPending">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Approved Today</div>
+            <div class="stat-value" id="statApproved">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">High Bids</div>
+            <div class="stat-value" id="statHighBids">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Rejected Today</div>
+            <div class="stat-value" id="statRejected">0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card section-card">
+        <div class="section-title">Auctions Awaiting Approval</div>
+        <div id="pendingList" style="margin-top:1rem;"></div>
+      </div>
+    </section>
+    <section style="margin-top:1.5rem;">
+  <div class="card section-card">
+    <div class="section-header">
+      <div>
+        <div class="section-title">High Bid Requests</div>
+        <div class="section-subtitle">Review high-value bids that need approval.</div>
+      </div>
+
+      <button class="btn btn-secondary" id="refreshPendingBidsBtn" type="button">
+        Refresh
+      </button>
+    </div>
+
+    <div id="pendingBidsList" style="margin-top:1rem;">
+      <div class="card section-card muted">Loading high bid requests...</div>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <script>
+   let currentEmployee = null;
+
+function checkEmployeeSession() {
+  return fetch('/mazad/api/get-current-user.php', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status !== 'success' || !res.user) {
+        window.location.href = 'login.html';
+        return null;
+      }
+
+      if (res.user.role !== 'employee' && res.user.role !== 'admin') {
+        window.location.href = 'index.html';
+        return null;
+      }
+
+      currentEmployee = res.user;
+      fillEmployeeHeader(res.user);
+      loadEmployeeNotifications();
+      return res.user;
+    })
+    .catch(() => {
+      window.location.href = 'login.html';
+      return null;
+    });
+}
+function logout() {
+  fetch('/mazad/api/logout.php')
+    .finally(() => {
+      localStorage.removeItem('mazadUser');
+      window.location.href = 'login.html';
+    });
+}
+
+const employeeProfileBtn = document.getElementById('employeeProfileBtn');
+const employeeProfileDropdown = document.getElementById('employeeProfileDropdown');
+const employeeDropdownLogout = document.getElementById('employeeDropdownLogout');
+
+const employeeProfileName = document.getElementById('employeeProfileName');
+const employeeProfileRole = document.getElementById('employeeProfileRole');
+const employeeProfileImg = document.getElementById('employeeProfileImg');
+
+const employeeDropdownName = document.getElementById('employeeDropdownName');
+const employeeDropdownEmail = document.getElementById('employeeDropdownEmail');
+const employeeNotifBell =
+  document.getElementById('employeeNotifBell') ||
+  document.querySelector('.employee-notif-btn, .admin-notif-btn, .header-notif-btn');
+const employeeNotifDropdown =
+  document.getElementById('employeeNotifDropdown') ||
+  document.querySelector('.employee-notif-dropdown, .header-notif-dropdown, .notif-dropdown');
+const employeeNotifBadge =
+  document.getElementById('employeeNotifBadge') ||
+  document.querySelector('.employee-notif-badge, .admin-notif-badge, .header-notif-badge, .notif-badge');
+const employeeNotifBody =
+  document.getElementById('employeeNotifBody') ||
+  (employeeNotifDropdown ? employeeNotifDropdown.querySelector('.notif-body, .header-notif-list') : null);
+const employeeNotifMarkAll = document.getElementById('employeeNotifMarkAll');
+const employeeNotifClearAll = document.getElementById('employeeNotifClearAll');
+
+function getEmployeeProfileImageSrc(rawImage) {
+  const fallback = 'logo (1).png';
+
+  if (!rawImage) return fallback;
+
+  const img = String(rawImage).trim();
+
+  if (!img) return fallback;
+
+  if (img.startsWith('data:image/')) {
+    return img;
+  }
+
+  if (img.startsWith('http://') || img.startsWith('https://')) {
+    return img;
+  }
+
+  if (img.startsWith('/')) {
+    return img;
+  }
+
+  if (img.startsWith('assets/')) {
+    return img;
+  }
+
+  if (img.startsWith('uploads/')) {
+    return '/mazad/' + img.replace(/^\/+/, '');
+  }
+
+  return '/mazad/uploads/' + img.replace(/^\/+/, '');
+}
+
+function fillEmployeeHeader(currentUser) {
+  if (!currentUser) return;
+
+  const displayName =
+    currentUser.name ||
+    currentUser.full_name ||
+    currentUser.username ||
+    'Employee';
+
+  const displayEmail =
+    currentUser.email ||
+    'employee@mazad.com';
+
+  if (employeeProfileName) {
+    employeeProfileName.textContent = displayName;
+  }
+
+  if (employeeProfileRole) {
+    employeeProfileRole.textContent = currentUser.role || 'employee';
+  }
+
+  if (employeeDropdownName) {
+    employeeDropdownName.textContent = displayName;
+  }
+
+  if (employeeDropdownEmail) {
+    employeeDropdownEmail.textContent = displayEmail;
+  }
+
+  if (employeeProfileImg) {
+    employeeProfileImg.src = getEmployeeProfileImageSrc(currentUser.profile_image);
+
+    employeeProfileImg.onerror = function () {
+      this.onerror = null;
+      this.src = 'logo (1).png';
+    };
+  }
+
+}
+
+
+
+
+
+if (employeeProfileBtn && employeeProfileDropdown) {
+  employeeProfileBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (employeeNotifDropdown) {
+      employeeNotifDropdown.classList.remove('open');
+    }
+    employeeProfileDropdown.classList.toggle('open');
+  });
+}
+
+function getEmployeeNotificationIcon(type) {
+  const clean = String(type || '').toLowerCase();
+
+  if (clean.includes('chat_message')) return '💬';
+  if (clean.includes('friend_request_accepted')) return '✅';
+  if (clean.includes('friend_request_rejected')) return '❌';
+  if (clean.includes('friend_request')) return '👥';
+  if (clean.includes('auction_approved')) return '✅';
+  if (clean.includes('auction_rejected')) return '❌';
+  if (clean.includes('auction_important')) return '⭐';
+  if (clean.includes('auction')) return '🏛️';
+  if (clean.includes('bid_approved')) return '✅';
+  if (clean.includes('bid_rejected')) return '❌';
+  if (clean.includes('bid')) return '💰';
+  if (clean.includes('important') || clean.includes('featured')) return '⭐';
+  if (clean.includes('win')) return '🏆';
+
+  return '🔔';
+}
+
+function countEmployeeUnreadItems(items) {
+  return items.filter(item =>
+    Number(item.is_read) === 0 ||
+    Number(item.read) === 0 ||
+    item.unread === true ||
+    String(item.data_read || item.read_status || '').toLowerCase() === '0'
+  ).length;
+}
+
+function updateEmployeeNotificationBadge(count) {
+  if (!employeeNotifBadge) return;
+
+  let unread = Number(count);
+
+  if (!Number.isFinite(unread) && employeeNotifDropdown) {
+    unread = employeeNotifDropdown.querySelectorAll(
+      '.header-notif-item.unread, .notif-item.unread, .admin-notif-item.unread, .employee-notif-item.unread, [data-read="0"], [data-unread="true"]'
+    ).length;
+  }
+
+  if (unread > 0) {
+    employeeNotifBadge.textContent = unread > 9 ? '9+' : String(unread);
+    employeeNotifBadge.hidden = false;
+  } else {
+    employeeNotifBadge.hidden = true;
+  }
+}
+
+function renderEmployeeNotifications(items, unread) {
+  if (!employeeNotifBody) return;
+
+  const unreadCount = Number.isFinite(Number(unread)) ? Number(unread) : countEmployeeUnreadItems(items);
+  updateEmployeeNotificationBadge(unreadCount);
+
+  if (!items.length) {
+    employeeNotifBody.innerHTML = '<div class="notif-empty header-notif-empty">No notifications yet.</div>';
+    return;
+  }
+
+  employeeNotifBody.innerHTML = items.map(item => {
+    const isUnread = Number(item.is_read) === 0;
+    const icon = getEmployeeNotificationIcon(item.type);
+
+    return `
+      <div class="notif-item header-notif-item ${isUnread ? 'unread' : ''}" data-link="${escapeEmployeeHtml(item.link || '')}">
+        <button
+          class="notif-delete header-notif-delete"
+          type="button"
+          data-id="${Number(item.id || 0)}"
+          title="Delete notification"
+          aria-label="Delete notification"
+        >×</button>
+
+        <span class="icon header-notif-icon">${icon}</span>
+        <div class="body header-notif-content">
+          <strong>${escapeEmployeeHtml(item.title || item.subject || 'Notification')}</strong>
+          <span>${escapeEmployeeHtml(item.message || item.body || '')}</span>
+          <small class="muted" style="display:block;margin-top:.25rem;">
+            ${escapeEmployeeHtml(item.created_at || '')}
+          </small>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  employeeNotifBody.querySelectorAll('.notif-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (employeeNotifDropdown) {
+        employeeNotifDropdown.classList.remove('open');
+      }
+
+      const link = item.dataset.link;
+      if (link) {
+        window.location.href = link;
+      }
+    });
+  });
+
+  employeeNotifBody.querySelectorAll('.notif-delete').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      deleteEmployeeNotification(btn.dataset.id);
+    });
+  });
+
+  updateEmployeeNotificationBadge(unreadCount);
+}
+
+function loadEmployeeNotifications() {
+  if (!employeeNotifBody) return;
+
+  employeeNotifBody.innerHTML = '<div class="notif-empty header-notif-empty">Loading...</div>';
+
+  fetch('/mazad/api/get-notifications.php', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.status !== 'success') {
+        employeeNotifBody.innerHTML = '<div class="notif-empty header-notif-empty">Could not load notifications.</div>';
+        if (employeeNotifBadge) employeeNotifBadge.hidden = true;
+        return;
+      }
+
+      const items =
+        Array.isArray(data.notifications)
+          ? data.notifications
+          : Array.isArray(data.data)
+            ? data.data
+            : [];
+
+      const unread = Number(data.unread_count ?? data.unread ?? countEmployeeUnreadItems(items));
+      renderEmployeeNotifications(items, unread);
+    })
+    .catch(() => {
+      employeeNotifBody.innerHTML = '<div class="notif-empty header-notif-empty">Network error.</div>';
+      if (employeeNotifBadge) employeeNotifBadge.hidden = true;
+    });
+}
+
+function markEmployeeNotificationsRead() {
+  fetch('/mazad/api/mark-notifications-read.php', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'success') {
+        updateEmployeeNotificationBadge(0);
+        loadEmployeeNotifications();
+      }
+    })
+    .catch(() => {});
+}
+
+function deleteEmployeeNotification(id) {
+  if (!id) return;
+
+  fetch('/mazad/api/delete-notification.php', {
+    method: 'POST',
+    body: new URLSearchParams({ notification_id: id })
+  })
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'success') {
+        updateEmployeeNotificationBadge(0);
+        loadEmployeeNotifications();
+      }
+    })
+    .catch(() => {});
+}
+
+function deleteAllEmployeeNotifications() {
+  fetch('/mazad/api/delete-all-notifications.php', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'success') {
+        updateEmployeeNotificationBadge(0);
+        loadEmployeeNotifications();
+      }
+    })
+    .catch(() => {});
+}
+
+if (employeeNotifBell && employeeNotifDropdown) {
+  employeeNotifBell.addEventListener('click', e => {
+    e.stopPropagation();
+
+    if (employeeProfileDropdown) {
+      employeeProfileDropdown.classList.remove('open');
+    }
+
+    const opening = !employeeNotifDropdown.classList.contains('open');
+    employeeNotifDropdown.classList.toggle('open');
+
+    if (opening) {
+      loadEmployeeNotifications();
+    }
+  });
+}
+
+if (employeeNotifMarkAll) {
+  employeeNotifMarkAll.addEventListener('click', e => {
+    e.stopPropagation();
+    markEmployeeNotificationsRead();
+  });
+}
+
+if (employeeNotifClearAll) {
+  employeeNotifClearAll.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!confirm('Delete all notifications?')) return;
+    deleteAllEmployeeNotifications();
+  });
+}
+
+if (employeeDropdownLogout) {
+  employeeDropdownLogout.addEventListener('click', logout);
+}
+
+document.addEventListener('click', e => {
+  if (
+    employeeProfileDropdown &&
+    employeeProfileBtn &&
+    employeeProfileDropdown.classList.contains('open') &&
+    !employeeProfileDropdown.contains(e.target) &&
+    !employeeProfileBtn.contains(e.target)
+  ) {
+    employeeProfileDropdown.classList.remove('open');
+  }
+
+  if (
+    employeeNotifDropdown &&
+    employeeNotifBell &&
+    employeeNotifDropdown.classList.contains('open') &&
+    !employeeNotifDropdown.contains(e.target) &&
+    !employeeNotifBell.contains(e.target)
+  ) {
+    employeeNotifDropdown.classList.remove('open');
+  }
+});
+
+    let approvedCount = 0;
+
+    function fetchPending() {
+      fetch('/mazad/api/get-pending-auctions.php')
+        .then(r => r.json())
+        .then(res => {
+          if (res.status !== 'success') {
+            document.getElementById('pendingList').innerHTML = '<div class="muted" style="padding:1rem;">Could not load pending auctions. Make sure you are logged in.</div>';
+            return;
+          }
+          const items = res.data || [];
+          document.getElementById('statPending').textContent = items.length;
+          document.getElementById('statApproved').textContent = approvedCount;
+
+          if (!items.length) {
+            document.getElementById('pendingList').innerHTML = '<div class="card section-card muted">No pending auctions.</div>';
+            return;
+          }
+
+          document.getElementById('pendingList').innerHTML = items.map(it => `
+            <div class="moderation-item" style="padding:1rem;border-bottom:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+              <div style="display:flex;gap:12px;align-items:center;flex:1;">
+                <div style="width:96px;height:64px;overflow:hidden;background:#222;border-radius:6px;flex-shrink:0;">
+                  <img src="${(it.images && it.images[0]) ? it.images[0] : (it.image || '')}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+                </div>
+                <div>
+                  <div style="font-weight:700;font-size:1.05rem;">${escapeEmployeeHtml(it.title || '')}</div>
+                  <div class="muted" style="font-size:.9rem;">by ${escapeEmployeeHtml(it.seller || it.user_id || '')} &bull; ${escapeEmployeeHtml(it.category || '')} &bull; $${Number(it.start_price||0).toLocaleString()}</div>
+                  <div style="font-size:.85rem;color:#aaa;margin-top:.25rem;">${escapeEmployeeHtml((it.description||'').substring(0,120))}...</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:.5rem;flex-shrink:0;">
+                <button class="btn btn-primary" onclick="approve(${it.id})">Approve</button>
+                <button class="btn btn-warning" onclick="reject(${it.id})">Reject</button>
+              </div>
+            </div>
+          `).join('');
+        })
+        .catch(() => {
+          document.getElementById('pendingList').innerHTML = '<div class="muted" style="padding:1rem;">Network error loading auctions.</div>';
+        });
+    }
+
+    function approve(id) {
+      fetch('/mazad/api/approve-auction.php', { method: 'POST', body: new URLSearchParams({ auction_id: id }) })
+        .then(r => r.json()).then(d => {
+          if (d.status === 'success') { approvedCount++; fetchPending(); }
+          else alert('Error: ' + (d.message || ''));
+        }).catch(() => alert('Network error'));
+    }
+
+    function reject(id) {
+      if (!confirm('Reject this auction?')) return;
+      fetch('/mazad/api/reject-auction.php', { method: 'POST', body: new URLSearchParams({ auction_id: id }) })
+        .then(r => r.json()).then(d => {
+         if (d.status === 'success') {
+  rejectedCount++;
+
+  const statRejected = document.getElementById('statRejected');
+  if (statRejected) {
+    statRejected.textContent = rejectedCount;
+  }
+
+  fetchPending();
+}
+          else alert('Error: ' + (d.message || ''));
+        }).catch(() => alert('Network error'));
+    }
+
+
+    let rejectedCount = 0;
+
+function escapeEmployeeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+
+function fetchPendingBids() {
+  const list = document.getElementById('pendingBidsList');
+
+  if (list) {
+    list.innerHTML = '<div class="card section-card muted">Loading high bid requests...</div>';
+  }
+
+  fetch('/mazad/api/get-pending-bids.php', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status !== 'success') {
+        if (list) {
+          list.innerHTML = '<div class="card section-card muted">Could not load high bid requests.</div>';
+        }
+        return;
+      }
+
+      const items = res.data || [];
+
+      const statHighBids = document.getElementById('statHighBids');
+      if (statHighBids) {
+        statHighBids.textContent = items.length;
+      }
+
+      renderPendingBids(items);
+    })
+    .catch(() => {
+      if (list) {
+        list.innerHTML = '<div class="card section-card muted">Network error loading high bid requests.</div>';
+      }
+    });
+}
+
+function renderPendingBids(items) {
+  const list = document.getElementById('pendingBidsList');
+  if (!list) return;
+
+  if (!items.length) {
+    list.innerHTML = '<div class="card section-card muted">No high bid requests pending review.</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(b => `
+    <div class="moderation-item pending-bid-item" data-id="${b.bid_id}">
+      <div>
+        <div style="font-weight:800;font-size:1.05rem;">
+          ${escapeEmployeeHtml(b.auction_title || 'Untitled Auction')}
+        </div>
+
+        <div class="muted" style="margin-top:.35rem;">
+          Bidder: ${escapeEmployeeHtml(b.bidder_name || ('User#' + b.user_id))}
+          &bull; Category: ${escapeEmployeeHtml(b.category || '')}
+          &bull; Auction #${escapeEmployeeHtml(b.auction_id || '')}
+        </div>
+
+        <div style="margin-top:.6rem;">
+          <strong>Requested bid:</strong>
+          <span style="color:var(--accent);font-weight:900;">
+            $${Number(b.bid_amount || 0).toLocaleString()}
+          </span>
+        </div>
+
+        <div class="muted" style="margin-top:.25rem;">
+          Current price: $${Number(b.current_price || 0).toLocaleString()}
+          &bull; Reason: ${escapeEmployeeHtml(b.review_reason || 'High value bid')}
+        </div>
+      </div>
+
+      <div class="action-group" style="margin-top:10px">
+        <button class="btn btn-primary" onclick="approvePendingBid(${b.bid_id})">
+          Approve Bid
+        </button>
+        <button class="btn btn-danger" onclick="rejectPendingBid(${b.bid_id})">
+          Reject Bid
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function approvePendingBid(bidId) {
+  fetch('/mazad/api/approve-bid.php', {
+    method: 'POST',
+    body: new URLSearchParams({ bid_id: bidId })
+  })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === 'success') {
+        approvedCount++;
+        fetchPending();
+        fetchPendingBids();
+      } else {
+        alert('Approve failed: ' + (res.message || 'unknown error'));
+      }
+    })
+    .catch(() => alert('Network error while approving bid'));
+}
+
+function rejectPendingBid(bidId) {
+  if (!confirm('Reject this high-value bid?')) return;
+
+  fetch('/mazad/api/reject-bid.php', {
+    method: 'POST',
+    body: new URLSearchParams({ bid_id: bidId })
+  })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === 'success') {
+        rejectedCount++;
+
+        const statRejected = document.getElementById('statRejected');
+        if (statRejected) {
+          statRejected.textContent = rejectedCount;
+        }
+
+        fetchPendingBids();
+      } else {
+        alert('Reject failed: ' + (res.message || 'unknown error'));
+      }
+    })
+    .catch(() => alert('Network error while rejecting bid'));
+}
+
+const refreshPendingBidsBtn = document.getElementById('refreshPendingBidsBtn');
+if (refreshPendingBidsBtn) {
+  refreshPendingBidsBtn.addEventListener('click', fetchPendingBids);
+}checkEmployeeSession().then(employee => {
+  if (!employee) return;
+
+  fetchPending();
+  fetchPendingBids();
+});
+  </script>
+  <script src="js/google-translate.js"></script>
+<script>
+  if (typeof initGoogleTranslate === 'function') {
+    initGoogleTranslate();
+  }
+</script>
+<script src="js/smart-header.js"></script>
+</body>
+</html>

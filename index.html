@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazad - Live Auction House</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+<section class="interactive-hero" id="heroSection">
+  <div class="hero-left">
+    <div class="rotator">
+      <div class="panel" data-key="add">
+  <span>Add Auction</span>
+</div>
+      <div class="panel" data-key="bids">
+  <span>Place Bids</span>
+</div>
+      <div class="panel" data-key="profile">
+  <span>Profile</span>
+</div>
+      <div class="panel" data-key="home">
+  <span>Home</span>
+</div>
+      <div class="panel" data-key="live">
+  <span>Live Auction</span>
+</div>
+    </div>
+  </div>
+
+<div class="hero-right" id="heroContent">
+  <div class="hero-bg" id="heroBg"></div>
+
+  <div class="hero-text">
+    <h2>Add Auction</h2>
+    <p>Create a new auction by entering product details, category, starting price, duration, and images. Sellers can publish items for review and track their auction activity.</p>
+    <a class="btn btn-primary hero-open-btn" id="heroOpenBtn" href="seller-auctions.html">Open Page</a>
+  </div>
+</div>
+</section>
+<div class="hero-top-search">
+  <div class="search-bar">
+    <input type="text" id="heroSearchInput" placeholder="Search...">
+    <button class="btn btn-primary" id="heroSearchBtn">Search</button>
+  </div>
+</div>
+<section class="category-rails">
+
+  <div class="rail-section">
+    <div class="rail-head">
+      <a class="rail-link" href="fashion.html">Fashion</a>
+      <p class="rail-subtitle">Latest fashion auctions selected for display.</p>
+    </div>
+
+    <div class="rail-shell">
+      <button class="rail-nav prev" type="button">‹</button>
+
+      <div class="rail-track" id="rail-fashion"></div>
+
+      <button class="rail-nav next" type="button">›</button>
+    </div>
+  </div>
+
+  <div class="rail-section">
+    <div class="rail-head">
+      <a class="rail-link" href="cars.html">Vehicles</a>
+      <p class="rail-subtitle">Highlighted vehicle auctions.</p>
+    </div>
+
+    <div class="rail-shell">
+      <button class="rail-nav prev" type="button">‹</button>
+
+      <div class="rail-track" id="rail-cars"></div>
+
+      <button class="rail-nav next" type="button">›</button>
+    </div>
+  </div>
+
+  <div class="rail-section">
+    <div class="rail-head">
+      <a class="rail-link" href="electronics.html">Electronics</a>
+      <p class="rail-subtitle">Top electronics currently in bidding.</p>
+    </div>
+
+    <div class="rail-shell">
+      <button class="rail-nav prev" type="button">‹</button>
+
+      <div class="rail-track" id="rail-electronics"></div>
+
+      <button class="rail-nav next" type="button">›</button>
+    </div>
+  </div>
+<div class="rail-section">
+  <div class="rail-head">
+    <a class="rail-link" href="art.html">Art</a>
+    <p class="rail-subtitle">Premium art auctions.</p>
+  </div>
+
+  <div class="rail-shell">
+    <button class="rail-nav prev">‹</button>
+
+    <div class="rail-track" id="rail-art"></div>
+
+    <button class="rail-nav next">›</button>
+  </div>
+</div>
+<div class="rail-section">
+  <div class="rail-head">
+    <a class="rail-link" href="home.html">Home</a>
+    <p class="rail-subtitle">Home & decor auctions.</p>
+  </div>
+
+  <div class="rail-shell">
+    <button class="rail-nav prev">‹</button>
+
+    <div class="rail-track" id="rail-home"></div>
+
+    <button class="rail-nav next">›</button>
+  </div>
+</div>
+<div class="rail-section">
+  <div class="rail-head">
+    <a class="rail-link" href="watches.html">Watches</a>
+    <p class="rail-subtitle">Premium watches auctions.</p>
+  </div>
+
+  <div class="rail-shell">
+    <button class="rail-nav prev">‹</button>
+
+    <div class="rail-track" id="rail-watches"></div>
+
+    <button class="rail-nav next">›</button>
+  </div>
+</div>
+</section>
+<div class="category-filters">
+
+  <button class="filter-btn active" data-category="all">All</button>
+  <button class="filter-btn" data-category="fashion">Fashion</button>
+  <button class="filter-btn" data-category="electronics">Electronics</button>
+  <button class="filter-btn" data-category="art">Art</button>
+  <button class="filter-btn" data-category="watches">Watches</button>
+  <button class="filter-btn" data-category="cars">Cars</button>
+  <button class="filter-btn" data-category="home">Home</button>
+
+</div>
+
+<section class="auctions" id="normal-auctions-section">
+  <div class="section-header">
+    <h2 class="section-title">Normal Auctions</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">
+      Regular auctions added by sellers will appear here
+    </p>
+  </div>
+
+  <div class="auction-grid" id="normalAuctionGrid"></div>
+</section>
+<div class="section-more">
+<button class="view-more-btn normal" onclick="viewMore('normal')">View More</button>
+</div>
+<section class="auctions" id="live-auctions-section">
+  <div class="section-header">
+    <h2 class="section-title">Live Auctions</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">
+      Live auctions added by sellers will appear here
+    </p>
+  </div>
+
+
+  <div class="auction-grid" id="liveAuctionGrid"></div>
+</section>
+<div class="section-more">
+<button class="view-more-btn live" onclick="viewMore('live')">View More</button>
+</div>
+<section class="auctions" id="important-auctions-section">
+  <div class="section-header">
+    <h2 class="section-title">Important Auctions</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">
+      Featured and important auctions will appear here
+    </p>
+  </div>
+  
+
+  <div class="auction-grid" id="importantAuctionGrid"></div>
+</section>
+<div class="section-more">
+<button class="view-more-btn important" onclick="viewMore('important')">View More</button>
+</div>
+<footer>
+    <p>&copy; 2026 Mazad Auction House. All rights reserved. Built for secure, premium online bidding.</p>
+</footer>
+<section id="favorites-section" class="favorites-section">
+
+  <h2>Your Favorites</h2>
+
+  <div class="favorites-grid" id="favoritesGrid">
+    <!-- ط§ظ„ط¹ظ†ط§طµط± ط±ط­ طھظ†ط¶ط§ظپ ظ‡ظˆظ† -->
+  </div>
+
+</section>
+<section class="reviews-section">
+
+  <h2>User Reviews</h2>
+
+  <!-- ط¥ط¶ط§ظپط© ط±ط£ظٹ -->
+<div class="review-form">
+  <textarea id="reviewText" placeholder="Write your opinion..."></textarea>
+  <button onclick="addReview()">Submit</button>
+</div>
+
+<div class="reviews-grid" id="reviewsGrid"></div>
+
+<div style="text-align:center; margin-top:25px;">
+  <button id="showMoreReviewsBtn" class="show-more-reviews" onclick="loadMoreReviews()" style="display:none;">
+    Show More
+  </button>
+</div>
+</section>
+
+<script>
+  
+    /* =========================
+       SEARCH
+    ========================= */
+    const heroSearchInput = document.getElementById('heroSearchInput');
+    const heroSearchBtn = document.getElementById('heroSearchBtn');
+    let activeAuctionFilter = 'all';
+
+    /* how many cards each home section currently shows ("View More" raises these) */
+    let normalLimit = 4;
+    let liveLimit = 4;
+    let importantLimit = 4;
+
+function isAuctionExpired(item) {
+  const end = item && item.end_time ? new Date(String(item.end_time).replace(' ', 'T')).getTime() : 0;
+  return end > 0 && Date.now() >= end;
+}
+
+function handleSearch() {
+  const value = heroSearchInput.value.trim().toLowerCase();
+  let filtered = getHomeAuctions();
+
+  if (activeCategory !== 'all') {
+    filtered = filtered.filter(item => {
+      const typeValue = (item.type || '').toLowerCase();
+      const categoryValue = (item.category || '').toLowerCase();
+
+      return (
+        typeValue === activeCategory ||
+        categoryValue === activeCategory ||
+        categoryValue === activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)
+      );
+    });
+  }
+
+  if (value) {
+    filtered = filtered.filter(item =>
+      (item.title || '').toLowerCase().includes(value) ||
+      (item.category || '').toLowerCase().includes(value) ||
+      (item.description || '').toLowerCase().includes(value) ||
+      (item.seller || '').toLowerCase().includes(value)
+    );
+  }
+
+  renderNormalAuctions(filtered);
+  renderLiveAuctions(filtered);
+  renderImportantAuctions(filtered);
+
+  document.getElementById('normal-auctions-section')?.scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+
+    heroSearchBtn.addEventListener('click', handleSearch);
+    heroSearchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') handleSearch();
+    });
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    activeCategory = btn.dataset.category;
+    handleSearch();
+  });
+});
+
+    /* =========================
+       HOME DYNAMIC AUCTIONS
+       localStorage key: mazadProducts
+    ========================= */
+  function getHomeAuctions() {
+  const saved = JSON.parse(localStorage.getItem('auctions')) || [];
+
+  const normalized = saved.map(item => ({
+    ...item,
+
+    mode: item.mode || 'normal', // ًں”¥ ظ‡ط°ط§ ط§ظ„ط³ط·ط± ظ…ظ‡ظ… ط¬ط¯ط§ظ‹
+
+    category:
+      item.category ||
+      (item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : 'General'),
+
+    image: item.image || item.imageUrl || '',
+    price: item.price || item.startingPrice || 0,
+
+    status: item.mode === 'live' ? 'live' : 'normal'
+  }));
+
+  return normalized.slice().reverse();
+}
+    function getCategoryGradient(category) {
+        const map = {
+            Fashion: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            Electronics: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            Art: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+            Watches: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            Home: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            Vehicles: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+        };
+        return map[category] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    }
+
+    function normalizePrice(value) {
+        if (value === undefined || value === null || value === '') return '$0';
+        if (typeof value === 'number') return `$${value}`;
+        const str = String(value);
+        return str.includes('$') ? str : `$${str}`;
+    }
+
+    function escapeHomeHtml(value) {
+        return String(value || '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    }
+
+    function getAuctionId(item) {
+        return item && (item.id || item.auction_id || item.auctionId);
+    }
+
+    function isLiveAuction(item) {
+        return item && (item.mode === 'live' || item.status === 'live');
+    }
+
+    function openLiveAuction(item) {
+        const id = getAuctionId(item);
+
+        localStorage.setItem('currentLiveAuction', JSON.stringify(item));
+
+        if (id) {
+            window.location.href = 'live-auction.html?id=' + encodeURIComponent(id);
+        } else {
+            window.location.href = 'live-auction.html';
+        }
+    }
+
+    function openNormalAuction(item) {
+        const id = getAuctionId(item);
+
+        localStorage.setItem('selectedAuction', JSON.stringify(item));
+
+        if (id) {
+            window.location.href = 'auction-details.html?id=' + encodeURIComponent(id);
+        } else {
+            window.location.href = 'auction-details.html';
+        }
+    }
+
+   
+  
+    /* =========================
+       NAV ACTIVE ONLY FOR INTERNAL LINKS
+    ========================= */
+    document.querySelectorAll('nav a').forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            const href = this.getAttribute('href') || '';
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                document.querySelectorAll('nav a').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    /* =========================
+       OPTIONAL:
+       example helper for category pages
+       use this same structure there
+    ========================= */
+    function addAuctionToHome(product) {
+        const current = JSON.parse(localStorage.getItem('mazadProducts')) || [];
+        current.push(product);
+        localStorage.setItem('mazadProducts', JSON.stringify(current));
+    }
+
+function renderNormalAuctions(customItems = null) {
+  const container = document.getElementById('normalAuctionGrid');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  const items = customItems || getHomeAuctions();
+
+  const normalItems = items
+    .filter(item =>
+      item.mode !== 'live' &&
+      item.status !== 'live' &&
+      !item.featured
+    )
+    .slice(0, normalLimit);
+
+
+  if (!normalItems.length) {
+    container.innerHTML = "<p style='color:#aaa'>No normal auctions yet</p>";
+    return;
+  }
+
+  normalItems.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'auction-card';
+
+    const mediaHtml = item.image
+      ? `<img src="${escapeHomeHtml(item.image)}" alt="${escapeHomeHtml(item.title)}">`
+      : `<div>${item.emoji || '★'}</div>`;
+
+    card.innerHTML = `
+      <div class="auction-image" style="background:${item.gradient || getCategoryGradient(item.category)}">
+        ${mediaHtml}
+      </div>
+      <div class="auction-content">
+        <span class="auction-badge">NORMAL</span>
+
+        <div class="auction-meta">
+          <span class="auction-category">${item.category || 'General'}</span>
+          <span>${item.seller ? 'by ' + escapeHomeHtml(item.seller) : 'Mazad Seller'} ${(typeof FavoritesService!=='undefined' && FavoritesService.buildRankBadge) ? FavoritesService.buildRankBadge(item.sellerRank, item.sellerTokens) : ''}</span>
+        </div>
+
+        <h3 class="auction-title">${escapeHomeHtml(item.title || 'Untitled Auction')}</h3>
+        <p class="auction-seller">${escapeHomeHtml(item.description || 'New normal auction added.')}</p>
+
+        <div class="auction-footer">
+          <div class="price">${normalizePrice(item.price)}</div>
+          <button class="bid-btn">View Auction</button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('bid-btn')) return;
+
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    });
+
+    card.querySelector('.bid-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    });
+
+    container.appendChild(card);
+  });
+}
+function renderLiveAuctions(customItems = null) {
+  const container = document.getElementById('liveAuctionGrid');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  const items = customItems || getHomeAuctions();
+
+  const liveItems = items
+    .filter(item => item.mode === 'live' || item.status === 'live')
+    .slice(0, liveLimit);
+
+  if (!liveItems.length) {
+    container.innerHTML = "<p style='color:#aaa'>No live auctions yet</p>";
+    return;
+  }
+
+  liveItems.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'auction-card';
+
+    const mediaHtml = item.image
+      ? `<img src="${escapeHomeHtml(item.image)}" alt="${escapeHomeHtml(item.title)}">`
+      : `<div>${item.emoji || 'LIVE'}</div>`;
+
+    card.innerHTML = `
+      <div class="auction-image" style="background:${item.gradient || getCategoryGradient(item.category)}">
+        ${mediaHtml}
+      </div>
+      <div class="auction-content">
+        <span class="auction-badge">LIVE</span>
+
+        <div class="auction-meta">
+          <span class="auction-category">${item.category || 'General'}</span>
+          <span>${item.seller ? 'by ' + escapeHomeHtml(item.seller) : 'Mazad Seller'} ${(typeof FavoritesService!=='undefined' && FavoritesService.buildRankBadge) ? FavoritesService.buildRankBadge(item.sellerRank, item.sellerTokens) : ''}</span>
+        </div>
+
+        <h3 class="auction-title">${escapeHomeHtml(item.title || 'Untitled Auction')}</h3>
+        <p class="auction-seller">${escapeHomeHtml(item.description || 'New live auction added.')}</p>
+
+        <div class="auction-footer">
+          <div class="price">${normalizePrice(item.price)}</div>
+          <button class="bid-btn">View Auction</button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('bid-btn')) return;
+
+      openLiveAuction(item);
+    });
+
+    card.querySelector('.bid-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+
+      openLiveAuction(item);
+    });
+
+    container.appendChild(card);
+  });
+}
+function renderImportantAuctions(customItems = null) {
+  const container = document.getElementById('importantAuctionGrid');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  const items = customItems || getHomeAuctions();
+
+  const importantItems = items
+    .filter(item => item.featured === true)
+    .slice(0, importantLimit);
+
+  if (!importantItems.length) {
+    container.innerHTML = "<p style='color:#aaa'>No important auctions yet</p>";
+    return;
+  }
+
+  importantItems.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'auction-card';
+
+    const mediaHtml = item.image
+      ? `<img src="${escapeHomeHtml(item.image)}" alt="${escapeHomeHtml(item.title)}">`
+      : `<div>${item.emoji || '◆'}</div>`;
+
+    card.innerHTML = `
+      <div class="auction-image" style="background:${item.gradient || getCategoryGradient(item.category)}">
+        ${mediaHtml}
+      </div>
+      <div class="auction-content">
+        <span class="auction-badge">IMPORTANT</span>
+
+        <div class="auction-meta">
+          <span class="auction-category">${item.category || 'General'}</span>
+          <span>${item.seller ? 'by ' + escapeHomeHtml(item.seller) : 'Mazad Seller'} ${(typeof FavoritesService!=='undefined' && FavoritesService.buildRankBadge) ? FavoritesService.buildRankBadge(item.sellerRank, item.sellerTokens) : ''}</span>
+        </div>
+
+        <h3 class="auction-title">${escapeHomeHtml(item.title || 'Untitled Auction')}</h3>
+        <p class="auction-seller">${escapeHomeHtml(item.description || 'Featured premium auction.')}</p>
+
+        <div class="auction-footer">
+          <div class="price">${normalizePrice(item.price)}</div>
+          <button class="bid-btn">View Auction</button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('bid-btn')) return;
+
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    });
+
+    card.querySelector('.bid-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    });
+
+    container.appendChild(card);
+  });
+}
+</script>
+
+<script>
+const rotator = document.querySelector('.rotator');
+const panels = document.querySelectorAll('.panel');
+const heroSection = document.getElementById('heroSection');
+const heroBg = document.getElementById('heroBg');
+const textBox = document.querySelector('.hero-text');
+
+const bgMap = {
+  add: "url('images/showcase/add-auction.jpg')",
+  bids: "url('images/showcase/place-bids.jpg')",
+  profile: "url('images/showcase/profile-dashboard.jpg')",
+  home: "url('images/showcase/home-experience.jpg')",
+  live: "url('images/showcase/live-auction.jpg')"
+};
+const data = 
+{
+    
+  add: {
+    title: "Add Auction",
+    desc: "Create a new auction by entering product details, category, starting price, duration, and images. Sellers can publish items for review and track their auction activity.",
+    link: "seller-auctions.html"
+  },
+  bids: {
+    title: "Place Bids",
+    desc: "Open auction details, follow the current price and remaining time, then place bids through a clear competitive flow. The highest approved bid wins when the auction ends.",
+    link: "auction-details.html"
+  },
+  profile: {
+    title: "Profile Dashboard",
+    desc: "Manage your personal information, profile image, favorites, joined auctions, partners, tokens, rank, and activity from one organized dashboard.",
+    link: "profile.html"
+  },
+  home: {
+    title: "Home Experience",
+    desc: "Explore Mazad from the homepage with featured sections, category rails, live auctions, important auctions, search, filters, favorites, and user reviews.",
+    link: "index.html"
+  },
+  live: {
+    title: "Live Auction",
+    desc: "Join live auction sessions, watch real-time updates, follow the current bid, interact with live content, and experience a more dynamic bidding flow.",
+    link: "live-auction.html"
+  }
+};
+
+
+const keys = ["add", "bids", "profile", "home", "live"];
+
+/* put the local showcase photos onto the rotating panels */
+panels.forEach(panel => {
+  const key = panel.dataset.key;
+  if (bgMap[key]) {
+    panel.style.backgroundImage = `${bgMap[key]}, linear-gradient(135deg, #111723 0%, #2a2414 50%, #07090e 100%)`;
+  }
+  panel.style.cursor = "pointer";
+});
+
+let angle = 0;
+let isDragging = false;
+let didDrag = false;
+let lastIndex = -1;
+let currentKey = keys[0];
+let lastTouchX = 0;
+
+function setActiveFeature(key, index) {
+  if (!data[key]) return;
+
+  currentKey = key;
+  lastIndex = index;
+
+  panels.forEach(p => p.classList.remove('active'));
+  if (panels[index]) panels[index].classList.add('active');
+
+  if (heroBg && bgMap[key]) {
+    heroBg.style.backgroundImage = bgMap[key];
+  }
+
+  if (textBox) {
+    textBox.classList.add('fade-out');
+
+    setTimeout(() => {
+      textBox.innerHTML = `
+        <h2>${data[key].title}</h2>
+        <p>${data[key].desc}</p>
+        <a class="btn btn-primary hero-open-btn" id="heroOpenBtn" href="${data[key].link}">Open Page</a>
+      `;
+
+      textBox.classList.remove('fade-out');
+      textBox.classList.add('fade-in');
+    }, 150);
+  }
+}
+
+/* =========================
+   AUTO ROTATE
+========================= */
+function animate(){
+  if(!isDragging){
+    angle -= 0.2;
+    rotator.style.transform = `rotateY(${angle}deg)`;
+
+    updateActiveByAngle(); // ًں”¥ ط£ظ‡ظ… ط³ط·ط±
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* =========================
+   DRAG
+========================= */
+rotator.addEventListener('mousedown', ()=>{
+  isDragging = true;
+  didDrag = false;
+});
+
+window.addEventListener('mousemove', (e)=>{
+  if(!isDragging) return;
+
+  if(Math.abs(e.movementX) > 2) didDrag = true;
+
+  angle += e.movementX * 0.5;
+  rotator.style.transform = `rotateY(${angle}deg)`;
+
+  updateActiveByAngle(); // ًں”¥ ط£ط«ظ†ط§ط، ط§ظ„ط³ط­ط¨ ظƒظ…ط§ظ†
+});
+
+window.addEventListener('mouseup', ()=>{
+  if(isDragging){
+    isDragging = false;
+    snapToNearest(); // ًں”¥ ط£ظ‡ظ… ط³ط·ط±
+  }
+});
+
+/* =========================
+   AUTO TEXT (ط­ط³ط¨ ط§ظ„ط¯ظˆط±ط§ظ†)
+========================= */
+function updateActiveByAngle(){
+
+  let normalized = ((-angle % 360) + 360) % 360;
+  let index = Math.round(normalized / 72) % 5;
+
+  if(index !== lastIndex){
+    const key = keys[index];
+    setActiveFeature(key, index);
+  }
+}
+function snapToNearest(){
+  let normalized = ((-angle % 360) + 360) % 360;
+  let index = Math.round(normalized / 72);
+
+  angle = -index * 72; // ًں”¥ ظٹط«ط¨طھ ط¹ظ„ظ‰ ط§ظ„ط¹ظ†طµط±
+
+  rotator.style.transition = "transform 0.4s ease";
+  rotator.style.transform = `rotateY(${angle}deg)`;
+
+  setTimeout(()=>{
+    rotator.style.transition = "";
+  },400);
+}
+/* =========================
+   CLICK (ظƒظ…ط§ظ† ط´ط؛ط§ظ„)
+========================= */
+panels.forEach((panel, i)=>{
+  panel.addEventListener('click', ()=>{
+    // ignore the click that ends a drag
+    if(didDrag){ didDrag = false; return; }
+
+    const key = panel.dataset.key;
+
+    // snap + highlight
+    angle = -i * 72;
+    rotator.style.transition = "transform 0.5s ease";
+    rotator.style.transform = `rotateY(${angle}deg)`;
+    setTimeout(()=>{ rotator.style.transition = ""; },500);
+
+    setActiveFeature(key, i);
+  });
+});
+rotator.addEventListener('touchstart', (e)=>{
+  isDragging = true;
+  didDrag = false;
+  lastTouchX = e.touches[0].clientX;
+});
+
+window.addEventListener('touchmove', (e)=>{
+  if(!isDragging) return;
+
+  didDrag = true;
+
+  const currentX = e.touches[0].clientX;
+  const deltaX = currentX - lastTouchX;
+  lastTouchX = currentX;
+  angle += deltaX * 0.4;
+
+  rotator.style.transform = `rotateY(${angle}deg)`;
+  updateActiveByAngle();
+});
+
+window.addEventListener('touchend', ()=>{
+  if(isDragging){
+    isDragging = false;
+    snapToNearest();
+  }
+
+});
+
+setActiveFeature(currentKey, 0);
+
+async function loadAuctionsFromAPI() {
+  try {
+    const res  = await fetch('/mazad/api/api/get-auctions.php', { cache: 'no-store' });
+    const json = await res.json();
+    if (json && json.status === 'success' && Array.isArray(json.data)) {
+      const mapped = json.data
+        .filter(a => (a.status || '') === 'approved' && !isAuctionExpired(a))
+        .map(a => ({
+          id:           Number(a.id),
+          title:        a.title || 'Untitled',
+          seller:       a.seller || ('User#' + (a.user_id || '')),
+          price:        Number(a.current_price || a.start_price || 0),
+          image:        (a.images && a.images[0]) ? a.images[0] : (a.image || ''),
+          images:       Array.isArray(a.images) ? a.images : [],
+          imageUrl:     (a.images && a.images[0]) ? a.images[0] : (a.image || ''),
+          gallery:      Array.isArray(a.images) ? a.images : [],
+          description:  a.description || '',
+          category:     a.category || 'General',
+          type:         (a.category || 'auction').toLowerCase(),
+          mode:         a.auction_type || 'normal',
+          featured:     Number(a.featured) === 1,
+
+category_showcase:
+  Number(a.category_showcase || 0),
+
+showcase_order:
+  Number(a.showcase_order || 0),
+
+status:       a.auction_type === 'live' ? 'live' : 'normal',
+sellerRank:   a.seller_rank || 'Bronze',
+          sellerTokens: Number(a.seller_tokens || 0),
+          createdAt:    a.created_at ? new Date(a.created_at).getTime() : Date.now(),
+          end_time:     a.end_time || '',
+          startingPrice: Number(a.start_price || 0)
+        }));
+      localStorage.setItem('auctions', JSON.stringify(mapped));
+      return mapped;
+    }
+  } catch (e) {}
+  return JSON.parse(localStorage.getItem('auctions') || '[]').filter(item => !isAuctionExpired(item));
+}
+
+function buildRailCard(item) {
+  const el = document.createElement('article');
+  el.className = 'rail-card clickable-card';
+  el.tabIndex = 0;
+  el.setAttribute('role', 'button');
+
+  const imgHtml = item.image
+    ? `<img src="${escapeHomeHtml(item.image)}" alt="${escapeHomeHtml(item.title || '')}" loading="lazy">`
+    : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;background:linear-gradient(135deg,#667eea,#764ba2)">★</div>`;
+
+  const rankHtml = (typeof FavoritesService !== 'undefined' && FavoritesService.buildRankBadge)
+    ? FavoritesService.buildRankBadge(item.sellerRank, item.sellerTokens) : '';
+
+  el.innerHTML = `
+    ${imgHtml}
+    <div class="rail-card-info">
+      <h3>${escapeHomeHtml(item.title || 'Auction Item')}</h3>
+      <p style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span>$${Number(item.price || 0).toLocaleString()}</span>
+        ${rankHtml}
+      </p>
+      <button class="bid-now-btn" type="button">Bid Now</button>
+    </div>
+  `;
+
+  const go = () => {
+    if (isLiveAuction(item)) {
+      openLiveAuction(item);
+    } else {
+      openNormalAuction(item);
+    }
+  };
+
+  el.addEventListener('click', e => { if (!e.target.closest('.bid-now-btn')) go(); });
+  el.querySelector('.bid-now-btn').addEventListener('click', e => { e.stopPropagation(); go(); });
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+
+  return el;
+}
+
+function populateRail(trackId, items, limit) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+
+  const slice = items.slice(0, limit || 8);
+
+  if (!slice.length) {
+    track.innerHTML = `<p style="color:var(--text-muted);padding:1rem">No auctions yet</p>`;
+    track.scrollLeft = 0;
+    track.dispatchEvent(new Event('scroll'));
+    return;
+  }
+
+  track.innerHTML = '';
+  slice.forEach(item => track.appendChild(buildRailCard(item)));
+  track.scrollLeft = 0;
+  requestAnimationFrame(() => track.dispatchEvent(new Event('scroll')));
+}
+function normalizeOfferCategory(value) {
+  const cat = String(value || '').toLowerCase().trim();
+
+  if (cat === 'watch') return 'watches';
+  if (cat === 'car') return 'cars';
+
+  return cat;
+}
+
+function getSixShowcaseOffers(allItems) {
+  const categories = ['fashion', 'cars', 'electronics', 'art', 'home', 'watches'];
+
+  const showcaseItems = allItems
+    .filter(item =>
+      Number(item.category_showcase || 0) === 1 ||
+      item.category_showcase === true ||
+      item.category_showcase === '1'
+    )
+    .sort((a, b) => {
+      const aOrder = Number(a.showcase_order || 0);
+      const bOrder = Number(b.showcase_order || 0);
+
+      if (aOrder !== bOrder) return aOrder - bOrder;
+
+      return Number(b.id || 0) - Number(a.id || 0);
+    });
+
+  const selected = [];
+
+  categories.forEach(category => {
+    const item = showcaseItems.find(x => {
+      const itemCat = normalizeOfferCategory(x.type || x.category);
+      return itemCat === category && !selected.some(s => String(s.id) === String(x.id));
+    });
+
+    if (item) {
+      selected.push(item);
+    }
+  });
+
+  showcaseItems.forEach(item => {
+    if (selected.length >= 6) return;
+
+    const exists = selected.some(x => String(x.id) === String(item.id));
+
+    if (!exists) {
+      selected.push(item);
+    }
+  });
+
+  return selected.slice(0, 6);
+}
+
+function populateOffersGrid(allItems) {
+  const grid = document.getElementById('offersGrid');
+  if (!grid) return;
+
+  const featured = getSixShowcaseOffers(allItems);
+
+  if (!featured.length) {
+    grid.innerHTML = '<p style="color:var(--text-muted)">No showcase offers selected yet</p>';
+    return;
+  }
+
+  grid.innerHTML = '';
+
+  featured.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'offer-card';
+    card.style.cursor = 'pointer';
+
+    const imgHtml = item.image
+    ? `<img src="${escapeHomeHtml(item.image)}" alt="${escapeHomeHtml(item.title || '')}" loading="lazy">`
+      : `<div style="height:180px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:3rem">★</div>`;
+
+    card.innerHTML = `
+      ${imgHtml}
+      <div class="offer-info">
+        <span class="auction-badge">SHOWCASE</span>
+        <h3>${escapeHomeHtml(item.title || 'Auction')}</h3>
+        <p>$${Number(item.price || 0).toLocaleString()}</p>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+async function loadCategoryRailsFromAPI() {
+  const allItems = await loadAuctionsFromAPI();
+
+  const byCategory = {};
+  allItems.forEach(item => {
+    const cat = (item.type || item.category || '').toLowerCase();
+    if (!byCategory[cat]) byCategory[cat] = [];
+    byCategory[cat].push(item);
+  });
+
+  populateRail('rail-fashion',     byCategory['fashion']     || []);
+  populateRail('rail-cars',        byCategory['cars']        || []);
+  populateRail('rail-electronics', byCategory['electronics'] || []);
+  populateRail('rail-art',         byCategory['art']         || []);
+  populateRail('rail-home',        byCategory['home']        || []);
+  populateRail('rail-watches',     (byCategory['watches'] || []).concat(byCategory['watch'] || []));
+
+  populateOffersGrid(allItems);
+}</script>
+<section id="offers-section" class="offers-section">
+
+  <h2>Featured Offers</h2>
+
+  <div class="offers-grid" id="offersGrid"></div>
+
+</section>
+<script>
+  const railSourceMap = {
+    'fashion.html': 'fashionAuctions',
+    'cars.html': 'carsAuctions',
+    'electronics.html': 'electronicsAuctions',
+    'art.html': 'artAuctions',
+    'home.html': 'homeAuctions',
+    'watches.html': 'watchesAuctions'
+  };
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+  }
+
+  function formatPriceText(text) {
+    const match = String(text || '').replace(/,/g, '').match(/\$\s*([\d.]+)/);
+    if (!match) return 0;
+    return Number(match[1]);
+  }
+
+  function buildBidPayload(card) {
+    const section = card.closest('.rail-section');
+    const sectionLink = section ? section.querySelector('.rail-link') : null;
+    const sectionHref = sectionLink ? sectionLink.getAttribute('href') : '';
+    const titleEl = card.querySelector('.rail-card-info h3');
+    const priceEl = card.querySelector('.rail-card-info p');
+    const imgEl = card.querySelector('img');
+
+    return {
+      id: `index-${Array.from(document.querySelectorAll('.rail-card')).indexOf(card) + 1}`,
+      title: titleEl ? titleEl.textContent.trim() : 'Auction Item',
+      seller: 'Mazad',
+      price: formatPriceText(priceEl ? priceEl.textContent : ''),
+      startingPrice: formatPriceText(priceEl ? priceEl.textContent : ''),
+      description: titleEl ? `${titleEl.textContent.trim()} from the Mazad featured collection.` : 'Featured auction item.',
+      imageUrl: imgEl ? imgEl.src : '',
+      gallery: imgEl ? [imgEl.src] : [],
+      type: sectionHref ? sectionHref.replace('.html', '') : 'auction',
+      mode: 'normal',
+      createdAt: Date.now()
+    };
+  }
+
+  function goToBidPage(card) {
+    const item = buildBidPayload(card);
+    const section = card.closest('.rail-section');
+    const sectionLink = section ? section.querySelector('.rail-link') : null;
+    const sectionHref = sectionLink ? sectionLink.getAttribute('href') : '';
+
+    localStorage.setItem('selectedAuctionSource', railSourceMap[sectionHref] || 'auctions');
+    if (isLiveAuction(item)) {
+      openLiveAuction(item);
+    } else {
+      openNormalAuction(item);
+    }
+  }
+
+  function addBidButtonsToRailCards() {
+    document.querySelectorAll('.rail-card').forEach(card => {
+      if (card.querySelector('.bid-now-btn')) return;
+
+      card.classList.add('clickable-card');
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Open bidding page');
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.bid-now-btn')) return;
+        goToBidPage(card);
+      });
+
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goToBidPage(card);
+        }
+      });
+
+      const info = card.querySelector('.rail-card-info');
+      if (!info) return;
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'bid-now-btn';
+      button.textContent = 'Bid Now';
+      button.addEventListener('click', e => {
+        e.stopPropagation();
+        goToBidPage(card);
+      });
+
+      info.appendChild(button);
+    });
+  }
+
+  document.querySelectorAll('.rail-shell').forEach(shell => {
+    const track = shell.querySelector('.rail-track');
+    const prev = shell.querySelector('.rail-nav.prev');
+    const next = shell.querySelector('.rail-nav.next');
+
+    function getStep() {
+      const card = track.querySelector('.rail-card');
+      if (!card) return 0;
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function maxScrollLeft() {
+      return Math.max(0, track.scrollWidth - track.clientWidth);
+    }
+
+    function updateButtons() {
+      const max = maxScrollLeft();
+      if (prev) prev.disabled = track.scrollLeft <= 1;
+      if (next) next.disabled = track.scrollLeft >= max - 1;
+    }
+
+    function scrollRail(direction) {
+      const max = maxScrollLeft();
+      const step = getStep();
+      if (!step || max <= 0) {
+        updateButtons();
+        return;
+      }
+
+      const target = Math.max(0, Math.min(max, track.scrollLeft + direction * step));
+      track.scrollTo({ left: target, behavior: 'smooth' });
+    }
+
+    next.addEventListener('click', () => {
+      scrollRail(1);
+    });
+
+    prev.addEventListener('click', () => {
+      scrollRail(-1);
+    });
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    track.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX;
+      scrollStart = track.scrollLeft;
+      track.classList.add('dragging');
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      track.classList.remove('dragging');
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const diff = e.pageX - startX;
+      track.scrollLeft = Math.max(0, Math.min(maxScrollLeft(), scrollStart - diff));
+      updateButtons();
+    });
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    setTimeout(updateButtons, 0);
+  });
+
+  // Rail cards now built dynamically via loadCategoryRailsFromAPI()
+
+let reviewsOffset = 0;
+const reviewsLimit = 4;
+let totalReviews = 0;
+
+function escapeHTML(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+async function loadReviews(reset = false) {
+  const grid = document.getElementById("reviewsGrid");
+  const showMoreBtn = document.getElementById("showMoreReviewsBtn");
+
+  if (!grid) return;
+
+  if (reset) {
+    reviewsOffset = 0;
+    grid.innerHTML = "";
+  }
+
+  try {
+    const response = await fetch(`api/get-site-reviews.php?limit=${reviewsLimit}&offset=${reviewsOffset}`);
+    const data = await response.json();
+
+    if (data.status !== "success") {
+      console.error(data.message || "Failed to load reviews");
+      return;
+    }
+
+    totalReviews = Number(data.total || 0);
+
+    data.reviews.forEach(review => {
+      const card = document.createElement("div");
+      card.className = "review-card";
+
+      card.innerHTML = `
+        <h4>${escapeHTML(review.user_name)}</h4>
+        <p>${escapeHTML(review.content)}</p>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    reviewsOffset += data.reviews.length;
+
+    if (reviewsOffset < totalReviews) {
+      showMoreBtn.style.display = "inline-block";
+    } else {
+      showMoreBtn.style.display = "none";
+    }
+
+  } catch (error) {
+    console.error("Reviews error:", error);
+  }
+}
+
+function loadMoreReviews() {
+  loadReviews(false);
+}
+
+async function addReview() {
+  const textInput = document.getElementById("reviewText");
+  const text = textInput.value.trim();
+
+  if (!text) {
+    alert("Please write your opinion first");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("content", text);
+
+  try {
+    const response = await fetch("api/add-site-review.php", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.status !== "success") {
+      alert(data.message || "Failed to add review");
+      return;
+    }
+
+    textInput.value = "";
+    loadReviews(true);
+
+  } catch (error) {
+    console.error("Add review error:", error);
+    alert("Something went wrong");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadReviews(true);
+});
+
+ 
+</script>
+<script src="js/google-translate.js"></script>
+<script src="js/header.js"></script>
+<script src="js/favorites.js"></script>
+  <script>
+  initGoogleTranslate();
+</script>
+
+
+<script>
+  FavoritesService.renderFavorites('favoritesGrid', {
+    limit: 4, // ظٹط¹ط±ط¶ ط£ظˆظ„ 4 ظپظ‚ط· (ط§ط®طھظٹط§ط±ظٹ)
+    onCardClick: (item) => {
+      if (isLiveAuction(item)) {
+        openLiveAuction(item);
+      } else {
+        openNormalAuction(item);
+      }
+    }
+  });
+ let activeCategory = 'all';
+
+/* "View More" expands the section in place â€” loads 4 more cards each click */
+function countByType(type) {
+  const all = getHomeAuctions();
+  if (type === 'normal')
+    return all.filter(i => i.mode !== 'live' && i.status !== 'live' && !i.featured).length;
+  if (type === 'live')
+    return all.filter(i => i.mode === 'live' || i.status === 'live').length;
+  if (type === 'important')
+    return all.filter(i => i.featured === true).length;
+  return 0;
+}
+
+function refreshMoreButtons() {
+  [['normal', normalLimit], ['live', liveLimit], ['important', importantLimit]]
+    .forEach(([type, limit]) => {
+      const btn = document.querySelector('.view-more-btn.' + type);
+      if (!btn) return;
+      const total = countByType(type);
+      if (limit >= total) {
+        btn.disabled = true;
+        btn.textContent = total === 0 ? 'Nothing here yet' : 'No more auctions';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'View More';
+      }
+    });
+}
+
+function viewMore(type) {
+  const STEP = 4;
+
+  if (type === 'normal') {
+    normalLimit += STEP;
+    renderNormalAuctions();
+  } else if (type === 'live') {
+    liveLimit += STEP;
+    renderLiveAuctions();
+  } else if (type === 'important') {
+    importantLimit += STEP;
+    renderImportantAuctions();
+  }
+
+  refreshMoreButtons();
+}
+  // Load real auction data from DB, populate rails + grids
+  loadCategoryRailsFromAPI().then(() => {
+    renderNormalAuctions();
+    renderLiveAuctions();
+    renderImportantAuctions();
+    refreshMoreButtons();
+  });
+
+ 
+
+</script>
+
+</body>
+</html>

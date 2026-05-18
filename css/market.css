@@ -1,0 +1,161 @@
+/* =========================
+   MARKET PAGE ONLY
+========================= */
+
+/* ===== Page ===== */
+.page{
+  padding:2rem 5%;
+}
+
+/* ===== Hero ===== */
+.market-hero{
+  margin-bottom:2rem;
+}
+
+.market-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;
+  background:linear-gradient(135deg,#fff3c6,var(--primary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.market-sub{
+  color:var(--text-muted);
+}
+
+/* ===== Bar ===== */
+.bar{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin:1.5rem 0;
+}
+
+.controls{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+}
+
+.controls input,
+.controls select{
+  padding:.75rem 1rem;
+  border-radius:14px;
+  background:#0F1533;
+  color:white;
+  border:1px solid var(--gold-border);
+  transition:.2s;
+}
+
+.controls input:focus,
+.controls select:focus{
+  border-color:var(--primary);
+}
+
+/* ===== Grid ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1.4rem;
+}
+
+/* ===== Card ===== */
+.card{
+  background:linear-gradient(180deg, rgba(14,23,42,.95), rgba(10,17,30,.98));
+  border:1px solid var(--gold-border);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.3s;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(212,175,55,.4);
+}
+
+/* ===== Image ===== */
+.img{
+  height:200px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:3rem;
+}
+
+/* ===== Status Pills ===== */
+.pill{
+  position:absolute;
+  top:12px;
+  left:12px;
+  padding:.35rem .8rem;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  border:1px solid;
+  backdrop-filter:blur(10px);
+}
+
+.pill.live{
+  background:rgba(49,208,170,.14);
+  color:#dcfff5;
+  border-color:rgba(49,208,170,.3);
+}
+
+.pill.upcoming{
+  background:rgba(212,175,55,.14);
+  color:#fff0b1;
+  border-color:rgba(212,175,55,.3);
+}
+
+.pill.ended{
+  background:rgba(255,92,122,.14);
+  color:#ffd3dc;
+  border-color:rgba(255,92,122,.3);
+}
+
+/* ===== Body ===== */
+.body{
+  padding:1.1rem;
+}
+
+.t{
+  font-weight:800;
+  color:#fff6d7;
+  font-size:1.05rem;
+}
+
+.m{
+  color:var(--text-muted);
+  font-size:.85rem;
+  margin-top:.4rem;
+  line-height:1.5;
+}
+
+/* ===== Footer ===== */
+.foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.price{
+  color:var(--primary);
+  font-weight:800;
+  font-size:1.1rem;
+}
+
+/* ===== Empty ===== */
+.notice{
+  padding:1rem;
+  border-radius:16px;
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--gold-border);
+  color:var(--text-muted);
+}

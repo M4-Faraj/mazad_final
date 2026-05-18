@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAZAD | Profile</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/profile.css">
+ <style>
+ #userBox{
+  display:flex;
+  align-items:center;
+}
+</style>
+</head>
+<body>
+<div id="site-navbar"></div>
+<script src="js/navbar.js"></script>
+
+  <!-- Hero -->
+  <section class="profile-hero">
+    <div class="profile-hero-left">
+      <span class="mini-label">👑 Premium Profile</span>
+      <h1 class="profile-main-title">Your Personal Dashboard</h1>
+      <p class="profile-main-subtitle">
+        All your details, activity, favorites, friends, and platform usage stats in one place.
+      </p>
+    </div>
+
+    <div class="profile-hero-right">
+      <div class="hero-mini-card">
+        <span class="hero-mini-label">Account Level</span>
+        <strong>Gold Member</strong>
+      </div>
+      <div class="hero-mini-card">
+        <span class="hero-mini-label">Site Usage</span>
+        <strong>84%</strong>
+      </div>
+      <div class="hero-mini-card">
+        <span class="hero-mini-label">Active Status</span>
+        <strong class="online-text">Online</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <main class="profile-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="profile-sidebar card">
+      <div class="profile-cover"></div>
+
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar" id="profileAvatarPreview">U</div>
+        <label class="avatar-edit-btn" for="profileAvatarInput">Change Photo</label>
+        <input type="file" id="profileAvatarInput" accept="image/*" hidden>
+      </div>
+
+      <div class="profile-user-block">
+        <h2 id="fullNameView">User Full Name</h2>
+        <p id="emailView">user@email.com</p>
+        <p id="ageView" style="margin-top:4px;color:rgba(255,255,255,.72);font-size:.95rem;">Age: -</p>
+        <span class="status-pill online">● Online Now</span>
+      </div>
+
+      <div class="profile-quick-stats">
+        <div class="quick-stat-box">
+          <span class="quick-stat-value" id="joinedAuctionsStat">0</span>
+          <span class="quick-stat-label">Auctions Joined</span>
+        </div>
+        <div class="quick-stat-box">
+          <span class="quick-stat-value" id="winsStat">0</span>
+          <span class="quick-stat-label">Auctions Won</span>
+        </div>
+        <div class="quick-stat-box">
+          <span class="quick-stat-value" id="lossesStat">0</span>
+          <span class="quick-stat-label">Auctions Lost</span>
+        </div>
+        <div class="quick-stat-box">
+          <span class="quick-stat-value" id="favoritesStat">0</span>
+          <span class="quick-stat-label">Favorite Items</span>
+        </div>
+      </div>
+
+      <div class="profile-progress-box">
+        <div class="section-topline">
+          <span>Platform Activity</span>
+          <strong id="usagePercentText">84%</strong>
+        </div>
+        <div class="usage-progress">
+          <div class="usage-progress-bar" id="usageBar"></div>
+        </div>
+        <p class="progress-note">
+          The more you bid, favorite, and purchase, the stronger your account becomes.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="profile-main-content">
+
+      <!-- Credibility / مصداقية -->
+      <section class="credibility-panel card" id="credibilityPanel" style="padding:1.25rem 1.5rem;margin-bottom:1.25rem;background:linear-gradient(135deg,#1a1a1a 0%,#0a0a0a 100%);border:1px solid #2a2a2a;border-radius:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div>
+            <div style="font-size:.85rem;letter-spacing:.18em;color:#999;text-transform:uppercase">Credibility</div>
+            <div style="display:flex;align-items:center;gap:.6rem;margin-top:.4rem">
+              <span id="credibilityBadge" style="font-size:1.4rem;font-weight:800">Bronze</span>
+              <span id="credibilityTokens" style="font-size:.95rem;color:#bbb">0 tokens</span>
+            </div>
+          </div>
+          <div style="text-align:end;font-size:.85rem;color:#bbb">
+            <div id="credibilityNext">Earn more to reach the next tier</div>
+          </div>
+        </div>
+        <div style="margin-top:.9rem;height:10px;background:#222;border-radius:99px;overflow:hidden">
+          <div id="credibilityBar" style="height:100%;width:0;background:linear-gradient(90deg,#cd7f32,#f4c430);transition:width .4s"></div>
+        </div>
+      </section>
+
+      <!-- Summary cards -->
+      <section class="summary-grid">
+        <div class="summary-card card">
+          <span class="summary-kicker">Total Paid</span>
+          <div class="summary-value" id="totalPaidValue">$0</div>
+          <p>Total amount you have paid on the platform</p>
+        </div>
+
+        <div class="summary-card card">
+          <span class="summary-kicker">Highest Bid</span>
+          <div class="summary-value" id="highestBidValue">$0</div>
+          <p>Highest amount you have placed on an auction</p>
+        </div>
+
+        <div class="summary-card card">
+          <span class="summary-kicker">Lowest Bid</span>
+          <div class="summary-value" id="lowestBidValue">$0</div>
+          <p>Lowest amount you have paid or bid</p>
+        </div>
+
+        <div class="summary-card card">
+          <span class="summary-kicker">Favorite Activity</span>
+          <div class="summary-value" id="favoriteCountValue">0</div>
+          <p>Number of products you have liked</p>
+        </div>
+
+        <div class="summary-card card">
+          <span class="summary-kicker">Tokens</span>
+          <div class="summary-value" id="tokensValue">0</div>
+          <p>+20 for each completed purchase, +50 for each completed sale</p>
+        </div>
+
+        <div class="summary-card card">
+          <span class="summary-kicker">Rank</span>
+          <div class="summary-value" id="rankValue">Bronze</div>
+          <p>Your rank is based on completed deals</p>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section class="profile-tabs-shell card">
+        <div class="profile-tabs">
+     <button class="profile-tab active" data-tab="overviewPanel">Overview</button>
+<button class="profile-tab" data-tab="myAuctionsPanel">My Auctions</button>
+<button class="profile-tab" data-tab="favoritesPanel">Favorites</button>
+<button class="profile-tab" data-tab="friendsPanel">Partners</button>
+<button class="profile-tab" data-tab="securityPanel">Security</button>
+        </div>
+
+        <!-- Overview -->
+        <div class="profile-panel active" id="overviewPanel">
+          <div class="overview-layout">
+
+            <div class="profile-details-box section-box">
+              <div class="section-head">
+                <h3>Personal Information</h3>
+                <span>Editable profile details</span>
+              </div>
+
+              <div class="profile-form-grid">
+                <div class="field">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" placeholder="First Name">
+                </div>
+
+                <div class="field">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" placeholder="Last Name">
+                </div>
+
+                <div class="field">
+                  <label for="age">Age</label>
+                  <input type="number" id="age" placeholder="Age">
+                </div>
+
+                <div class="field">
+                  <label for="birthDate">Birth Date</label>
+                  <input type="date" id="birthDate">
+                </div>
+
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="Email">
+                </div>
+
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input type="text" id="phone" placeholder="Phone Number">
+                </div>
+
+                <div class="field field-full">
+                  <label for="city">City</label>
+                  <input type="text" id="city" placeholder="City">
+                </div>
+
+                <div class="field field-full">
+                  <label for="bio">Bio</label>
+                  <textarea id="bio" placeholder="Write a short bio..."></textarea>
+                </div>
+              </div>
+
+              <div class="section-actions">
+                <button class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+              </div>
+            </div>
+
+            <div class="account-insights-box section-box">
+              <div class="section-head">
+                <h3>Account Insights</h3>
+                <span>Fast view of your activity</span>
+              </div>
+
+              <div class="insights-list">
+                <div class="insight-row">
+                  <span>Joined Auctions</span>
+                  <strong id="joinedAuctionsText">0</strong>
+                </div>
+                <div class="insight-row">
+                  <span>Wins</span>
+                  <strong id="winsText">0</strong>
+                </div>
+                <div class="insight-row">
+                  <span>Losses</span>
+                  <strong id="lossesText">0</strong>
+                </div>
+                <div class="insight-row">
+                  <span>Total Paid</span>
+                  <strong id="totalPaidText">$0</strong>
+                </div>
+                <div class="insight-row">
+                  <span>Highest Bid</span>
+                  <strong id="highestBidText">$0</strong>
+                </div>
+                <div class="insight-row">
+                  <span>Lowest Bid</span>
+                  <strong id="lowestBidText">$0</strong>
+                </div>
+              </div>
+
+              <div class="usage-sheet">
+                <div class="sheet-top">
+                  <h4>Usage Sheet</h4>
+                  <span>Monthly account engagement</span>
+                </div>
+
+                <div class="sheet-bars">
+                  <div class="sheet-bar-item">
+                    <span>Browsing</span>
+                    <div class="sheet-bar-track"><div class="sheet-bar fill-1"></div></div>
+                  </div>
+                  <div class="sheet-bar-item">
+                    <span>Bidding</span>
+                    <div class="sheet-bar-track"><div class="sheet-bar fill-2"></div></div>
+                  </div>
+                  <div class="sheet-bar-item">
+                    <span>Favorites</span>
+                    <div class="sheet-bar-track"><div class="sheet-bar fill-3"></div></div>
+                  </div>
+                  <div class="sheet-bar-item">
+                    <span>Purchases</span>
+                    <div class="sheet-bar-track"><div class="sheet-bar fill-4"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- My Auctions -->
+<div class="profile-panel" id="myAuctionsPanel">
+  <div class="panel-head-row">
+    <div>
+      <h3>My Auctions</h3>
+      <p>The auctions you have submitted and their review status.</p>
+    </div>
+  </div>
+
+<div class="profile-auctions-grid" id="myAuctionsGrid">
+    <div class="empty-state-box">
+      <div class="empty-icon">📦</div>
+      <h4>No auctions yet</h4>
+      <p>When you create an auction, it will appear here with its status.</p>
+    </div>
+  </div>
+</div>
+        <!-- Favorites -->
+        <div class="profile-panel" id="favoritesPanel">
+          <div class="panel-head-row">
+            <div>
+              <h3>Favorites / Watchlist</h3>
+              <p>Every item you have liked will appear here.</p>
+            </div>
+          </div>
+
+         <div class="profile-auctions-grid" id="favoritesGrid">
+            <div class="empty-state-box">
+              <div class="empty-icon">♡</div>
+              <h4>No favorites yet</h4>
+              <p>When you like any product, it will show up here instantly.</p>
+            </div>
+          </div>
+        </div>
+<!-- Friends -->
+<div class="profile-panel" id="friendsPanel">
+  <div class="panel-head-row">
+    <div>
+      <h3>Partners & Online Users</h3>
+      <p>Search for users, send partner requests, and view your partners.</p>
+    </div>
+  </div>
+
+  <div class="section-box" style="margin-bottom:1rem;">
+    <div class="section-head">
+      <h3>Search Users</h3>
+      <span>Search by name or email</span>
+    </div>
+
+    <div class="tag-entry">
+      <input class="input" id="friendSearchInput" type="text" placeholder="Search users by name or email...">
+      <button class="btn btn-primary" id="friendSearchBtn" type="button">Search</button>
+    </div>
+
+    <div class="friends-grid" id="friendSearchResults" style="margin-top:1rem;">
+      <div class="empty-state-box">
+        <div class="empty-icon">🔎</div>
+        <h4>Search for users</h4>
+        <p>Type a name or email to find users.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-box" style="margin-bottom:1rem;">
+    <div class="section-head">
+      <h3>Partner Requests</h3>
+      <span>Incoming requests</span>
+    </div>
+
+    <div class="friends-grid" id="friendRequestsGrid">
+      <div class="empty-state-box">
+        <div class="empty-icon">📩</div>
+        <h4>No requests</h4>
+        <p>No partner requests right now.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="section-head">
+      <h3>My Partners</h3>
+      <span>Accepted Partners</span>
+    </div>
+
+    <div class="friends-grid" id="friendsGrid">
+      <div class="empty-state-box">
+        <div class="empty-icon">👥</div>
+        <h4>No partners yet</h4>
+        <p>Accepted partners will appear here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Security -->
+        <div class="profile-panel" id="securityPanel">
+          <div class="security-layout">
+
+            <div class="section-box">
+              <div class="section-head">
+                <h3>Account Security</h3>
+                <span>Manage password and login details</span>
+              </div>
+
+              <div class="security-preview">
+                <div class="security-row">
+                  <span>Current Email</span>
+                  <strong id="securityEmailView">user@email.com</strong>
+                </div>
+                <div class="security-row">
+                  <span>Password</span>
+                  <strong>••••••••••••</strong>
+                </div>
+                <div class="security-row">
+                  <span>Encryption Status</span>
+                  <strong class="online-text">Encrypted</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-box">
+              <div class="section-head">
+                <h3>Change Password</h3>
+                <span>Update your access securely</span>
+              </div>
+
+              <div class="profile-form-grid">
+                <div class="field field-full">
+                  <label for="currentPassword">Current Password</label>
+                  <input type="password" id="currentPassword" placeholder="Current Password">
+                </div>
+
+                <div class="field">
+                  <label for="newPassword">New Password</label>
+                  <input type="password" id="newPassword" placeholder="New Password">
+                </div>
+
+                <div class="field">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                </div>
+              </div>
+
+              <div class="section-actions">
+                <button class="btn btn-primary" id="changePasswordBtn">Update Password</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+<div class="modal" id="friendReportModal">
+  <div class="modal-box friend-report-box">
+    <div class="friend-report-head">
+      <div class="friend-report-avatar" id="friendReportAvatar">U</div>
+
+      <div>
+        <div class="modal-title" id="friendReportName">Friend Name</div>
+        <div class="friend-report-email" id="friendReportEmail">friend@email.com</div>
+        <div class="friend-report-status" id="friendReportStatus">Offline</div>
+      </div>
+    </div>
+
+    <div class="friend-report-rank">
+      <div>
+        <span>Rank</span>
+        <strong id="friendReportRank">Bronze</strong>
+      </div>
+
+      <div>
+        <span>Tokens</span>
+        <strong id="friendReportTokens">0</strong>
+      </div>
+    </div>
+
+    <div class="friend-report-grid">
+      <div class="friend-report-card">
+        <span>Total Auctions</span>
+        <strong id="friendReportAuctions">0</strong>
+      </div>
+
+      <div class="friend-report-card">
+        <span>Approved Auctions</span>
+        <strong id="friendReportApprovedAuctions">0</strong>
+      </div>
+
+      <div class="friend-report-card">
+        <span>Total Bids</span>
+        <strong id="friendReportBids">0</strong>
+      </div>
+
+      <div class="friend-report-card">
+        <span>Last Seen</span>
+        <strong id="friendReportLastSeen">--</strong>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="friendReportChatBtn" type="button">Chat</button>
+      <button class="btn btn-secondary" id="closeFriendReportBtn" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="friendChatModal">
+  <div class="modal-box friend-chat-box">
+    <div class="friend-chat-head">
+      <div class="friend-report-avatar" id="chatFriendAvatar">U</div>
+
+      <div>
+        <div class="modal-title" id="chatFriendName">Chat</div>
+        <div class="friend-report-email" id="chatFriendStatus">Messages are saved in your account</div>
+      </div>
+    </div>
+
+    <div class="friend-chat-messages" id="friendChatMessages">
+      <div class="empty-state-box">
+        <div class="empty-icon">💬</div>
+        <h4>No messages yet</h4>
+        <p>Start the conversation now.</p>
+      </div>
+    </div>
+
+    <div class="friend-chat-input-row">
+      <input id="friendChatInput" type="text" placeholder="Write a message...">
+      <button class="btn btn-primary" id="sendFriendChatBtn" type="button">Send</button>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="closeFriendChatBtn" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="profile-toast" id="profileToast">Saved successfully</div>
+
+
+  <script src="js/google-translate.js"></script>
+<script src="js/header.js"></script>
+<script src="js/profile.js"></script>
+<script>
+  initGoogleTranslate();
+</script>
+
+
+
+</body>
+</html>

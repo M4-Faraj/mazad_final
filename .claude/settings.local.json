@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"http://localhost/mazad/api/api/get-auctions.php\")",
+      "Bash(curl -s \"http://localhost/mazad/api/login.php\" -X POST -d \"email=admin@mazad.local&password=123456\")",
+      "Bash(curl -s \"http://localhost/mazad/api/get-pending-auctions.php\")",
+      "Bash(php -l c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\change-password.php)",
+      "Bash(php -l c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\add-auction.php)",
+      "Bash(php -l c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\approve-auction.php)",
+      "Bash(\"C:\\\\xampp\\\\php\\\\php.exe\" -l \"c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\change-password.php\")",
+      "Bash(\"C:\\\\xampp\\\\php\\\\php.exe\" -l \"c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\add-auction.php\")",
+      "Bash(\"C:\\\\xampp\\\\php\\\\php.exe\" -l \"c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\approve-auction.php\")",
+      "Bash(\"C:\\\\xampp\\\\php\\\\php.exe\" -l \"c:\\\\xampp\\\\htdocs\\\\mazad\\\\api\\\\api\\\\get-auctions.php\")",
+      "Bash(curl -s -c - \"http://localhost/mazad/api/login.php\" -X POST -d \"email=admin@mazad.local&password=123456\")",
+      "Bash(curl -s -c /tmp/mazad_cookies.txt \"http://localhost/mazad/api/login.php\" -X POST -d \"email=admin@mazad.local&password=123456\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/get-current-user.php\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/approve-auction.php\" -X POST -d \"auction_id=1\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.php \"http://localhost/mazad/api/change-password.php\" -X POST -d \"current_password=123456&new_password=newpass123&confirm_password=newpass123\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/change-password.php\" -X POST -d \"current_password=123456&new_password=newpass123&confirm_password=newpass123\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/change-password.php\" -X POST -d \"current_password=newpass123&new_password=123456&confirm_password=123456\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/migrate.php\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/add-favorite.php\" -X POST -d \"auction_id=2\")",
+      "Bash(curl -s -b /tmp/mazad_cookies.txt \"http://localhost/mazad/api/get-favorites.php\")",
+      "Bash(wc -l c:\\\\\\\\xampp\\\\\\\\htdocs\\\\\\\\mazad\\\\\\\\css\\\\\\\\category-pages.css)",
+      "Bash(PowerShell -Command \"\\(Get-Content 'c:\\\\\\\\xampp\\\\\\\\htdocs\\\\\\\\mazad\\\\\\\\css\\\\\\\\category-pages.css'\\).Count\")"
+    ]
+  }
+}
